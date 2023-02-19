@@ -5,7 +5,7 @@ import { useStateWithObservableWithInit } from '../tools';
 import { DEFAULTS } from '../defaults';
 import { MenuProps } from 'antd';
 import { useMemo } from 'react';
-import { AppLangModel } from '../models/AppLangModel';
+import { IAppGeneralSettings } from '../types/interfaces';
 
 type ItemType = {
     key: string;
@@ -18,7 +18,7 @@ const mapToItem = (lang: TTranslationsLang) => ({
 });
 
 export const useChangeLangElementViewModel = () => {
-    const appLangModel = getModelByKey<AppLangModel>(Models.APP_LANG);
+    const { appLangModel } = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
 
     const itemsSource = useMemo(
         () =>

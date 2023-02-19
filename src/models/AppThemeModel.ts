@@ -4,10 +4,11 @@ import { map, connect, firstValueFrom, ReplaySubject } from 'rxjs';
 import { DARK_THEME, LIGHT_THEME } from '../styles';
 import { DEFAULTS, COOKIE_THEME_KEY } from '../defaults';
 import { getFromCookies, getNewAppTheme, setCookie } from '../services';
+import { IAppTheme } from '../types/interfaces';
 
 export const selectTheme = (theme: AppTheme) => (theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME);
 
-export class AppThemeModel {
+export class AppThemeModel implements IAppTheme {
     private _appThemeSubject = new ReplaySubject<AppTheme>(1);
 
     public appTheme = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));

@@ -1,12 +1,10 @@
 import { ModelsManager } from '../models';
-import { AppLangModel } from '../models/AppLangModel';
-import { AppThemeModel } from '../models/AppThemeModel';
 
 import { Models } from '../types';
+import { IAppGeneralSettings } from '../types/interfaces';
 
 const allModels = {
-    [Models.APP_THEME]: ModelsManager.getSingleton<AppThemeModel>(Models.APP_THEME),
-    [Models.APP_LANG]: ModelsManager.getSingleton<AppLangModel>(Models.APP_LANG),
+    [Models.APP_GENERAL_SETTINGS]: ModelsManager.getSingleton<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS),
 };
 
-export const getModelByKey = <T>(key: Models) => allModels[key] as T;
+export const getModelByKey = <T>(key: Models) => allModels[key] as any as T;

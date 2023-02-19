@@ -1,11 +1,9 @@
 import { GenericSingletonManager } from '../tools';
 import { Models } from '../types';
-import { AppLangModel } from './AppLangModel';
-import { AppThemeModel } from './AppThemeModel';
+import { AppGeneralSettingsModel } from './AppGeneralSettingsModel';
 
 const MODELS = {
-    [Models.APP_THEME]: new AppThemeModel(),
-    [Models.APP_LANG]: new AppLangModel(),
+    [Models.APP_GENERAL_SETTINGS]: new AppGeneralSettingsModel(),
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);

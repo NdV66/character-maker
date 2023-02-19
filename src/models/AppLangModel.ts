@@ -3,10 +3,11 @@ import { map, connect, Subject } from 'rxjs';
 import { LangManager } from '../langs/LangManager';
 import { COOKIE_LANG_KEY, DEFAULTS } from '../defaults';
 import { getFromCookies, setCookie } from '../services';
+import { IAppLang } from '../types/interfaces';
 
 export const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
 
-export class AppLangModel {
+export class AppLangModel implements IAppLang {
     private _appLangSubject = new Subject<AppLangs>();
 
     public appLang = this._appLangSubject.pipe(connect(() => this._appLangSubject));
