@@ -19,7 +19,6 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _prepareCharacterTraitsPairs(characterTraitsPairs: ICharacterTraitsPair[]) {
         const result: Map<ICharacterTraitsPair['id'], ICharacterTraitsPair> = new Map([]);
         characterTraitsPairs.forEach((value) => result.set(value.id, value));
-
         return result;
     }
 

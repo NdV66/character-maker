@@ -4,7 +4,7 @@ import { Models } from '../types';
 import { AppGeneralSettingsModel } from './AppGeneralSettingsModel';
 import { CharacterTraitsManagerModel } from './CharacterTraitsManagerModel';
 import { CharacterTraitsPairModel } from './CharacterTraitsPairModel';
-import { CharacterTraitModel } from './ChracterTraitModel';
+import { CharacterTraitModel } from './CharacterTraitModel';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);

@@ -2,7 +2,7 @@ import { DEFAULTS, OUT_OF_RANGE_ERROR } from '../defaults';
 import { ICharacterTrait } from '../types/interfaces';
 
 export class CharacterTraitModel implements ICharacterTrait {
-    private _percent = DEFAULTS.MIN_PERCENT;
+    private _percent = DEFAULTS.PERCENT;
 
     constructor(public readonly id: string, public readonly nameTranslationKey: string) {}
 
