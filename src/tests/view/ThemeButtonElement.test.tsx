@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { TEST_IDS } from '../../defaults';
 import { ThemeButtonElement } from '../../view/page/ThemeButtonElement';
-import * as viewModel from '../../viewModels/useThemeButtonElementViewModel';
+import * as viewModel from '../../useViewModels/useThemeButtonElementViewModel';
 import { THEME_VIEW_MODEL_DATA } from '../mocks';
 
 describe('MainContent', () => {

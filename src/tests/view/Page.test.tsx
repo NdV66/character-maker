@@ -4,10 +4,10 @@ import { TEXTS_EN } from '../../langs/en';
 import { DARK_THEME } from '../../styles';
 import { AppTheme } from '../../types';
 import { Page } from '../../view/page';
-import * as viewModel from '../../viewModels/usePageViewModel';
-import * as footerViewModel from '../../viewModels/useFooterViewModel';
-import * as mainViewModel from '../../viewModels/useMainContentViewModel';
-import * as themeViewModel from '../../viewModels/useThemeButtonElementViewModel';
+import * as viewModel from '../../useViewModels/usePageViewModel';
+import * as footerViewModel from '../../useViewModels/useFooterViewModel';
+import * as mainViewModel from '../../useViewModels/useMainContentViewModel';
+import * as themeViewModel from '../../useViewModels/useThemeButtonElementViewModel';
 import { FOOTER_VIEW_MODEL_DATA, MAIN_VIEW_MODEL_DATA, THEME_VIEW_MODEL_DATA } from '../mocks';
 
 const VIEW_MODEL_DATA = {

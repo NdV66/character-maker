@@ -3,7 +3,7 @@ import { TEST_IDS } from '../../defaults';
 import { TEXTS_EN } from '../../langs/en';
 import { DARK_THEME } from '../../styles';
 import { CleanEverythingButton } from '../../view/page/CleanEverytingButton';
-import * as viewModel from '../../viewModels/useCleanEverythingModel';
+import * as viewModel from '../../useViewModels/useCleanEverythingModel';
 
 const VIEW_MODEL_DATA = {
     translations: TEXTS_EN,

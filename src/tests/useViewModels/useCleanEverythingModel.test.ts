@@ -2,7 +2,7 @@ import * as contextTools from '../../context/AppContext';
 import { TAppContext } from '../../types';
 import { getAppContextMock } from '../mocks/appContext';
 import { renderHook } from '@testing-library/react';
-import { useCleanEverythingModel } from '../../viewModels/useCleanEverythingModel';
+import { useCleanEverythingModel } from '../../useViewModels/useCleanEverythingModel';
 
 describe('useCleanEverythingModel', () => {
     let contextMock: TAppContext;

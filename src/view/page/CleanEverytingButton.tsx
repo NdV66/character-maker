@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TEST_IDS } from '../../defaults';
-import { useCleanEverythingModel } from '../../viewModels/useCleanEverythingModel';
+import { useCleanEverythingModel } from '../../useViewModels/useCleanEverythingModel';
 import { TextButton } from '../elements';
 
 export const CleanEverythingButton: React.FC = () => {

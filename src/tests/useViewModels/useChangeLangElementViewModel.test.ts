@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import * as modelsTools from '../../context/models';
 import * as contextTools from '../../context/AppContext';
 import { DEFAULTS } from '../../defaults';
-import { useChangeLangElementViewModel } from '../../viewModels';
+import { useChangeLangElementViewModel } from '../../useViewModels';
 import { TEXTS_EN } from '../../langs/en';
 import { TEXTS_PL } from '../../langs/pl';
 import { AppLangModel } from '../../models/AppLangModel';

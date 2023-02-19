@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Card from 'antd/es/card/Card';
 import { TEST_IDS } from '../../defaults';
 import { TTheme } from '../../types';
-import { useMainContentViewModel } from '../../viewModels/useMainContentViewModel';
+import { useMainContentViewModel } from '../../useViewModels/useMainContentViewModel';
 import { CharacterTraitsElement } from './CharacterTraitsElement';
 
 export const MainContent: React.FC = () => {

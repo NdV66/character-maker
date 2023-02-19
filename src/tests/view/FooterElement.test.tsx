@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import { DEFAULTS, TEST_IDS } from '../../defaults';
 import { FooterElement } from '../../view/page/FooterElement';
-import * as viewModel from '../../viewModels/useFooterViewModel';
-import * as themeViewModel from '../../viewModels/useThemeButtonElementViewModel';
+import * as viewModel from '../../useViewModels/useFooterViewModel';
+import * as themeViewModel from '../../useViewModels/useThemeButtonElementViewModel';
 import { FOOTER_VIEW_MODEL_DATA, THEME_VIEW_MODEL_DATA } from '../mocks';
 
 describe('FooterElement', () => {

@@ -2,7 +2,7 @@ import * as contextTools from '../../context/AppContext';
 import { TAppContext } from '../../types';
 import { getAppContextMock } from '../mocks/appContext';
 import { renderHook } from '@testing-library/react';
-import { useFooterViewModel } from '../../viewModels';
+import { useFooterViewModel } from '../../useViewModels';
 
 describe('useFooterViewModel', () => {
     let contextMock: TAppContext;

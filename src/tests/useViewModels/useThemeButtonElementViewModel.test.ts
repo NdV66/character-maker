@@ -3,7 +3,7 @@ import * as contextTools from '../../context/AppContext';
 import { AppTheme, TAppContext, IAppGeneralSettings } from '../../types';
 import { getAppContextMock } from '../mocks';
 import { renderHook } from '@testing-library/react';
-import { useThemeButtonElementViewModel } from '../../viewModels';
+import { useThemeButtonElementViewModel } from '../../useViewModels';
 import { Observable } from 'rxjs';
 import { AppThemeModel } from '../../models/AppThemeModel';
 import { DEFAULTS } from '../../defaults';

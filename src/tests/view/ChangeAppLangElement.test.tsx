@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { TEST_IDS } from '../../defaults';
 import { AppLangs } from '../../types';
 import { ChangeAppLangElement } from '../../view/page/ChangeAppLangElement';
-import * as viewModel from '../../viewModels/useChangeLangElementViewModel';
+import * as viewModel from '../../useViewModels/useChangeLangElementViewModel';
 
 const VIEW_MODEL_DATA = {
     onClickItem: jest.fn(),

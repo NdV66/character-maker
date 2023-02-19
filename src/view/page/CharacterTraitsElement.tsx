@@ -1,4 +1,4 @@
-import { useCharacterTraitsElementViewModel } from '../../viewModels/useCharacterTraitsElementViewModel';
+import { useCharacterTraitsElementViewModel } from '../../useViewModels/useCharacterTraitsElementViewModel';
 import { AppSlider } from '../elements';
 
 export const CharacterTraitsElement: React.FC = () => {

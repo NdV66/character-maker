@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { Menu } from 'antd';
 import { TEST_IDS } from '../../defaults';
-import { useChangeLangElementViewModel } from '../../viewModels/useChangeLangElementViewModel';
+import { useChangeLangElementViewModel } from '../../useViewModels/useChangeLangElementViewModel';
 
 export const ChangeAppLangElement = () => {
     const { onClickItem, appLang, items } = useChangeLangElementViewModel();

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { Layout } from 'antd';
 import { DEFAULTS, TEST_IDS } from '../../defaults';
 import { TTheme } from '../../types';
-import { useFooterViewModel } from '../../viewModels';
+import { useFooterViewModel } from '../../useViewModels';
 import { ThemeButtonElement } from './ThemeButtonElement';
 
 const { Footer } = Layout;

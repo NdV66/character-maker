@@ -1,5 +1,5 @@
 import { SwitchButton } from '../elements';
-import { useThemeButtonElementViewModel } from '../../viewModels';
+import { useThemeButtonElementViewModel } from '../../useViewModels';
 import { DEFAULTS } from '../../defaults';
 
 export const ThemeButtonElement = () => {
