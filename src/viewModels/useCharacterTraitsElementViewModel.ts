@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAppContext } from '../context';
 import { useStateWithObservable } from '../tools';
-import { CharacterTraitsElementViewModel } from './models';
+import { CharacterTraitsElementViewModel } from '../models/viewModels';
 
 export const useCharacterTraitsElementViewModel = () => {
     const { theme, translations } = useAppContext();
