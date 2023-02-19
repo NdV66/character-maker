@@ -1,18 +1,18 @@
-import { CHARACTER_TRAITS_PAIRS } from '../../defaults';
 import { useCharacterTraitsElementViewModel } from '../../viewModels/useCharacterTraitsElementViewModel';
 import { AppSlider } from '../elements';
 
 export const CharacterTraitsElement: React.FC = () => {
-    const { theme, onChangeCharacterTrait, currentValue, translations } = useCharacterTraitsElementViewModel();
+    const { theme, onChangeCharacterTrait, currentValue, translations, characterTraitsPairs } =
+        useCharacterTraitsElementViewModel();
 
     return (
         <div>
             {translations?.CHARACTER_TRAITS &&
-                CHARACTER_TRAITS_PAIRS.map((trait) => (
+                characterTraitsPairs.map((trait) => (
                     <AppSlider
                         key={trait.id}
-                        leftText={translations.CHARACTER_TRAITS[trait.name]}
-                        rightText={translations.CHARACTER_TRAITS[trait.opposite]}
+                        leftText={translations.CHARACTER_TRAITS[trait.mainCharacterTrait.nameTranslationKey]}
+                        rightText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
                         onChange={onChangeCharacterTrait}
                         theme={theme}
                         value={currentValue}
