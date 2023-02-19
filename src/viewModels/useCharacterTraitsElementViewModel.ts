@@ -5,7 +5,7 @@ import { DEFAULTS } from '../defaults';
 import { useStateWithObservableWithInit } from '../tools';
 
 export const useCharacterTraitsElementViewModel = () => {
-    const { theme } = useAppContext();
+    const { theme, translations } = useAppContext();
     const _currentValueSource = useMemo(() => new BehaviorSubject<number>(DEFAULTS.PERCENT), []);
     const currentValue = useStateWithObservableWithInit(_currentValueSource, DEFAULTS.PERCENT);
 
@@ -15,6 +15,7 @@ export const useCharacterTraitsElementViewModel = () => {
 
     return {
         theme,
+        translations,
         onChangeCharacterTrait,
         currentValue,
     };

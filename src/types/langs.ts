@@ -21,5 +21,14 @@ export type TTranslations = {
     CANCEL: string;
     CLEAN: string;
 
+    CHARACTER_TRAITS: {
+        HELPFUL: string;
+        EGOISTIC: string;
+        NICE: string;
+        NASTY: string;
+
+        [key: string]: string;
+    };
+
     [key: string]: string | any;
 };

@@ -13,4 +13,11 @@ export const TEXTS_PL: TTranslations = {
     OK: 'OK',
     CANCEL: 'Zamknij',
     CLEAN: 'Wyczyść wszystko',
+
+    CHARACTER_TRAITS: {
+        HELPFUL: 'uczynny',
+        EGOISTIC: 'egoistyczny',
+        NICE: 'miły',
+        NASTY: 'niemiły',
+    },
 };
