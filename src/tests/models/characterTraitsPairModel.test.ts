@@ -1,4 +1,4 @@
-import { DEFAULTS, OUT_OF_RANGE_ERROR } from '../../defaults';
+import { DEFAULTS } from '../../defaults';
 import { CharacterTraitsPairModel } from '../../models/CharacterTraitsPairModel';
 import { characterTraitModelMock } from '../mocks';
 
