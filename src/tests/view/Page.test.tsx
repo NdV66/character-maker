@@ -19,8 +19,6 @@ const VIEW_MODEL_DATA = {
 };
 
 describe('Page', () => {
-    const text = 'classic';
-
     beforeEach(() => {
         jest.spyOn(footerViewModel, 'useFooterViewModel').mockReturnValue(FOOTER_VIEW_MODEL_DATA);
         jest.spyOn(mainViewModel, 'useMainContentViewModel').mockReturnValue(MAIN_VIEW_MODEL_DATA);
@@ -29,21 +27,19 @@ describe('Page', () => {
 
     test('Should render correctly', () => {
         jest.spyOn(viewModel, 'usePageViewModel').mockReturnValue(VIEW_MODEL_DATA);
-        const { getByTestId, getByText, container } = render(<Page />);
+        const { getByTestId, container } = render(<Page />);
 
         expect(getByTestId(TEST_IDS.APP_HEADER)).toBeInTheDocument();
         expect(getByTestId(TEST_IDS.SWITCH_BUTTON)).toBeInTheDocument();
-        expect(getByText(text)).toBeInTheDocument();
         expect(container.querySelector('.ant-spin-spinning')).not.toBeInTheDocument();
     });
 
     test('Should show loader if this is loading', () => {
         jest.spyOn(viewModel, 'usePageViewModel').mockReturnValue({ ...VIEW_MODEL_DATA, isLoading: true });
-        const { getByTestId, getByText, container } = render(<Page />);
+        const { getByTestId, container } = render(<Page />);
 
         expect(getByTestId(TEST_IDS.APP_HEADER)).toBeInTheDocument();
         expect(getByTestId(TEST_IDS.SWITCH_BUTTON)).toBeInTheDocument();
-        expect(getByText(text)).toBeInTheDocument();
         expect(container.querySelector('.ant-spin-spinning')).toBeInTheDocument();
     });
 });

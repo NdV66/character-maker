@@ -7,4 +7,6 @@ export const DEFAULTS = {
     LANG: AppLangs.EN,
     LANGS_AMOUNT: 2,
     REPO_URL: 'https://github.com/NdV66/character-maker',
+    MIN_PERCENT: 0,
+    MAX_PERCENT: 100,
 };

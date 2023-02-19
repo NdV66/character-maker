@@ -1,22 +1,25 @@
 import * as modelsTools from '../../context/models';
 import * as contextTools from '../../context/AppContext';
 import { AppTheme, TAppContext } from '../../types';
-import { appThemeModelMock, getAppContextMock } from '../mocks';
+import { getAppContextMock } from '../mocks';
 import { renderHook } from '@testing-library/react';
 import { useThemeButtonElementViewModel } from '../../viewModels';
 import { Observable } from 'rxjs';
 import { AppThemeModel } from '../../models/AppThemeModel';
 import { DEFAULTS } from '../../defaults';
+import { appGeneralSettingsModelMock } from '../mocks';
+import { IAppGeneralSettings } from '../../types/interfaces';
 
 describe('useThemeButtonElementViewModel', () => {
     let modelMock: AppThemeModel;
     let contextMock: TAppContext;
 
     beforeEach(() => {
+        const generalSettingsModelMock = appGeneralSettingsModelMock() as any as IAppGeneralSettings;
         contextMock = getAppContextMock() as any as TAppContext;
-        modelMock = appThemeModelMock() as any as AppThemeModel;
+        modelMock = generalSettingsModelMock.appThemeModel as any as AppThemeModel;
 
-        jest.spyOn(modelsTools, 'getModelByKey').mockReturnValue(modelMock);
+        jest.spyOn(modelsTools, 'getModelByKey').mockReturnValue(generalSettingsModelMock);
         jest.spyOn(contextTools, 'useAppContext').mockReturnValue(contextMock);
     });
 
