@@ -1,0 +1,14 @@
+{
+    "parser": "typescript",
+    "printWidth": 120,
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "arrowParens": "always",
+    "endOfLine": "auto",
+    "importOrder": ["react(/\\w+)*", "<THIRD_PARTY_MODULES>", "@/(/\\w+)*", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}
