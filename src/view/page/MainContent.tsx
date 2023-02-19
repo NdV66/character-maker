@@ -5,6 +5,7 @@ import Card from 'antd/es/card/Card';
 import { TEST_IDS } from '../../defaults';
 import { TTheme } from '../../types';
 import { useMainContentViewModel } from '../../viewModels/useMainContentViewModel';
+import { CharacterTraitsElement } from './CharacterTraitsElement';
 
 export const MainContent: React.FC = () => {
     const { theme } = useMainContentViewModel();
@@ -12,7 +13,7 @@ export const MainContent: React.FC = () => {
 
     return (
         <Card css={themedStyles.card} data-test-id={TEST_IDS.MAIN_CONTENT}>
-            MAIN CONTENT
+            <CharacterTraitsElement />
         </Card>
     );
 };

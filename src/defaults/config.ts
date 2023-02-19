@@ -9,4 +9,5 @@ export const DEFAULTS = {
     REPO_URL: 'https://github.com/NdV66/character-maker',
     MIN_PERCENT: 0,
     MAX_PERCENT: 100,
+    PERCENT: 50,
 };
