@@ -5,3 +5,4 @@ export * from './langs';
 export * from './theme';
 export * from './genericSingletonManager';
 export * from './characterTraits';
+export * from './interfaces';

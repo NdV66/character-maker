@@ -1,7 +1,6 @@
 import { getModelByKey, useAppContext } from '../context';
 import { useStateWithObservable } from '../tools/useStateWithObservable';
-import { Models } from '../types';
-import { IAppGeneralSettings } from '../types/interfaces';
+import { Models, IAppGeneralSettings } from '../types';
 
 export const useThemeButtonElementViewModel = () => {
     const { appThemeModel } = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);

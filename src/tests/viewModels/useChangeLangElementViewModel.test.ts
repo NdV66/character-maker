@@ -6,11 +6,10 @@ import { useChangeLangElementViewModel } from '../../viewModels';
 import { TEXTS_EN } from '../../langs/en';
 import { TEXTS_PL } from '../../langs/pl';
 import { AppLangModel } from '../../models/AppLangModel';
-import { AppLangs, TAppContext } from '../../types';
+import { AppLangs, TAppContext, IAppGeneralSettings } from '../../types';
 import { Observable } from 'rxjs';
 import { getAppContextMock } from '../mocks/appContext';
 import { appGeneralSettingsModelMock } from '../mocks';
-import { IAppGeneralSettings } from '../../types/interfaces';
 
 describe('useChangeLangElementViewModel', () => {
     let modelMock: AppLangModel;

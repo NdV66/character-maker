@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { DEFAULTS } from '../defaults';
 import { useStateWithObservableWithInit } from '../tools';
 import { Models, TAppContext, TTranslations } from '../types';
-import { IAppGeneralSettings } from '../types/interfaces';
+import { IAppGeneralSettings } from '../types';
 import { AppContext } from './AppContext';
 import { getModelByKey } from './models';
 

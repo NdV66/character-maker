@@ -4,7 +4,7 @@ import { map, connect, firstValueFrom, ReplaySubject } from 'rxjs';
 import { DARK_THEME, LIGHT_THEME } from '../styles';
 import { DEFAULTS, COOKIE_THEME_KEY } from '../defaults';
 import { getFromCookies, getNewAppTheme, setCookie } from '../services';
-import { IAppTheme } from '../types/interfaces';
+import { IAppTheme } from '../types';
 
 export const selectTheme = (theme: AppTheme) => (theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME);
 

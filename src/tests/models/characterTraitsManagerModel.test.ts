@@ -1,6 +1,6 @@
 import { NOT_FOUND_ERROR } from '../../defaults';
 import { CharacterTraitsManagerModel } from '../../models/CharacterTraitsManagerModel';
-import { ICharacterTrait } from '../../types/interfaces';
+import { ICharacterTrait } from '../../types';
 import { characterTraitModelMock, characterTraitsPairModelMock } from '../mocks';
 
 const ID = 'pair1';

@@ -1,4 +1,4 @@
-import { IAppGeneralSettings, IAppLang, IAppTheme } from '../types/interfaces';
+import { IAppGeneralSettings, IAppLang, IAppTheme } from '../types';
 import { AppLangModel } from './AppLangModel';
 import { AppThemeModel } from './AppThemeModel';
 

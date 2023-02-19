@@ -3,7 +3,7 @@ import { map, connect, Subject } from 'rxjs';
 import { LangManager } from '../langs/LangManager';
 import { COOKIE_LANG_KEY, DEFAULTS } from '../defaults';
 import { getFromCookies, setCookie } from '../services';
-import { IAppLang } from '../types/interfaces';
+import { IAppLang } from '../types';
 
 export const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
 

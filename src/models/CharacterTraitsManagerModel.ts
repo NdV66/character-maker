@@ -1,8 +1,7 @@
 /* Main Manager for handle and update all character traits */
 
 import { NOT_FOUND_ERROR } from '../defaults';
-import { ICharacterTraitsPair } from '../types/interfaces';
-import { ICharacterTraitsManager } from '../types/interfaces/ICharacterTraitsManager';
+import { ICharacterTraitsPair, ICharacterTraitsManager } from '../types';
 
 export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _characterTraitsPairs: Map<ICharacterTraitsPair['id'], ICharacterTraitsPair>;
@@ -32,5 +31,6 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
             throw NOT_FOUND_ERROR;
         }
         pair.setPercentForMainCharacterTrait(percent);
+        return true;
     }
 }

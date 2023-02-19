@@ -1,8 +1,7 @@
 import { ModelsManager } from '../models';
 
 import { Models } from '../types';
-import { IAppGeneralSettings } from '../types/interfaces';
-import { ICharacterTraitsManager } from '../types/interfaces/ICharacterTraitsManager';
+import { IAppGeneralSettings, ICharacterTraitsManager } from '../types';
 
 const allModels = {
     [Models.APP_GENERAL_SETTINGS]: ModelsManager.getSingleton<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS),

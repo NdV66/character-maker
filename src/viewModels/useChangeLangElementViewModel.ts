@@ -1,11 +1,10 @@
 import { bufferCount, concatMap, map, identity } from 'rxjs';
 import { getModelByKey } from '../context';
-import { AppLangs, Models, TTranslationsLang } from '../types';
+import { AppLangs, Models, TTranslationsLang, IAppGeneralSettings } from '../types';
 import { useStateWithObservableWithInit } from '../tools';
 import { DEFAULTS } from '../defaults';
 import { MenuProps } from 'antd';
 import { useMemo } from 'react';
-import { IAppGeneralSettings } from '../types/interfaces';
 
 type ItemType = {
     key: string;

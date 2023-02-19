@@ -1,5 +1,5 @@
 import { DEFAULTS } from '../defaults';
-import { ICharacterTrait, ICharacterTraitsPair } from '../types/interfaces';
+import { ICharacterTrait, ICharacterTraitsPair } from '../types';
 
 export class CharacterTraitsPairModel implements ICharacterTraitsPair {
     constructor(
@@ -7,6 +7,10 @@ export class CharacterTraitsPairModel implements ICharacterTraitsPair {
         public readonly mainCharacterTrait: ICharacterTrait,
         public readonly oppositeCharacterTrait: ICharacterTrait,
     ) {}
+
+    get percent() {
+        return this.mainCharacterTrait.percent;
+    }
 
     public reset() {
         this.mainCharacterTrait.reset();
