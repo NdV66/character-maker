@@ -1,27 +1,23 @@
-import React, { useEffect } from 'react';
-import { BehaviorSubject } from 'rxjs';
+import React, { useEffect, useMemo } from 'react';
+
 import { DEFAULTS } from '../defaults';
+import { AppContextViewModel } from '../models/viewModels/AppContextViewModel';
 import { useStateWithObservableWithInit } from '../tools';
-import { Models, TAppContext, TTranslations } from '../types';
-import { IAppGeneralSettings } from '../types';
+import { TAppContext, TTranslations } from '../types';
+
 import { AppContext } from './AppContext';
-import { getModelByKey } from './models';
 
 type Props = React.PropsWithChildren<unknown>;
 
 export const AppContextWrapper: React.FC<Props> = ({ children }) => {
-    const _isLoadingSource = new BehaviorSubject<boolean>(true);
-    const _appGeneralSettings = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
-    const _appLangModel = _appGeneralSettings.appLangModel;
-    const _appThemeModel = _appGeneralSettings.appThemeModel;
+    const viewModel = useMemo(() => new AppContextViewModel(), []);
 
-    const theme = useStateWithObservableWithInit(_appThemeModel.theme, DEFAULTS.THEME);
-    const translations = useStateWithObservableWithInit(_appLangModel.translations, {} as TTranslations);
-    const isLoading = useStateWithObservableWithInit(_isLoadingSource, true);
+    const theme = useStateWithObservableWithInit(viewModel.theme, DEFAULTS.THEME);
+    const translations = useStateWithObservableWithInit(viewModel.translations, {} as TTranslations);
+    const isLoading = useStateWithObservableWithInit(viewModel.isLoading, true);
 
     useEffect(() => {
-        _appGeneralSettings.setDefaultValues();
-        _isLoadingSource.next(false);
+        viewModel.setDefaultValues();
     }, []);
 
     const value: TAppContext = {

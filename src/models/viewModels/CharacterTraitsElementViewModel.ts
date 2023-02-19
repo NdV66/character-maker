@@ -1,12 +1,14 @@
 import { BehaviorSubject } from 'rxjs';
 import { getModelByKey } from '../../context';
-import { Models, ICharacterTraitsPair, ICharacterTraitsManager } from '../../types';
+import {
+    Models,
+    ICharacterTraitsPair,
+    ICharacterTraitsManager,
+    TCharacterTraitValue,
+    ICharacterTraitsElementViewModel,
+} from '../../types';
 
-type TCharacterTraitValue = {
-    [id: string]: number;
-};
-
-export class CharacterTraitsElementViewModel {
+export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
     private _pairsManager = getModelByKey<ICharacterTraitsManager>(Models.CHARACTER_TRAITS_MANAGER);
     private _dataSource = new BehaviorSubject<TCharacterTraitValue>({});
 

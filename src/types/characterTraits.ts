@@ -3,3 +3,7 @@ export type TCharacterTraitData = {
     name: string;
     opposite: string;
 };
+
+export type TCharacterTraitValue = {
+    [id: string]: number;
+};
