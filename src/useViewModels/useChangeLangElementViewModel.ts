@@ -16,6 +16,7 @@ const mapToItem = (lang: TTranslationsLang) => ({
     label: lang.label,
 });
 
+//TODO refactor
 export const useChangeLangElementViewModel = () => {
     const { appLangModel } = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
 

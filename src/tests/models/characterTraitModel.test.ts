@@ -12,7 +12,7 @@ describe('CharacterTraitModel', () => {
     });
 
     test('Should return default percent', () => {
-        expect(model.percent).toBe(DEFAULTS.MIN_PERCENT);
+        expect(model.percent).toBe(DEFAULTS.PERCENT);
     });
 
     test('Should set percent (correct value)', () => {
