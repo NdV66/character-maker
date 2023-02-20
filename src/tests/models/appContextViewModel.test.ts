@@ -87,7 +87,7 @@ describe('AppContextViewModel', () => {
         });
     });
 
-    test.only('Should set default values', () => {
+    test('Should set default values', () => {
         const model = new AppContextViewModel();
         const result = model.setDefaultValues();
 
@@ -95,7 +95,7 @@ describe('AppContextViewModel', () => {
         expect(result).toBe(true);
     });
 
-    test.only('Should set is loading manually (from default to false)', () => {
+    test('Should set is loading manually (from default to false)', () => {
         testScheduler.run(({ cold, expectObservable }) => {
             const model = new AppContextViewModel();
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(false));
@@ -103,7 +103,7 @@ describe('AppContextViewModel', () => {
         });
     });
 
-    test.only('Should set is loading manually (from default to false)', () => {
+    test('Should set is loading manually (from default to false)', () => {
         testScheduler.run(({ cold, expectObservable }) => {
             const model = new AppContextViewModel();
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(true));
