@@ -10,14 +10,14 @@ import {
 
 export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
     private _pairsManager = getModelByKey<ICharacterTraitsManager>(Models.CHARACTER_TRAITS_MANAGER);
-    private _dataSource = new BehaviorSubject<TCharacterTraitValue>({});
+    private _data$ = new BehaviorSubject<TCharacterTraitValue>({});
 
     constructor() {
-        this._dataSource.next(this._prepareDataForDataSourceFull());
+        this._data$.next(this._prepareDataForDataSourceFull());
     }
 
-    get dataSource() {
-        return this._dataSource.asObservable();
+    get data$() {
+        return this._data$.asObservable();
     }
 
     get characterTraitsPairs() {
@@ -34,6 +34,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
 
     public updatePairPercentById = (id: string, value: number) => {
         const result = this._pairsManager.updatePairPercentById(id, value);
-        result && this._dataSource.next(this._prepareDataForDataSourceFull());
+        result && this._data$.next(this._prepareDataForDataSourceFull());
     };
 }

@@ -1,42 +1,16 @@
-import { bufferCount, concatMap, map, identity } from 'rxjs';
-import { getModelByKey } from '../context';
-import { AppLangs, Models, TTranslationsLang, IAppGeneralSettings } from '../types';
+import { AppLangs } from '../types';
 import { useStateWithObservableWithInit } from '../tools';
 import { DEFAULTS } from '../defaults';
 import { MenuProps } from 'antd';
 import { useMemo } from 'react';
+import { ChangeLangElementViewModel } from '../models/viewModels/ChangeLangElementViewModel';
 
-type ItemType = {
-    key: string;
-    label: string;
-};
-
-const mapToItem = (lang: TTranslationsLang) => ({
-    key: lang.value,
-    label: lang.label,
-});
-
-//TODO refactor
 export const useChangeLangElementViewModel = () => {
-    const { appLangModel } = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
+    const viewModel = useMemo(() => new ChangeLangElementViewModel(), []);
+    const appLang = useStateWithObservableWithInit(viewModel.appLang$, DEFAULTS.LANG);
+    const items = useStateWithObservableWithInit(viewModel.items$, []);
 
-    const itemsSource = useMemo(
-        () =>
-            appLangModel.translations.pipe(
-                map((translations) => translations.LANGS),
-                concatMap(identity),
-                map(mapToItem),
-                bufferCount(DEFAULTS.LANGS_AMOUNT),
-            ),
-        [],
-    );
-
-    const appLang = useStateWithObservableWithInit(appLangModel.appLang, DEFAULTS.LANG);
-    const items = useStateWithObservableWithInit<ItemType[]>(itemsSource, []);
-
-    const onClickItem: MenuProps['onClick'] = (e) => {
-        appLangModel.changeAppLang(e.key as AppLangs);
-    };
+    const onClickItem: MenuProps['onClick'] = (e) => viewModel.changeAppLang(e.key as AppLangs);
 
     return {
         onClickItem,

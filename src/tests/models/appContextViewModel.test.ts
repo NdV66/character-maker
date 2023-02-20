@@ -27,7 +27,7 @@ describe('AppContextViewModel', () => {
 
         testScheduler.run(({ expectObservable }) => {
             const model = new AppContextViewModel();
-            expectObservable(model.theme).toBe('a', { a: theme });
+            expectObservable(model.theme$).toBe('a', { a: theme });
         });
     });
 
@@ -37,7 +37,7 @@ describe('AppContextViewModel', () => {
 
         testScheduler.run(({ expectObservable }) => {
             const model = new AppContextViewModel();
-            expectObservable(model.translations).toBe('a', { a: translations });
+            expectObservable(model.translations$).toBe('a', { a: translations });
         });
     });
 
@@ -49,7 +49,7 @@ describe('AppContextViewModel', () => {
 
             testScheduler.run(({ expectObservable }) => {
                 model = new AppContextViewModel();
-                expectObservable(model.isLoading).toBe('a', { a: false });
+                expectObservable(model.isLoading$).toBe('a', { a: false });
             });
         });
 
@@ -60,7 +60,7 @@ describe('AppContextViewModel', () => {
 
             testScheduler.run(({ expectObservable }) => {
                 model = new AppContextViewModel();
-                expectObservable(model.isLoading).toBe('a', { a: true });
+                expectObservable(model.isLoading$).toBe('a', { a: true });
             });
         });
 
@@ -71,7 +71,7 @@ describe('AppContextViewModel', () => {
 
             testScheduler.run(({ expectObservable }) => {
                 model = new AppContextViewModel();
-                expectObservable(model.isLoading).toBe('a', { a: true });
+                expectObservable(model.isLoading$).toBe('a', { a: true });
             });
         });
 
@@ -82,7 +82,7 @@ describe('AppContextViewModel', () => {
 
             testScheduler.run(({ expectObservable }) => {
                 model = new AppContextViewModel();
-                expectObservable(model.isLoading).toBe('a', { a: true });
+                expectObservable(model.isLoading$).toBe('a', { a: true });
             });
         });
     });
@@ -99,7 +99,7 @@ describe('AppContextViewModel', () => {
         testScheduler.run(({ cold, expectObservable }) => {
             const model = new AppContextViewModel();
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(false));
-            expectObservable(model.isLoading).toBe('ab', { a: true, b: false });
+            expectObservable(model.isLoading$).toBe('ab', { a: true, b: false });
         });
     });
 
@@ -107,7 +107,7 @@ describe('AppContextViewModel', () => {
         testScheduler.run(({ cold, expectObservable }) => {
             const model = new AppContextViewModel();
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(true));
-            expectObservable(model.isLoading).toBe('ab', { a: true, b: true });
+            expectObservable(model.isLoading$).toBe('ab', { a: true, b: true });
         });
     });
 });

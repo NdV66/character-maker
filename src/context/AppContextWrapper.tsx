@@ -12,9 +12,9 @@ type Props = React.PropsWithChildren<unknown>;
 export const AppContextWrapper: React.FC<Props> = ({ children }) => {
     const viewModel = useMemo(() => new AppContextViewModel(), []);
 
-    const theme = useStateWithObservableWithInit(viewModel.theme, DEFAULTS.THEME);
-    const translations = useStateWithObservableWithInit(viewModel.translations, {} as TTranslations);
-    const isLoading = useStateWithObservableWithInit(viewModel.isLoading, true);
+    const theme = useStateWithObservableWithInit(viewModel.theme$, DEFAULTS.THEME);
+    const translations = useStateWithObservableWithInit(viewModel.translations$, {} as TTranslations);
+    const isLoading = useStateWithObservableWithInit(viewModel.isLoading$, true);
 
     useEffect(() => {
         viewModel.setDefaultValues();

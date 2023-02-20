@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { getAppContextMock } from '../mocks/appContext';
 import { appGeneralSettingsModelMock } from '../mocks';
 
+//TODO: update tests
 describe('useChangeLangElementViewModel', () => {
     let modelMock: AppLangModel;
     let contextMock: TAppContext;

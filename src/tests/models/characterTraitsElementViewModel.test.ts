@@ -16,11 +16,11 @@ describe('CharacterTraitsElementViewModel', () => {
         });
     });
 
-    test('Should return correct dataSource', () => {
+    test('Should return correct data$', () => {
         const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
         testScheduler.run(({ expectObservable }) => {
             const model = new CharacterTraitsElementViewModel();
-            expectObservable(model.dataSource).toBe('a', { a: expectedValue });
+            expectObservable(model.data$).toBe('a', { a: expectedValue });
         });
     });
 
@@ -29,14 +29,14 @@ describe('CharacterTraitsElementViewModel', () => {
         expect(model.characterTraitsPairs).toEqual(TRAIT_PAIRS);
     });
 
-    test('Should prepare correct data format for dataSource', () => {
+    test('Should prepare correct data format for data$', () => {
         const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
         const model = new CharacterTraitsElementViewModel();
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
         expect(result).toEqual(expectedValue);
     });
 
-    test.only('Should update pair by this pair id', () => {
+    test('Should update pair by this pair id', () => {
         const value = 60;
         const firstValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
         const updatedValue = { [TRAIT_PAIR.id]: value };
@@ -47,7 +47,7 @@ describe('CharacterTraitsElementViewModel', () => {
             model['_prepareDataForDataSourceFull'] = jest.fn().mockReturnValue(updatedValue);
             cold('-a').subscribe(() => model.updatePairPercentById(TRAIT_PAIR.id, value));
 
-            expectObservable(model.dataSource).toBe('ab', { a: firstValue, b: updatedValue });
+            expectObservable(model.data$).toBe('ab', { a: firstValue, b: updatedValue });
         });
     });
 });
