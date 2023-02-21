@@ -1,11 +1,10 @@
-import { useMemo } from 'react';
-import { useAppContext } from '../context';
+import { getModelByKey, useAppContext } from '../context';
 import { useStateWithObservable } from '../tools';
-import { CharacterTraitsElementViewModel } from '../models/viewModels';
+import { ICharacterTraitsElementViewModel, Models } from '../types';
 
 export const useCharacterTraitsElementViewModel = () => {
     const { theme, translations } = useAppContext();
-    const viewModel = useMemo(() => new CharacterTraitsElementViewModel(), []);
+    const viewModel = getModelByKey<ICharacterTraitsElementViewModel>(Models.CHARACTER_TRAITS_ELEMENT_VIEW_MODEL);
     const dataSource = useStateWithObservable(viewModel.data$);
 
     return {

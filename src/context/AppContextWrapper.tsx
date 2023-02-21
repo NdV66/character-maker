@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 
 import { DEFAULTS } from '../defaults';
-import { AppContextViewModel } from '../models/viewModels/AppContextViewModel';
 import { useStateWithObservableWithInit } from '../tools';
-import { TAppContext, TTranslations } from '../types';
+import { IAppContextViewModel, Models, TAppContext, TTranslations } from '../types';
 
 import { AppContext } from './AppContext';
+import { getModelByKey } from './models';
 
 type Props = React.PropsWithChildren<unknown>;
 
 export const AppContextWrapper: React.FC<Props> = ({ children }) => {
-    const viewModel = useMemo(() => new AppContextViewModel(), []);
+    const viewModel = getModelByKey<IAppContextViewModel>(Models.APP_CONTEXT_VIEW_MODEL);
 
     const theme = useStateWithObservableWithInit(viewModel.theme$, DEFAULTS.THEME);
     const translations = useStateWithObservableWithInit(viewModel.translations$, {} as TTranslations);

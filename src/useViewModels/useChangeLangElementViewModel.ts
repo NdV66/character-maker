@@ -1,12 +1,11 @@
-import { AppLangs } from '../types';
+import { AppLangs, IChangeLangElementViewModel, Models } from '../types';
 import { useStateWithObservableWithInit } from '../tools';
 import { DEFAULTS } from '../defaults';
 import { MenuProps } from 'antd';
-import { useMemo } from 'react';
-import { ChangeLangElementViewModel } from '../models/viewModels/ChangeLangElementViewModel';
+import { getModelByKey } from '../context';
 
 export const useChangeLangElementViewModel = () => {
-    const viewModel = useMemo(() => new ChangeLangElementViewModel(), []);
+    const viewModel = getModelByKey<IChangeLangElementViewModel>(Models.CHANGE_LANG_ELEMENT_VIEW_MODEL);
     const appLang = useStateWithObservableWithInit(viewModel.appLang$, DEFAULTS.LANG);
     const items = useStateWithObservableWithInit(viewModel.items$, []);
 
