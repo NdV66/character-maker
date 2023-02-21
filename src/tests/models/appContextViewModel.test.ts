@@ -105,12 +105,28 @@ describe('AppContextViewModel', () => {
         });
     });
 
-    test('Should set default values', () => {
+    test('setDefaultValues', () => {
         const model = new AppContextViewModel(generalSettingsModelMock);
         const result = model.setDefaultValues();
 
         expect(generalSettingsModelMock.setDefaultValues).toHaveBeenCalledTimes(1);
         expect(result).toBe(true);
+    });
+
+    test('changeAppLang', () => {
+        const lang = AppLangs.PL;
+        const model = new AppContextViewModel(generalSettingsModelMock);
+        model.changeAppLang(lang);
+
+        expect(generalSettingsModelMock.appLangModel.changeAppLang).toHaveBeenCalledTimes(1);
+        expect(generalSettingsModelMock.appLangModel.changeAppLang).toHaveBeenCalledWith(lang);
+    });
+
+    test('toggleAppTheme', () => {
+        const model = new AppContextViewModel(generalSettingsModelMock);
+        model.toggleAppTheme();
+
+        expect(generalSettingsModelMock.appThemeModel.toggleAppTheme).toHaveBeenCalledTimes(1);
     });
 
     test('Should set is loading manually (from default to false)', () => {
