@@ -1,2 +1,2 @@
-export * from './manager';
+export * from '../context/manager';
 export * from './viewModels';

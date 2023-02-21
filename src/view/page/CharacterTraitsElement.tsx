@@ -7,7 +7,8 @@ export const CharacterTraitsElement: React.FC = () => {
 
     return (
         <div>
-            {translations?.CHARACTER_TRAITS &&
+            {theme &&
+                translations?.CHARACTER_TRAITS &&
                 characterTraitsPairs.map((trait) => {
                     return (
                         <AppSlider

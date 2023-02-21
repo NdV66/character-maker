@@ -1,23 +1,30 @@
 import { BehaviorSubject } from 'rxjs';
-import { getModelByKey } from '../../context';
+
 import {
-    Models,
     ICharacterTraitsPair,
     ICharacterTraitsManager,
     TCharacterTraitValue,
     ICharacterTraitsElementViewModel,
+    IAppContextViewModel,
 } from '../../types';
 
 export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
-    private _pairsManager = getModelByKey<ICharacterTraitsManager>(Models.CHARACTER_TRAITS_MANAGER);
     private _data$ = new BehaviorSubject<TCharacterTraitValue>({});
 
-    constructor() {
+    constructor(private _appContext: IAppContextViewModel, private _pairsManager: ICharacterTraitsManager) {
         this._data$.next(this._prepareDataForDataSourceFull());
     }
 
     get data$() {
         return this._data$.asObservable();
+    }
+
+    get translations$() {
+        return this._appContext.translations$;
+    }
+
+    get theme$() {
+        return this._appContext.theme$;
     }
 
     get characterTraitsPairs() {

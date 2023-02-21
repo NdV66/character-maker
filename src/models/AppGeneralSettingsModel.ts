@@ -1,10 +1,7 @@
 import { IAppGeneralSettings, IAppLang, IAppTheme } from '../types';
-import { AppLangModel } from './AppLangModel';
-import { AppThemeModel } from './AppThemeModel';
 
 export class AppGeneralSettingsModel implements IAppGeneralSettings {
-    public readonly appLangModel: IAppLang = new AppLangModel();
-    public readonly appThemeModel: IAppTheme = new AppThemeModel();
+    constructor(public readonly appLangModel: IAppLang, public readonly appThemeModel: IAppTheme) {}
 
     public setDefaultValues() {
         this.appLangModel.setDefaultValue();

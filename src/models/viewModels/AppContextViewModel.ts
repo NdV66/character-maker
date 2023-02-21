@@ -1,10 +1,12 @@
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { getModelByKey } from '../../context';
-import { IAppContextViewModel, IAppGeneralSettings, Models } from '../../types';
+import { AppLangs, IAppContextViewModel, IAppGeneralSettings } from '../../types';
 
 export class AppContextViewModel implements IAppContextViewModel {
     private _isLoading$ = new BehaviorSubject(true);
-    private _appGeneralSettings = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
+
+    constructor(private _appGeneralSettings: IAppGeneralSettings) {
+        this._subscribeIsLoading();
+    }
 
     get theme$() {
         return this._appGeneralSettings.appThemeModel.theme;
@@ -18,8 +20,12 @@ export class AppContextViewModel implements IAppContextViewModel {
         return this._isLoading$.asObservable();
     }
 
-    constructor() {
-        this._subscribeIsLoading();
+    get appLang$() {
+        return this._appGeneralSettings.appLangModel.appLang;
+    }
+
+    get appTheme$() {
+        return this._appGeneralSettings.appThemeModel.appTheme;
     }
 
     public setDefaultValues() {
@@ -27,8 +33,16 @@ export class AppContextViewModel implements IAppContextViewModel {
         return true;
     }
 
+    public changeAppLang(lang: AppLangs) {
+        this._appGeneralSettings.appLangModel.changeAppLang(lang);
+    }
+
     public setIsLoading(value: boolean) {
         this._isLoading$.next(value);
+    }
+
+    public toggleAppTheme() {
+        this._appGeneralSettings.appThemeModel.toggleAppTheme();
     }
 
     private _subscribeIsLoading() {

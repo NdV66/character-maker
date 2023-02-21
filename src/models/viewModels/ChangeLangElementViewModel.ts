@@ -1,13 +1,12 @@
 import { bufferCount, map, mergeMap } from 'rxjs';
-import { AppLangs, IAppGeneralSettings, IChangeLangElementViewModel, Models, TTranslationsLang } from '../../types';
-import { getModelByKey } from '../../context';
+import { AppLangs, IAppContextViewModel, IChangeLangElementViewModel, TTranslationsLang } from '../../types';
 import { DEFAULTS } from '../../defaults';
 
 export class ChangeLangElementViewModel implements IChangeLangElementViewModel {
-    private _appGeneralSettings = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
+    constructor(private _appContext: IAppContextViewModel) {}
 
     get items$() {
-        return this._appGeneralSettings.appLangModel.translations.pipe(
+        return this._appContext.translations$.pipe(
             mergeMap((translations) => translations.LANGS),
             map(this._mapToItem),
             bufferCount(DEFAULTS.LANGS_AMOUNT),
@@ -15,11 +14,11 @@ export class ChangeLangElementViewModel implements IChangeLangElementViewModel {
     }
 
     get appLang$() {
-        return this._appGeneralSettings.appLangModel.appLang;
+        return this._appContext.appLang$;
     }
 
     public changeAppLang = (value: AppLangs) => {
-        this._appGeneralSettings.appLangModel.changeAppLang(value);
+        this._appContext.changeAppLang(value);
     };
 
     private _mapToItem = (lang: TTranslationsLang) => ({

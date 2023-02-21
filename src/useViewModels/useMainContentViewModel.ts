@@ -1,9 +1,7 @@
-import { useAppContext } from '../context';
+import { DARK_THEME } from '../styles';
 
 export const useMainContentViewModel = () => {
-    const { theme } = useAppContext();
-
     return {
-        theme,
+        theme: DARK_THEME,
     };
 };

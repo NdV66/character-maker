@@ -1,16 +1,15 @@
-import { useAppContext } from '../context';
+import { TEXTS_EN } from '../langs/en';
+import { DARK_THEME } from '../styles';
 
 export const useCleanEverythingModel = () => {
-    const { translations, theme } = useAppContext();
-
     const disabled = false;
 
     const onCleanAll = () => {};
 
     return {
-        theme,
+        theme: DARK_THEME,
         onCleanAll,
-        translations,
+        translations: TEXTS_EN,
         disabled,
     };
 };

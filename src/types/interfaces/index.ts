@@ -7,3 +7,5 @@ export * from './ICharacterTraitsManager';
 export * from './ICharacterTraitsElementViewModel';
 export * from './IAppContextViewModel';
 export * from './IChangeLangElementViewModel';
+export * from './IThemeButtonElementViewModel';
+export * from './IPageViewModel';

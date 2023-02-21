@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 import { Layout, ConfigProvider, Col, Row, Spin } from 'antd';
 import { TTheme } from '../../types';
 import { usePageViewModel } from '../../useViewModels';
-
 import { AppHeader } from './AppHeader';
 import { FooterElement, footerHeight } from './FooterElement';
 import { MainContent } from './MainContent';

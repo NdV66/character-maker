@@ -1,13 +1,29 @@
-import { getModelByKey, useAppContext } from '../context';
+import { getModelByKey } from '../context';
+import { DEFAULTS } from '../defaults';
 import { useStateWithObservable } from '../tools';
-import { AppTheme, Models, IAppGeneralSettings } from '../types';
+import { AppTheme, Models, IPageViewModel } from '../types';
+import { useEffect } from 'react';
+
+// type TThemeToken = {
+//     token: {
+//         colorPrimary: string;
+//         colorBgBase: string;
+//         fontSize: number;
+//         colorTextBase: string;
+//         colorInfo: string;
+//         colorWarning: string;
+//         themeError: string;
+//     };
+// };
 
 export const usePageViewModel = () => {
-    const { appThemeModel } = getModelByKey<IAppGeneralSettings>(Models.APP_GENERAL_SETTINGS);
-    const { theme, translations, isLoading } = useAppContext();
-    const appTheme = useStateWithObservable(appThemeModel.appTheme);
+    const viewModel = getModelByKey<IPageViewModel>(Models.PAGE_VIEW_MODEL);
+    const theme = useStateWithObservable(viewModel.theme$);
+    const appTheme = useStateWithObservable(viewModel.appTheme$);
+    const translations = useStateWithObservable(viewModel.translations$);
+    const isLoading = useStateWithObservable(viewModel.isLoading$);
 
-    const preparedTheme = {
+    const preparedTheme = theme && {
         token: {
             colorPrimary: theme.primary,
             colorBgBase: theme.background,
@@ -19,10 +35,14 @@ export const usePageViewModel = () => {
         },
     };
 
+    useEffect(() => {
+        viewModel.setDefaultValues();
+    });
+
     return {
         antdTheme: preparedTheme,
-        translations,
-        theme,
+        translations: translations || DEFAULTS.TRANSLATIONS,
+        theme: theme || DEFAULTS.THEME,
         appTheme,
         isLoading,
     };
