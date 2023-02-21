@@ -125,7 +125,6 @@ describe('AppContextViewModel', () => {
     test('toggleAppTheme', () => {
         const model = new AppContextViewModel(generalSettingsModelMock);
         model.toggleAppTheme();
-
         expect(generalSettingsModelMock.appThemeModel.toggleAppTheme).toHaveBeenCalledTimes(1);
     });
 
