@@ -11,7 +11,7 @@ export const usePageViewModel = () => {
     const translations = useStateWithObservableWithInit(viewModel.translations$, DEFAULTS.TRANSLATIONS);
     const isLoading = useStateWithObservable(viewModel.isLoading$);
 
-    const preparedTheme = theme && {
+    const preparedTheme = {
         token: {
             colorPrimary: theme.primary,
             colorBgBase: theme.background,
