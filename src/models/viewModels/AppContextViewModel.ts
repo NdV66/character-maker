@@ -1,6 +1,7 @@
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { AppLangs, IAppContextViewModel, IAppGeneralSettings } from '../../types';
 
+/* Main and only source of context app values */
 export class AppContextViewModel implements IAppContextViewModel {
     private _isLoading$ = new BehaviorSubject(true);
 
