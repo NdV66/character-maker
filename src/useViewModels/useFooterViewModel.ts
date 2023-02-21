@@ -1,11 +1,16 @@
-import packageInfo from '../../package.json';
-import { TEXTS_EN } from '../langs/en';
-import { DARK_THEME } from '../styles';
+import { getModelByKey } from '../context';
+import { DEFAULTS } from '../defaults';
+import { useStateWithObservableWithInit } from '../tools';
+import { IFooterViewModel, Models } from '../types';
 
 export const useFooterViewModel = () => {
+    const viewModel = getModelByKey<IFooterViewModel>(Models.FOOTER_VIEW_MODEL);
+    const translations = useStateWithObservableWithInit(viewModel.translations$, DEFAULTS.TRANSLATIONS);
+    const theme = useStateWithObservableWithInit(viewModel.theme$, DEFAULTS.THEME);
+
     return {
-        translations: TEXTS_EN,
-        theme: DARK_THEME,
-        version: packageInfo.version,
+        translations,
+        theme,
+        version: viewModel.version,
     };
 };

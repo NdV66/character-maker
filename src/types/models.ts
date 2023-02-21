@@ -7,4 +7,5 @@ export const enum Models {
     APP_CONTEXT_VIEW_MODEL = 'AppContextViewModel',
     CHARACTER_TRAITS_ELEMENT_VIEW_MODEL = 'CharacterTraitsElementViewModel',
     PAGE_VIEW_MODEL = 'PageViewModel',
+    FOOTER_VIEW_MODEL = 'FooterViewModel',
 }

@@ -9,3 +9,4 @@ export * from './IAppContextViewModel';
 export * from './IChangeLangElementViewModel';
 export * from './IThemeButtonElementViewModel';
 export * from './IPageViewModel';
+export * from './IFooterViewModel';

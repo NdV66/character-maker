@@ -1,26 +1,14 @@
 import { getModelByKey } from '../context';
 import { DEFAULTS } from '../defaults';
-import { useStateWithObservable } from '../tools';
+import { useStateWithObservable, useStateWithObservableWithInit } from '../tools';
 import { AppTheme, Models, IPageViewModel } from '../types';
 import { useEffect } from 'react';
 
-// type TThemeToken = {
-//     token: {
-//         colorPrimary: string;
-//         colorBgBase: string;
-//         fontSize: number;
-//         colorTextBase: string;
-//         colorInfo: string;
-//         colorWarning: string;
-//         themeError: string;
-//     };
-// };
-
 export const usePageViewModel = () => {
     const viewModel = getModelByKey<IPageViewModel>(Models.PAGE_VIEW_MODEL);
-    const theme = useStateWithObservable(viewModel.theme$);
+    const theme = useStateWithObservableWithInit(viewModel.theme$, DEFAULTS.THEME);
     const appTheme = useStateWithObservable(viewModel.appTheme$);
-    const translations = useStateWithObservable(viewModel.translations$);
+    const translations = useStateWithObservableWithInit(viewModel.translations$, DEFAULTS.TRANSLATIONS);
     const isLoading = useStateWithObservable(viewModel.isLoading$);
 
     const preparedTheme = theme && {
@@ -41,8 +29,8 @@ export const usePageViewModel = () => {
 
     return {
         antdTheme: preparedTheme,
-        translations: translations || DEFAULTS.TRANSLATIONS,
-        theme: theme || DEFAULTS.THEME,
+        translations,
+        theme,
         appTheme,
         isLoading,
     };

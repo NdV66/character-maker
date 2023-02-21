@@ -10,6 +10,7 @@ import {
     ChangeLangElementViewModel,
     ThemeButtonElementViewModel,
     PageViewModel,
+    FooterViewModel,
 } from '../models/viewModels';
 import { AppGeneralSettingsModel } from '../models/AppGeneralSettingsModel';
 import { AppLangModel } from '../models/AppLangModel';
@@ -36,6 +37,7 @@ const MODELS = {
         characterTraitManagerSingleton,
     ),
     [Models.PAGE_VIEW_MODEL]: new PageViewModel(appContextViewModelSingleton),
+    [Models.FOOTER_VIEW_MODEL]: new FooterViewModel(appContextViewModelSingleton),
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);
