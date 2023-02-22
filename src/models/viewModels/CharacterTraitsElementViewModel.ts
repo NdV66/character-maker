@@ -41,7 +41,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         );
     }
 
-    //TODO: tests
     private _prepareCharacterTraitPairValue(el: ICharacterTraitsPair): TCharacterTraitPairLight {
         return {
             [el.id]: {

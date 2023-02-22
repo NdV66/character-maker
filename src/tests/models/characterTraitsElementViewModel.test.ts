@@ -42,6 +42,12 @@ describe('CharacterTraitsElementViewModel', () => {
         expect(result).toEqual(PREPARED_DATA);
     });
 
+    test('Should _prepareCharacterTraitPairValue', () => {
+        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+        const result = model['_prepareCharacterTraitPairValue'](TRAIT_PAIR);
+        expect(result).toEqual(PREPARED_DATA);
+    });
+
     test('Should update pair by this pair id', () => {
         const value = 60;
         const firstValue = PREPARED_DATA;
