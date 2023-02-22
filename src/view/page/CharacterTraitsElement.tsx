@@ -17,8 +17,8 @@ export const CharacterTraitsElement: React.FC = () => {
                             rightText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
                             onChange={(value) => onChangeCharacterTrait(trait.id, value)}
                             theme={theme}
-                            mainValue={dataSource?.[trait.id].main!.percent || 0}
-                            oppositeValue={dataSource?.[trait.id].opposite!.percent || 0}
+                            mainValue={dataSource?.[trait.id].mainPercent || 0}
+                            oppositeValue={dataSource?.[trait.id].oppositePercent || 0}
                         />
                     );
                 })}

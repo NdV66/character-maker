@@ -13,8 +13,6 @@ export const characterTraitsPairModelMock = (
         id,
         mainCharacterTrait: main,
         oppositeCharacterTrait: opposite,
-        mainPercent: main.percent,
-        oppositePercent: main.percent,
 
         reset: jest.fn(),
         setPercentForMainCharacterTrait: jest.fn(),

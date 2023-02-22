@@ -3,13 +3,13 @@ import { BehaviorSubject } from 'rxjs';
 import {
     ICharacterTraitsPair,
     ICharacterTraitsManager,
-    TCharacterTraitPairValue,
+    TCharacterTraitPairLight,
     ICharacterTraitsElementViewModel,
     IAppContextViewModel,
 } from '../../types';
 
 export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
-    private _data$ = new BehaviorSubject<TCharacterTraitPairValue>({});
+    private _data$ = new BehaviorSubject<TCharacterTraitPairLight>({});
 
     constructor(private _appContext: IAppContextViewModel, private _pairsManager: ICharacterTraitsManager) {
         this._data$.next(this._prepareDataForDataSourceFull());
@@ -35,13 +35,20 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         return characterTraitsPairs.reduce(
             (prev, el) => ({
                 ...prev,
-                [el.id]: {
-                    main: el.mainCharacterTrait,
-                    opposite: el.oppositeCharacterTrait,
-                },
+                ...this._prepareCharacterTraitPairValue(el),
             }),
             {},
         );
+    }
+
+    //TODO: tests
+    private _prepareCharacterTraitPairValue(el: ICharacterTraitsPair): TCharacterTraitPairLight {
+        return {
+            [el.id]: {
+                mainPercent: el.mainCharacterTrait.percent,
+                oppositePercent: el.oppositeCharacterTrait.percent,
+            },
+        };
     }
 
     private _prepareDataForDataSourceFull() {

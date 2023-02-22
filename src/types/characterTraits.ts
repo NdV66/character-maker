@@ -1,14 +1,12 @@
-import { ICharacterTrait } from './interfaces';
-
 export type TCharacterTraitData = {
     id: string;
     name: string;
     opposite: string;
 };
 
-export type TCharacterTraitPairValue = {
+export type TCharacterTraitPairLight = {
     [id: string]: {
-        main: ICharacterTrait;
-        opposite: ICharacterTrait;
+        mainPercent: number;
+        oppositePercent: number;
     };
 };

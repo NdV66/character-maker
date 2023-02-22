@@ -1,7 +1,14 @@
-import { IAppContextViewModel, ICharacterTraitsManager } from '../../types';
+import { IAppContextViewModel, ICharacterTraitsManager, TCharacterTraitPairLight } from '../../types';
 import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewModelMock } from '../mocks';
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../models';
+
+const PREPARED_DATA: TCharacterTraitPairLight = {
+    [TRAIT_PAIR.id]: {
+        mainPercent: TRAIT_PAIR.mainCharacterTrait.percent,
+        oppositePercent: TRAIT_PAIR.oppositeCharacterTrait.percent,
+    },
+};
 
 describe('CharacterTraitsElementViewModel', () => {
     let traitsManagerMock: ICharacterTraitsManager;
@@ -18,10 +25,9 @@ describe('CharacterTraitsElementViewModel', () => {
     });
 
     test('Should return correct data$', () => {
-        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
         testScheduler.run(({ expectObservable }) => {
             const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
-            expectObservable(model.data$).toBe('a', { a: expectedValue });
+            expectObservable(model.data$).toBe('a', { a: PREPARED_DATA });
         });
     });
 
@@ -31,16 +37,20 @@ describe('CharacterTraitsElementViewModel', () => {
     });
 
     test('Should prepare correct data format for data$', () => {
-        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
         const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
-        expect(result).toEqual(expectedValue);
+        expect(result).toEqual(PREPARED_DATA);
     });
 
     test('Should update pair by this pair id', () => {
         const value = 60;
-        const firstValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
-        const updatedValue = { [TRAIT_PAIR.id]: value };
+        const firstValue = PREPARED_DATA;
+        const updatedValue: TCharacterTraitPairLight = {
+            [TRAIT_PAIR.id]: {
+                mainPercent: TRAIT_PAIR.mainCharacterTrait.percent,
+                oppositePercent: TRAIT_PAIR.oppositeCharacterTrait.percent,
+            },
+        };
         traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
 
         testScheduler.run(({ cold, expectObservable }) => {
