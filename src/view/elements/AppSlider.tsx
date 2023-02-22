@@ -77,19 +77,20 @@ const styles = (theme: TTheme) => ({
     text: css`
         text-transform: uppercase;
         font-size: ${theme.smallFontSize}px;
-        font-weight: 700;
 
         display: flex;
         justify-content: center;
         align-items: center;
     `,
     valueLeft: css`
-        font-weight: 400;
+        font-weight: 700;
         margin-left: ${theme.baseSpace / 2}px;
+        width: 27px;
     `,
     valueRight: css`
-        font-weight: 400;
+        font-weight: 700;
         margin-right: ${theme.baseSpace / 2}px;
+        width: 27px;
     `,
     customSlider: css`
         .rc-slider-mark-text,
