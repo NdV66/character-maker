@@ -12,4 +12,5 @@ export const DEFAULTS = {
     MIN_PERCENT: 0,
     MAX_PERCENT: 100,
     PERCENT: 50,
+    MARKS: { 50: '50' },
 };

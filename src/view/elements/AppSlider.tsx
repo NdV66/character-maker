@@ -16,8 +16,6 @@ type Props = {
     oppositeValue: number;
 };
 
-const MARKS = { 50: '50' };
-
 export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainValue, onChange, oppositeValue }) => {
     const themedStyles = styles(theme);
 
@@ -30,7 +28,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
 
             <div css={themedStyles.slider}>
                 <Slider
-                    marks={MARKS}
+                    marks={DEFAULTS.MARKS}
                     max={DEFAULTS.MAX_PERCENT}
                     min={DEFAULTS.MIN_PERCENT}
                     value={mainValue}
@@ -52,8 +50,8 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
 };
 
 const dotStyle = (theme: TTheme) => ({
-    backgroundColor: theme.pageBackground,
-    borderColor: theme.accent,
+    backgroundColor: theme.primary,
+    borderColor: theme.primary,
 });
 
 const handledStyle = (theme: TTheme) => ({
@@ -71,7 +69,8 @@ const styles = (theme: TTheme) => ({
         align-items: center;
     `,
     slider: css`
-        width: 600px;
+        min-width: 600px;
+        max-width: 600px;
         padding: ${theme.baseSpace * 2}px;
     `,
     text: css`

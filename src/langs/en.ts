@@ -14,10 +14,14 @@ export const TEXTS_EN: TTranslations = {
     CANCEL: 'Cancel',
     CLEAN: 'Clean everything',
 
+    INFO_TEXT: 'Setup all character traits and then save your work as JPEG or PDF.',
+
     CHARACTER_TRAITS: {
         HELPFUL: 'helpful',
         EGOISTIC: 'egoistic',
         NICE: 'nice',
         NASTY: 'nasty',
+        DREAMER: 'dreamer',
+        REALIST: 'realist',
     },
 };

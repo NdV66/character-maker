@@ -14,10 +14,15 @@ export const TEXTS_PL: TTranslations = {
     CANCEL: 'Zamknij',
     CLEAN: 'Wyczyść wszystko',
 
+    INFO_TEXT:
+        'Ustaw cechy charakteru, korzystając z suwaczków poniżej. Kiedy będziesz zadwolony z rezultatów, możesz wyeksportować swoje dzieło do formatu PDF lub JPEG.',
+
     CHARACTER_TRAITS: {
         HELPFUL: 'uczynny',
         EGOISTIC: 'egoistyczny',
         NICE: 'miły',
         NASTY: 'niemiły',
+        DREAMER: 'marzyciel',
+        REALIST: 'relalista',
     },
 };

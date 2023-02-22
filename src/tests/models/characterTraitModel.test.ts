@@ -15,6 +15,10 @@ describe('CharacterTraitModel', () => {
         expect(model.percent).toBe(DEFAULTS.PERCENT);
     });
 
+    test('Should return default percent', () => {
+        expect(model.nameTranslationKey).toBe(NAME_KEY);
+    });
+
     test('Should set percent (correct value)', () => {
         const value = 66;
         model.percent = value;

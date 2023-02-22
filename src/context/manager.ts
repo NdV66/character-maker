@@ -11,6 +11,7 @@ import {
     ThemeButtonElementViewModel,
     PageViewModel,
     FooterViewModel,
+    MainContentViewModel,
 } from '../models/viewModels';
 import { AppGeneralSettingsModel } from '../models/AppGeneralSettingsModel';
 import { AppLangModel } from '../models/AppLangModel';
@@ -38,6 +39,7 @@ const MODELS = {
     ),
     [Models.PAGE_VIEW_MODEL]: new PageViewModel(appContextViewModelSingleton),
     [Models.FOOTER_VIEW_MODEL]: new FooterViewModel(appContextViewModelSingleton),
+    [Models.MAIN_CONTENT_VIEW_MODEL]: new MainContentViewModel(appContextViewModelSingleton),
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);

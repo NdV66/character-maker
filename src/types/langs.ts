@@ -21,6 +21,8 @@ export type TTranslations = {
     CANCEL: string;
     CLEAN: string;
 
+    INFO_TEXT: string;
+
     CHARACTER_TRAITS: {
         HELPFUL: string;
         EGOISTIC: string;

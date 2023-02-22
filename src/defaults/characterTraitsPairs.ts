@@ -11,4 +11,9 @@ export const CHARACTER_TRAITS_PAIRS: TCharacterTraitData[] = [
         name: 'NICE',
         opposite: 'NASTY',
     },
+    {
+        id: 'd_r',
+        name: 'DREAMER',
+        opposite: 'REALIST',
+    },
 ];

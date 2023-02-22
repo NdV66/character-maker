@@ -8,4 +8,5 @@ export const enum Models {
     CHARACTER_TRAITS_ELEMENT_VIEW_MODEL = 'CharacterTraitsElementViewModel',
     PAGE_VIEW_MODEL = 'PageViewModel',
     FOOTER_VIEW_MODEL = 'FooterViewModel',
+    MAIN_CONTENT_VIEW_MODEL = 'MainContentViewModel',
 }
