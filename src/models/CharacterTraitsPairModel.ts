@@ -8,10 +8,6 @@ export class CharacterTraitsPairModel implements ICharacterTraitsPair {
         public readonly oppositeCharacterTrait: ICharacterTrait,
     ) {}
 
-    get percent() {
-        return this.mainCharacterTrait.percent;
-    }
-
     public reset() {
         this.mainCharacterTrait.reset();
         this.oppositeCharacterTrait.reset();

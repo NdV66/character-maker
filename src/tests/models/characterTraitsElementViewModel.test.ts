@@ -18,7 +18,7 @@ describe('CharacterTraitsElementViewModel', () => {
     });
 
     test('Should return correct data$', () => {
-        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
+        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
         testScheduler.run(({ expectObservable }) => {
             const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
             expectObservable(model.data$).toBe('a', { a: expectedValue });
@@ -31,7 +31,7 @@ describe('CharacterTraitsElementViewModel', () => {
     });
 
     test('Should prepare correct data format for data$', () => {
-        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
+        const expectedValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
         const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
         expect(result).toEqual(expectedValue);
@@ -39,7 +39,7 @@ describe('CharacterTraitsElementViewModel', () => {
 
     test('Should update pair by this pair id', () => {
         const value = 60;
-        const firstValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.percent };
+        const firstValue = { [TRAIT_PAIR.id]: TRAIT_PAIR.mainPercent };
         const updatedValue = { [TRAIT_PAIR.id]: value };
         traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
 
