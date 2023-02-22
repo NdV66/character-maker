@@ -48,7 +48,7 @@ const styles = (theme: TTheme) => ({
         &.ant-layout-footer {
             font-size: ${theme.smallFontSize}px;
             height: ${footerHeight}px;
-            padding-left: ${2 * theme.baseSpace}px;
+            padding: ${2 * theme.baseSpace}px;
             background-color: ${theme.pageBackground};
         }
     `,

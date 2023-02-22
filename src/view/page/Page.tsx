@@ -62,7 +62,7 @@ const styles = (theme: TTheme) => ({
     `,
     wrapper: css`
         &.ant-layout-content {
-            padding: ${4 * theme.baseSpace}px ${2 * theme.baseSpace}px;
+            padding: ${4 * theme.baseSpace}px 0;
             min-height: calc(100vh - ${summaryHeight}px);
             background: ${theme.pageBackground};
         }
