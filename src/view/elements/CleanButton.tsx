@@ -1,11 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TEST_IDS } from '../../defaults';
-import { useCleanEverythingModel } from '../../useViewModels/useCleanEverythingModel';
-import { TextButton } from '../elements';
 
-export const CleanEverythingButton: React.FC = () => {
-    const { theme, onCleanAll, translations, disabled } = useCleanEverythingModel();
+import { TextButton } from '.';
+import { TTheme, TTranslations } from '../../types';
+
+type Props = {
+    theme: TTheme;
+    onCleanAll: () => void;
+    translations: TTranslations;
+    disabled: boolean;
+};
+
+export const CleanButton: React.FC<Props> = ({ theme, onCleanAll, disabled, translations }) => {
     const themedStyles = styles();
 
     return (

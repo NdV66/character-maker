@@ -12,7 +12,7 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
     private _data$ = new BehaviorSubject<TCharacterTraitPairLight>({});
 
     constructor(private _appContext: IAppContextViewModel, private _pairsManager: ICharacterTraitsManager) {
-        this._data$.next(this._prepareDataForDataSourceFull());
+        this._refreshData();
     }
 
     get data$() {
@@ -50,12 +50,18 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         };
     }
 
-    private _prepareDataForDataSourceFull() {
-        return this._prepareDataForDataSource(this._pairsManager.characterTraitsPairs);
+    private _refreshData() {
+        const data = this._prepareDataForDataSource(this._pairsManager.characterTraitsPairs);
+        this._data$.next(data);
     }
 
     public updatePairPercentById = (id: string, value: number) => {
-        const result = this._pairsManager.updatePairPercentById(id, value);
-        result && this._data$.next(this._prepareDataForDataSourceFull());
+        this._pairsManager.updatePairPercentById(id, value);
+        this._refreshData();
+    };
+
+    public resetAll = () => {
+        this._pairsManager.resetAll();
+        this._refreshData();
     };
 }

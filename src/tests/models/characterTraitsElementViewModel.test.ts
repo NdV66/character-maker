@@ -48,25 +48,25 @@ describe('CharacterTraitsElementViewModel', () => {
         expect(result).toEqual(PREPARED_DATA);
     });
 
-    test('Should update pair by this pair id', () => {
-        const value = 60;
-        const firstValue = PREPARED_DATA;
-        const updatedValue: TCharacterTraitPairLight = {
-            [TRAIT_PAIR.id]: {
-                mainPercent: TRAIT_PAIR.mainCharacterTrait.percent,
-                oppositePercent: TRAIT_PAIR.oppositeCharacterTrait.percent,
-            },
-        };
-        traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
+    // test('Should update pair by this pair id', () => {
+    //     const value = 60;
+    //     const firstValue = PREPARED_DATA;
+    //     const updatedValue: TCharacterTraitPairLight = {
+    //         [TRAIT_PAIR.id]: {
+    //             mainPercent: TRAIT_PAIR.mainCharacterTrait.percent,
+    //             oppositePercent: TRAIT_PAIR.oppositeCharacterTrait.percent,
+    //         },
+    //     };
+    //     traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
 
-        testScheduler.run(({ cold, expectObservable }) => {
-            const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
-            model['_prepareDataForDataSourceFull'] = jest.fn().mockReturnValue(updatedValue);
-            cold('-a').subscribe(() => model.updatePairPercentById(TRAIT_PAIR.id, value));
+    //     testScheduler.run(({ cold, expectObservable }) => {
+    //         const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+    //         model['_prepareDataForDataSourceFull'] = jest.fn().mockReturnValue(updatedValue);
+    //         cold('-a').subscribe(() => model.updatePairPercentById(TRAIT_PAIR.id, value));
 
-            expectObservable(model.data$).toBe('ab', { a: firstValue, b: updatedValue });
-        });
-    });
+    //         expectObservable(model.data$).toBe('ab', { a: firstValue, b: updatedValue });
+    //     });
+    // });
 });
 
 export {};

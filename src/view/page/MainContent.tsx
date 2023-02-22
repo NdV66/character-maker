@@ -5,9 +5,9 @@ import Card from 'antd/es/card/Card';
 import { TEST_IDS } from '../../defaults';
 import { TTheme } from '../../types';
 import { useMainContentViewModel } from '../../useViewModels/useMainContentViewModel';
-import { AppInfo } from '../elements/AppInfo';
+
 import { CharacterTraitsElement } from './CharacterTraitsElement';
-import { CleanEverythingButton } from './CleanEverytingButton';
+import { AppInfo } from '../elements';
 
 export const MainContent: React.FC = () => {
     const { theme, translations } = useMainContentViewModel();
@@ -17,7 +17,6 @@ export const MainContent: React.FC = () => {
         <Card css={themedStyles.card} data-test-id={TEST_IDS.MAIN_CONTENT}>
             <AppInfo text={translations.INFO_TEXT} theme={theme} />
             <CharacterTraitsElement />
-            <CleanEverythingButton />
         </Card>
     );
 };

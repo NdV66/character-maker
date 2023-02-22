@@ -19,6 +19,6 @@ export class CharacterTraitModel implements ICharacterTrait {
     }
 
     public reset() {
-        this._percent = DEFAULTS.MIN_PERCENT;
+        this._percent = DEFAULTS.PERCENT;
     }
 }

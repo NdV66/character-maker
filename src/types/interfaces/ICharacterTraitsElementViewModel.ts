@@ -11,4 +11,5 @@ export interface ICharacterTraitsElementViewModel {
     characterTraitsPairs: ICharacterTraitsPair[];
 
     updatePairPercentById: (id: string, value: number) => void;
+    resetAll: () => void;
 }
