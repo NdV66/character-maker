@@ -2,8 +2,9 @@
 import { css } from '@emotion/react';
 import { TEST_IDS } from '../../defaults';
 
-import { TextButton } from '.';
+import { AppButton } from '.';
 import { TTheme, TTranslations } from '../../types';
+import { DeleteOutlined } from '@ant-design/icons';
 
 type Props = {
     theme: TTheme;
@@ -12,21 +13,21 @@ type Props = {
     disabled: boolean;
 };
 
-export const CleanButton: React.FC<Props> = ({ theme, onCleanAll, disabled, translations }) => {
-    const themedStyles = styles();
+export const CleanButton: React.FC<Props> = ({ theme, onCleanAll, disabled }) => {
+    const themedStyles = styles(theme);
 
     return (
         <div css={themedStyles.cleanWrapper} data-test-id={TEST_IDS.CLEAN_EVERYTHING_BUTTON}>
-            <TextButton theme={theme} onClick={onCleanAll} small disabled={disabled}>
-                {translations.CLEAN}
-            </TextButton>
+            <AppButton theme={theme} onClick={onCleanAll} small disabled={disabled} icon={<DeleteOutlined />} />
         </div>
     );
 };
 
-const styles = () => ({
+const styles = (theme: TTheme) => ({
     cleanWrapper: css`
         display: flex;
         justify-content: flex-end;
+
+        margin-top: ${theme.baseSpace * 3}px;
     `,
 });

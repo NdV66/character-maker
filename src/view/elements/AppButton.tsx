@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { PropsWithChildren } from 'react';
 import { TEST_IDS } from '../../defaults';
 import { TTheme } from '../../types';
 
-type Props = PropsWithChildren<{
+type Props = {
     onClick: () => void;
     theme: TTheme;
-
+    icon: React.ReactNode;
     small?: boolean;
     disabled?: boolean;
-}>;
+};
 
-export const TextButton: React.FC<Props> = ({ onClick, theme, children, small, disabled }) => {
+export const AppButton: React.FC<Props> = ({ onClick, theme, small, disabled, icon }) => {
     const themedStyles = styles(theme, small);
 
     const handleOnClick = disabled ? () => {} : onClick;
@@ -23,9 +22,9 @@ export const TextButton: React.FC<Props> = ({ onClick, theme, children, small, d
             role="button"
             onClick={handleOnClick}
             css={[themedStyles.button, disabled && themedStyles.disabled]}
-            data-test-id={TEST_IDS.TEXT_BUTTON}
+            data-test-id={TEST_IDS.APP_BUTTON}
         >
-            {children}
+            {icon}
         </div>
     );
 };
@@ -36,16 +35,9 @@ const styles = (theme: TTheme, small?: boolean) => ({
         color: ${theme.primary};
         font-size: ${small ? theme.smallFontSize : theme.fontSize}px;
         cursor: pointer;
-        font-weight: 400;
-
-        &:hover,
-        &:active {
-            font-weight: 700;
-        }
     `,
     disabled: css`
         cursor: default;
         pointer-events: all !important;
-        opacity: 0.3;
     `,
 });
