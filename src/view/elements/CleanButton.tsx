@@ -27,7 +27,6 @@ const styles = (theme: TTheme) => ({
     cleanWrapper: css`
         display: flex;
         justify-content: flex-end;
-
         margin-top: ${theme.baseSpace * 3}px;
     `,
 });
