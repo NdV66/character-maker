@@ -1,9 +1,9 @@
-import { AppLangs, IAppContextViewModel, TTranslationsLang } from '../../types';
-import { appContextViewModelMock } from '../mocks';
+import { AppLangs, IAppContextViewModel, TTranslationsLang } from '../../../types';
+import { appContextViewModelMock } from '../../mocks';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { ChangeLangElementViewModel } from '../../models/viewModels/ChangeLangElementViewModel';
-import { TEXTS_EN } from '../../langs/en';
+import { ChangeLangElementViewModel } from '../../../models/viewModels/ChangeLangElementViewModel';
+import { TEXTS_EN } from '../../../langs/en';
 
 describe('AppContextViewModel', () => {
     let appContextViewModelMok: IAppContextViewModel;

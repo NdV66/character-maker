@@ -1,9 +1,9 @@
-import { AppTheme, IAppContextViewModel } from '../../types';
-import { appContextViewModelMock } from '../mocks';
+import { AppTheme, IAppContextViewModel } from '../../../types';
+import { appContextViewModelMock } from '../../mocks';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { ThemeButtonElementViewModel } from '../../models';
-import { TEXTS_EN } from '../../langs/en';
+import { ThemeButtonElementViewModel } from '../../../models';
+import { TEXTS_EN } from '../../../langs/en';
 
 describe('ThemeButtonElementViewModel', () => {
     let appContextViewModelMok: IAppContextViewModel;

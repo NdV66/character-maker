@@ -1,10 +1,10 @@
-import { AppContextViewModel } from '../../models/viewModels/AppContextViewModel';
-import { AppLangs, AppTheme, IAppGeneralSettings } from '../../types';
-import { appGeneralSettingsModelMock } from '../mocks';
+import { AppContextViewModel } from '../../../models/viewModels/AppContextViewModel';
+import { AppLangs, AppTheme, IAppGeneralSettings } from '../../../types';
+import { appGeneralSettingsModelMock } from '../../mocks';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { DARK_THEME } from '../../styles';
-import { TEXTS_EN } from '../../langs/en';
+import { DARK_THEME } from '../../../styles';
+import { TEXTS_EN } from '../../../langs/en';
 
 const EMIT_PATTERN = '-a';
 
