@@ -8,6 +8,7 @@ import { IAppTheme } from '../types';
 
 export const selectTheme = (theme: AppTheme) => (theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME);
 
+//TODO: refactor, the same as for AppLangModel, with PureModel
 export class AppThemeModel implements IAppTheme {
     private _appThemeSubject = new ReplaySubject<AppTheme>(1);
 

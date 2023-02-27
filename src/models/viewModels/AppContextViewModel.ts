@@ -14,7 +14,7 @@ export class AppContextViewModel implements IAppContextViewModel {
     }
 
     get translations$() {
-        return this._appGeneralSettings.appLangModel.translations;
+        return this._appGeneralSettings.appLangModel.translations$;
     }
 
     get isLoading$() {
@@ -22,7 +22,7 @@ export class AppContextViewModel implements IAppContextViewModel {
     }
 
     get appLang$() {
-        return this._appGeneralSettings.appLangModel.appLang;
+        return this._appGeneralSettings.appLangModel.appLang$;
     }
 
     get appTheme$() {

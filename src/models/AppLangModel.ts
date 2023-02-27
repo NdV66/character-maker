@@ -1,31 +1,35 @@
-import { AppLangs, TTranslations } from '../types';
+import { AppLangs, IAppLangPure, TTranslations } from '../types';
 import { map, connect, Subject } from 'rxjs';
 import { LangManager } from '../langs/LangManager';
-import { COOKIE_LANG_KEY, DEFAULTS } from '../defaults';
-import { getFromCookies, setCookie } from '../services';
 import { IAppLang } from '../types';
 
-export const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
+const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
 
 export class AppLangModel implements IAppLang {
-    private _appLangSubject = new Subject<AppLangs>();
-    public appLang = this._appLangSubject.pipe(connect(() => this._appLangSubject));
-    public translations = this._appLangSubject.pipe(map(getLangFromManager));
+    private _appLangSubject$ = new Subject<AppLangs>();
+    public readonly appLang$ = this._appLangSubject$.pipe(connect(() => this._appLangSubject$));
+    public readonly translations$ = this._appLangSubject$.pipe(map(getLangFromManager));
 
-    constructor() {
+    constructor(private _appLangModelPure: IAppLangPure) {
         this._saveLangCookieOnChange();
+        this._updateLangSubject();
+    }
+
+    private _updateLangSubject() {
+        this._appLangSubject$.next(this._appLangModelPure.appLang);
     }
 
     private _saveLangCookieOnChange() {
-        this.appLang.subscribe((value) => setCookie(COOKIE_LANG_KEY, value));
+        this.appLang$.subscribe((value) => this._appLangModelPure.changeAppLang(value));
     }
 
     public setDefaultValue = () => {
-        const savedLang = getFromCookies<AppLangs>(COOKIE_LANG_KEY);
-        this.changeAppLang(savedLang || DEFAULTS.LANG);
+        this._appLangModelPure.setDefaultValue();
+        this._updateLangSubject();
     };
 
     public changeAppLang = (newLang: AppLangs) => {
-        this._appLangSubject.next(newLang);
+        this._appLangSubject$.next(newLang);
+        this._updateLangSubject();
     };
 }

@@ -31,7 +31,7 @@ describe('AppContextViewModel', () => {
 
     test('Should return current translations$', () => {
         const translations = TEXTS_EN;
-        generalSettingsModelMock.appLangModel.translations = new Observable((observer) => observer.next(translations));
+        generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(translations));
 
         testScheduler.run(({ expectObservable }) => {
             const model = new AppContextViewModel(generalSettingsModelMock);
@@ -41,7 +41,7 @@ describe('AppContextViewModel', () => {
 
     test('Should return current appLang$', () => {
         const lang = AppLangs.PL;
-        generalSettingsModelMock.appLangModel.appLang = new Observable((observer) => observer.next(lang));
+        generalSettingsModelMock.appLangModel.appLang$ = new Observable((observer) => observer.next(lang));
 
         testScheduler.run(({ expectObservable }) => {
             const model = new AppContextViewModel(generalSettingsModelMock);
@@ -62,7 +62,7 @@ describe('AppContextViewModel', () => {
     describe('isLoading', () => {
         test('- is false (theme and translations are available)', () => {
             let model: AppContextViewModel;
-            generalSettingsModelMock.appLangModel.translations = new Observable((observer) => observer.next(TEXTS_EN));
+            generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
             generalSettingsModelMock.appThemeModel.theme = new Observable((observer) => observer.next(DARK_THEME));
 
             testScheduler.run(({ expectObservable }) => {
@@ -73,7 +73,9 @@ describe('AppContextViewModel', () => {
 
         test('- is true (theme and translations are both not available)', () => {
             let model: AppContextViewModel;
-            generalSettingsModelMock.appLangModel.translations = new Observable((observer) => observer.next(undefined));
+            generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) =>
+                observer.next(undefined),
+            );
             generalSettingsModelMock.appThemeModel.theme = new Observable((observer) => observer.next(undefined));
 
             testScheduler.run(({ expectObservable }) => {
@@ -84,7 +86,9 @@ describe('AppContextViewModel', () => {
 
         test('- is true (theme is available but translations are not)', () => {
             let model: AppContextViewModel;
-            generalSettingsModelMock.appLangModel.translations = new Observable((observer) => observer.next(undefined));
+            generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) =>
+                observer.next(undefined),
+            );
             generalSettingsModelMock.appThemeModel.theme = new Observable((observer) => observer.next(DARK_THEME));
 
             testScheduler.run(({ expectObservable }) => {
@@ -95,7 +99,7 @@ describe('AppContextViewModel', () => {
 
         test('- is true (translations are available but theme is not)', () => {
             let model: AppContextViewModel;
-            generalSettingsModelMock.appLangModel.translations = new Observable((observer) => observer.next(TEXTS_EN));
+            generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
             generalSettingsModelMock.appThemeModel.theme = new Observable((observer) => observer.next(undefined));
 
             testScheduler.run(({ expectObservable }) => {
