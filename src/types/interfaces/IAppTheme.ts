@@ -9,3 +9,10 @@ export interface IAppTheme {
     setDefaultValue: () => void;
     toggleAppTheme: () => void;
 }
+
+export interface IAppThemePure {
+    appTheme: AppTheme;
+
+    setDefaultValue: () => void;
+    setAppTheme: (value: AppTheme) => void;
+}

@@ -17,7 +17,6 @@ export class AppLangModel implements IAppLang {
 
     constructor(private _appLangModelPure: IAppLangPure) {
         this._saveLangCookieOnChange();
-        this._updateLangSubject();
     }
 
     private _updateLangSubject(newLang?: AppLangs) {
@@ -30,8 +29,8 @@ export class AppLangModel implements IAppLang {
     }
 
     public setDefaultValue = () => {
-        this._appLangModelPure.setDefaultValue();
-        this._updateLangSubject();
+        const lang = this._appLangModelPure.setDefaultValue();
+        this._updateLangSubject(lang);
     };
 
     public changeAppLang = (newLang: AppLangs) => {

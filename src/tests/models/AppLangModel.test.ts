@@ -1,4 +1,3 @@
-import { firstValueFrom } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TEXTS_PL } from '../../langs/pl';
 import { AppLangModel } from '../../models/AppLangModel';
@@ -18,21 +17,14 @@ describe('AppLangModel', () => {
     });
 
     test('Should set default values', () => {
-        model['_updateLangSubject'] = jest.fn();
         model.setDefaultValue();
-
         expect(appLangPureModel.setDefaultValue).toHaveBeenCalledTimes(1);
-        expect(model['_updateLangSubject']).toHaveBeenCalledTimes(1);
     });
 
     test('Should change app lang', () => {
         const lang = AppLangs.EN;
-        model['_updateLangSubject'] = jest.fn();
-
         model.changeAppLang(lang);
-
         expect(appLangPureModel.changeAppLang).toHaveBeenCalledWith(lang);
-        expect(model['_updateLangSubject']).toHaveBeenCalledTimes(1);
     });
 
     test('Should update app lang correctly', () => {

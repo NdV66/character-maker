@@ -17,6 +17,7 @@ import { AppGeneralSettingsModel } from '../models/AppGeneralSettingsModel';
 import { AppLangModel } from '../models/AppLangModel';
 import { AppThemeModel } from '../models/AppThemeModel';
 import { AppLangModelPure } from '../models/AppLangPureModel';
+import { AppThemePureModel } from '../models/AppThemePureModel';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
@@ -25,8 +26,9 @@ const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
 });
 
 const appLangModelPure = new AppLangModelPure();
+const appThemeModelPure = new AppThemePureModel();
 const lang = new AppLangModel(appLangModelPure);
-const theme = new AppThemeModel();
+const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
 const characterTraitManagerSingleton = new CharacterTraitsManagerModel(pairs);

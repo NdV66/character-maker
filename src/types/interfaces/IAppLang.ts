@@ -12,6 +12,6 @@ export interface IAppLang {
 export interface IAppLangPure {
     appLang: AppLangs;
 
-    setDefaultValue: () => void;
+    setDefaultValue: () => AppLangs;
     changeAppLang: (newLang: AppLangs) => void;
 }

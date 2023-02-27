@@ -13,6 +13,7 @@ export class AppLangModelPure implements IAppLangPure {
         const savedLang = getFromCookies<AppLangs>(COOKIE_LANG_KEY);
         const lang = savedLang || DEFAULTS.LANG;
         setCookie(COOKIE_LANG_KEY, lang);
+        return lang;
     };
 
     public changeAppLang = (newLang: AppLangs) => {

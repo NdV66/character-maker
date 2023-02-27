@@ -1,36 +1,39 @@
-import { AppTheme } from '../types';
+import { AppTheme, IAppThemePure } from '../types';
 import { map, connect, firstValueFrom, ReplaySubject } from 'rxjs';
-
 import { DARK_THEME, LIGHT_THEME } from '../styles';
-import { DEFAULTS, COOKIE_THEME_KEY } from '../defaults';
-import { getFromCookies, getNewAppTheme, setCookie } from '../services';
+import { getNewAppTheme } from '../services';
 import { IAppTheme } from '../types';
 
 export const selectTheme = (theme: AppTheme) => (theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME);
 
-//TODO: refactor, the same as for AppLangModel, with PureModel
 export class AppThemeModel implements IAppTheme {
     private _appThemeSubject = new ReplaySubject<AppTheme>(1);
 
     public appTheme = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));
     public theme = this.appTheme.pipe(map(selectTheme));
 
-    constructor() {
+    constructor(private _appThemePureModel: IAppThemePure) {
         this._saveAppThemeInCookieOnChange();
     }
 
+    private _updateAppThemeSubject() {
+        this._appThemeSubject.next(this._appThemePureModel.appTheme);
+    }
+
     private _saveAppThemeInCookieOnChange() {
-        this.appTheme.subscribe((value) => setCookie(COOKIE_THEME_KEY, value));
+        this.appTheme.subscribe((value) => this._appThemePureModel.setAppTheme(value));
     }
 
     public setDefaultValue = () => {
-        const savedTheme = getFromCookies<AppTheme>(COOKIE_THEME_KEY);
-        this._appThemeSubject.next(savedTheme || DEFAULTS.APP_THEME);
+        this._appThemePureModel.setDefaultValue();
+        this._updateAppThemeSubject();
     };
 
     public toggleAppTheme = async () => {
         const currentTheme = await firstValueFrom(this._appThemeSubject);
         const newTheme = getNewAppTheme(currentTheme);
-        this._appThemeSubject.next(newTheme);
+
+        this._appThemePureModel.setAppTheme(newTheme);
+        this._updateAppThemeSubject();
     };
 }
