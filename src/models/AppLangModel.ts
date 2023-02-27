@@ -6,17 +6,23 @@ import { IAppLang } from '../types';
 const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
 
 export class AppLangModel implements IAppLang {
-    private _appLangSubject$ = new Subject<AppLangs>();
-    public readonly appLang$ = this._appLangSubject$.pipe(connect(() => this._appLangSubject$));
-    public readonly translations$ = this._appLangSubject$.pipe(map(getLangFromManager));
+    private _appLang$ = new Subject<AppLangs>();
+    private _translations$ = this._appLang$.pipe(map(getLangFromManager));
+
+    public readonly appLang$ = this._appLang$.pipe(connect(() => this._appLang$));
+
+    get translations$() {
+        return this._translations$;
+    }
 
     constructor(private _appLangModelPure: IAppLangPure) {
         this._saveLangCookieOnChange();
         this._updateLangSubject();
     }
 
-    private _updateLangSubject() {
-        this._appLangSubject$.next(this._appLangModelPure.appLang);
+    private _updateLangSubject(newLang?: AppLangs) {
+        const lang = newLang || this._appLangModelPure.appLang;
+        this._appLang$.next(lang);
     }
 
     private _saveLangCookieOnChange() {
@@ -29,7 +35,6 @@ export class AppLangModel implements IAppLang {
     };
 
     public changeAppLang = (newLang: AppLangs) => {
-        this._appLangSubject$.next(newLang);
-        this._updateLangSubject();
+        this._updateLangSubject(newLang);
     };
 }

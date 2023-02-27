@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { AppLangs } from '../../types';
+import { DEFAULTS } from '../../defaults';
 
 export const appLangModelMock = () => ({
     appLang$: new Subject(),
@@ -9,7 +9,7 @@ export const appLangModelMock = () => ({
     changeAppLang: jest.fn(),
 });
 
-export const appLangPureModelMock = (appLang = AppLangs.PL) => ({
+export const appLangPureModelMock = (appLang = DEFAULTS.LANG) => ({
     appLang,
 
     setDefaultValue: jest.fn(),

@@ -1,5 +1,6 @@
+import { firstValueFrom } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { DEFAULTS } from '../../defaults';
+import { TEXTS_PL } from '../../langs/pl';
 import { AppLangModel } from '../../models/AppLangModel';
 import { AppLangs } from '../../types';
 import { appLangPureModelMock } from '../mocks/appLangModelMock';
@@ -12,7 +13,6 @@ describe('AppLangModel', () => {
     beforeEach(() => {
         model = new AppLangModel(appLangPureModel);
         testScheduler = new TestScheduler((actual, expected) => {
-            console.log('>>>', actual, expected);
             expect(actual).toEqual(expected);
         });
     });
@@ -35,14 +35,25 @@ describe('AppLangModel', () => {
         expect(model['_updateLangSubject']).toHaveBeenCalledTimes(1);
     });
 
-    // test('Should update app lang correctly', () => {
-    //     const lang = AppLangs.PL;
+    test('Should update app lang correctly', () => {
+        const lang = AppLangs.PL;
 
-    //     testScheduler.run(({ expectObservable }) => {
-    //         model.changeAppLang(lang);
-    //         expectObservable(model['_appLangSubject$']).toBe('ab', { a: DEFAULTS.LANG, b: lang });
-    //     });
-    // });
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => model.changeAppLang(lang));
+            expectObservable(model['_appLang$']).toBe('-a', { a: lang });
+            expectObservable(model.appLang$).toBe('-a', { a: lang });
+        });
+    });
+
+    test('Should return correct translate based on current app lang (after change)', () => {
+        const lang = AppLangs.PL;
+
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => model.changeAppLang(lang));
+            expectObservable(model['_translations$']).toBe('-a', { a: TEXTS_PL });
+            expectObservable(model.translations$).toBe('-a', { a: TEXTS_PL });
+        });
+    });
 });
 
 export {};
