@@ -4,3 +4,4 @@ export * from './CharacterTraitModel';
 export * from './CharacterTraitsManagerModel';
 export * from './CharacterTraitsPairModel';
 export * from './GenericSingletonManager';
+export * from './CookiesManager';

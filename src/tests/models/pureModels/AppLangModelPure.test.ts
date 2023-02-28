@@ -1,5 +1,5 @@
 import { COOKIE_LANG_KEY, DEFAULTS } from '../../../defaults';
-import { AppLangModelPure } from '../../../models';
+import { AppLangModelPure } from '../../../models/pureModels/AppLangPureModel';
 import { AppLangs } from '../../../types';
 import { cookiesManagerMock } from '../../mocks';
 

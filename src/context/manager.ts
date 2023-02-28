@@ -1,12 +1,11 @@
 import { CHARACTER_TRAITS_PAIRS } from '../defaults';
-import { AppLangs, Models } from '../types';
+import { Models } from '../types';
 import {
     CharacterTraitModel,
     CharacterTraitsPairModel,
     AppLangModelPure,
     AppThemePureModel,
     AppThemeModel,
-    AppLangModel,
     AppGeneralSettingsModel,
     CharacterTraitsManagerModel,
     AppContextViewModel,
@@ -17,15 +16,11 @@ import {
     FooterViewModel,
     MainContentViewModel,
     GenericSingletonManager,
+    AppLangModel,
+    CookiesManager,
 } from '../models';
-import { CookiesManager } from '../models/pureModels/CookiesManager';
-import { TEXTS_EN } from '../langs/en';
-import { TEXTS_PL } from '../langs/pl';
+import { langManager } from './langManager';
 
-const langs = {
-    [AppLangs.EN]: TEXTS_EN,
-    [AppLangs.PL]: TEXTS_PL,
-};
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
     const oppositeTrait = new CharacterTraitModel(el.opposite, el.opposite);
@@ -36,7 +31,7 @@ const cookiesManager = new CookiesManager();
 
 const appLangModelPure = new AppLangModelPure(cookiesManager);
 const appThemeModelPure = new AppThemePureModel(cookiesManager);
-const lang = new AppLangModel(appLangModelPure);
+const lang = new AppLangModel(appLangModelPure, langManager);
 const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
@@ -56,4 +51,3 @@ const MODELS = {
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);
-export const LangManager = new GenericSingletonManager(langs);

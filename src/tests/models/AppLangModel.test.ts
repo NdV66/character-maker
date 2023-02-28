@@ -1,6 +1,7 @@
 import { TestScheduler } from 'rxjs/testing';
+import { langManager } from '../../context/langManager';
 import { TEXTS_PL } from '../../langs/pl';
-import { AppLangModel } from '../../models';
+import { AppLangModel } from '../../models/context/AppLangModel';
 import { AppLangs } from '../../types';
 import { appLangPureModelMock } from '../mocks/appLangModelMock';
 
@@ -10,7 +11,7 @@ describe('AppLangModel', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(() => {
-        model = new AppLangModel(appLangPureModel);
+        model = new AppLangModel(appLangPureModel, langManager);
         testScheduler = new TestScheduler((actual, expected) => {
             expect(actual).toEqual(expected);
         });

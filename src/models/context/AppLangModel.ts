@@ -1,22 +1,24 @@
 import { AppLangs, IAppLangPure, TTranslations } from '../../types';
 import { map, connect, Subject } from 'rxjs';
 import { IAppLang } from '../../types';
-import { LangManager } from '../../context/manager';
-
-const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
+import { IGenericSingletonManager } from '../../types/interfaces/IGenericSingletonManager';
 
 export class AppLangModel implements IAppLang {
     private _appLang$ = new Subject<AppLangs>();
-    private _translations$ = this._appLang$.pipe(map(getLangFromManager));
+    private _translations$ = this._appLang$.pipe(map((value) => this._getLangFromManager(value)));
 
     public readonly appLang$ = this._appLang$.pipe(connect(() => this._appLang$));
+
+    constructor(private _appLangModelPure: IAppLangPure, private _langManager: IGenericSingletonManager) {
+        this._saveLangCookieOnChange();
+    }
 
     get translations$() {
         return this._translations$;
     }
 
-    constructor(private _appLangModelPure: IAppLangPure) {
-        this._saveLangCookieOnChange();
+    private _getLangFromManager(lang: AppLangs) {
+        return this._langManager.getSingleton<TTranslations>(lang);
     }
 
     private _updateLangSubject(newLang?: AppLangs) {
