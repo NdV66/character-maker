@@ -1,6 +1,6 @@
-import { DEFAULTS } from '../../defaults';
-import { CharacterTraitsPairModel } from '../../models';
-import { characterTraitModelMock } from '../mocks';
+import { DEFAULTS } from '../../../defaults';
+import { CharacterTraitsPairModel } from '../../../models';
+import { characterTraitModelMock } from '../../mocks';
 
 const ID = '1';
 const characterTrait = characterTraitModelMock('1', 'key1', 20);

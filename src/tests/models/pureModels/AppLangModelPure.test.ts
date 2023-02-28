@@ -1,14 +1,13 @@
-import { COOKIE_LANG_KEY, DEFAULTS } from '../../defaults';
-import { AppLangModelPure } from '../../models';
-import { AppLangs } from '../../types';
-import * as cookiesModule from '../../services/cookies.service';
+import { COOKIE_LANG_KEY, DEFAULTS } from '../../../defaults';
+import { AppLangModelPure } from '../../../models';
+import { AppLangs } from '../../../types';
+import { cookiesManagerMock } from '../../mocks';
 
 describe('AppLangModelPure', () => {
     let model: AppLangModelPure;
 
     beforeEach(() => {
-        jest.spyOn(cookiesModule, 'setCookie').mockReturnValue(undefined);
-        model = new AppLangModelPure();
+        model = new AppLangModelPure(cookiesManagerMock);
     });
 
     test('Should have default appLang on enter', () => {
@@ -20,25 +19,25 @@ describe('AppLangModelPure', () => {
         model.changeAppLang(lang);
 
         expect(model.appLang).toBe(lang);
-        expect(cookiesModule.setCookie).toHaveBeenCalledTimes(1);
-        expect(cookiesModule.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, lang);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledTimes(1);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, lang);
     });
 
     test('Should set default value (nothing from a lang cookie)', () => {
         model.setDefaultValue();
 
         expect(model.appLang).toBe(DEFAULTS.LANG);
-        expect(cookiesModule.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, DEFAULTS.LANG);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, DEFAULTS.LANG);
     });
 
     test('Should set default value (with value from a lang cookie)', () => {
         const savedLang = AppLangs.PL;
-        jest.spyOn(cookiesModule, 'getFromCookies').mockReturnValue(savedLang);
+        cookiesManagerMock.getFromCookies = jest.fn().mockReturnValue(savedLang);
 
         model.setDefaultValue();
 
         expect(model.appLang).toBe(savedLang);
-        expect(cookiesModule.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, savedLang);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, savedLang);
     });
 });
 

@@ -1,12 +1,13 @@
-import { AppThemePureModel } from '../../models';
-import { AppTheme } from '../../types';
+import { AppThemePureModel } from '../../../models';
+import { AppTheme } from '../../../types';
+import { cookiesManagerMock } from '../../mocks';
 
 //TODO: more tests
 describe('AppThemePureModel', () => {
     let model: AppThemePureModel;
 
     beforeEach(() => {
-        model = new AppThemePureModel();
+        model = new AppThemePureModel(cookiesManagerMock);
     });
 
     describe('getNewAppTheme', () => {

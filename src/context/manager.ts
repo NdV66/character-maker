@@ -18,6 +18,7 @@ import {
     FooterViewModel,
     MainContentViewModel,
 } from '../models';
+import { CookiesManager } from '../models/pureModels/CookiesManager';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
@@ -25,8 +26,10 @@ const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     return new CharacterTraitsPairModel(el.id, mainTrait, oppositeTrait);
 });
 
-const appLangModelPure = new AppLangModelPure();
-const appThemeModelPure = new AppThemePureModel();
+const cookiesManager = new CookiesManager();
+
+const appLangModelPure = new AppLangModelPure(cookiesManager);
+const appThemeModelPure = new AppThemePureModel(cookiesManager);
 const lang = new AppLangModel(appLangModelPure);
 const theme = new AppThemeModel(appThemeModelPure);
 

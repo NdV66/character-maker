@@ -1,7 +1,7 @@
-import { NOT_FOUND_ERROR } from '../../defaults';
-import { CharacterTraitsManagerModel } from '../../models';
-import { ICharacterTrait } from '../../types';
-import { characterTraitModelMock, characterTraitsPairModelMock } from '../mocks';
+import { NOT_FOUND_ERROR } from '../../../defaults';
+import { CharacterTraitsManagerModel } from '../../../models';
+import { ICharacterTrait } from '../../../types';
+import { characterTraitModelMock, characterTraitsPairModelMock } from '../../mocks';
 
 const ID = 'pair1';
 const characterTrait = characterTraitModelMock('1', 'key1', 20) as ICharacterTrait;
