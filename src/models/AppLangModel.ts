@@ -29,8 +29,8 @@ export class AppLangModel implements IAppLang {
     }
 
     public setDefaultValue = () => {
-        const lang = this._appLangModelPure.setDefaultValue();
-        this._updateLangSubject(lang);
+        this._appLangModelPure.setDefaultValue();
+        this._updateLangSubject();
     };
 
     public changeAppLang = (newLang: AppLangs) => {
