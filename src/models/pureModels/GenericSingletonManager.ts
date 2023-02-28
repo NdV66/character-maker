@@ -1,7 +1,8 @@
-import { NOT_FOUND_ERROR } from '../defaults';
-import { TSingletons } from '../types';
+import { NOT_FOUND_ERROR } from '../../defaults';
+import { TSingletons } from '../../types';
+import { IGenericSingletonManager } from '../../types/interfaces/IGenericSingletonManager';
 
-export class GenericSingletonManager {
+export class GenericSingletonManager implements IGenericSingletonManager {
     private _singletons: TSingletons = {};
 
     constructor(singletons: TSingletons) {

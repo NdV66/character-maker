@@ -1,7 +1,7 @@
-import { IAppContextViewModel, ICharacterTraitsManager, TCharacterTraitPairLight } from '../../types';
-import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewModelMock } from '../mocks';
+import { IAppContextViewModel, ICharacterTraitsManager, TCharacterTraitPairLight } from '../../../types';
+import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewModelMock } from '../../mocks';
 import { TestScheduler } from 'rxjs/testing';
-import { CharacterTraitsElementViewModel } from '../../models';
+import { CharacterTraitsElementViewModel } from '../../../models';
 
 const PREPARED_DATA: TCharacterTraitPairLight = {
     [TRAIT_PAIR.id]: {

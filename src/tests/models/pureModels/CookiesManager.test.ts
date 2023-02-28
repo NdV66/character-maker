@@ -1,28 +1,32 @@
 import Cookies from 'js-cookie';
-import { COOKIE_OPTIONS, getFromCookies, setCookie } from '../../services/cookies.service';
+import { CookiesManager } from '../../../models/pureModels/CookiesManager';
 
 const KEY = 'TEST_KEY';
 const VALUE = 'lotr';
 
-describe('getFromCookies', () => {
+describe('CookiesManager', () => {
+    let model: CookiesManager;
+
+    beforeEach(() => {
+        model = new CookiesManager();
+    });
+
     test('should set value in cookies', () => {
         const mock = jest.spyOn(Cookies, 'set');
-
-        setCookie(KEY, VALUE);
+        model.setCookie(KEY, VALUE);
 
         expect(mock).toBeCalledTimes(1);
-        expect(mock).toBeCalledWith(KEY, VALUE, COOKIE_OPTIONS);
+        expect(mock).toBeCalledWith(KEY, VALUE, CookiesManager['_COOKIE_OPTIONS']);
     });
-});
 
-describe('getFromCookies', () => {
     test('should set value in cookies', () => {
         const mock = jest.spyOn(Cookies, 'get').mockReturnValue(VALUE as any);
-
-        const result = getFromCookies(KEY);
+        const result = model.getFromCookies(KEY);
 
         expect(mock).toBeCalledTimes(1);
         expect(mock).toBeCalledWith(KEY);
         expect(result).toBe(VALUE);
     });
 });
+
+export {};

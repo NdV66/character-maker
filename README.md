@@ -1,7 +1,7 @@
 # Getting Started with Character Maker
 
 #### Why?
-Because I want to have a simple example with RxJS where I'm able to learn new topics :)
+Because I want to have a simple example with RxJS and SOLID where I'm able to learn new topics :)
 
 ## How to: run locally
 - Node.js (>= 16) is installed
@@ -25,7 +25,7 @@ Because I want to have a simple example with RxJS where I'm able to learn new to
 # Folder structure
 
 #### `/context`
-React Context and its wrapper.
+A place where all models (include model and lang managers) are initialized.
 
 #### `/defaults`
 Files with all defaults names, configurations etc.
@@ -34,11 +34,17 @@ Files with all defaults names, configurations etc.
 Files with translations.
 
 #### `/models`
-All app MAIN models for store and manipulate any data. \
-Each of them should be use as singletons (always).
+All  models for store and manipulate any kind of data.
 
-#### `/services`
-All hard app logic (calculations etc.)
+###### `/models/pureModels`
+All basics models for store and manipulate any kind of data.\
+These models can be simple or more advanced.
+
+###### `/models/viewModels`
+Dedicated model for every logical part of the page
+
+###### `/models/context`
+Application context (global settings and data - should be available in the whole app)
 
 #### `/styles`
 All app themes (light, dark) variables and basic plain CSS (like @font-face).
@@ -47,30 +53,42 @@ All app themes (light, dark) variables and basic plain CSS (like @font-face).
 All helpers, tools etc.
 
 #### `/types`
-All more important types in the application.
+All more important or global types in the application.
+
+###### `/types/interfaces`
+All interfaces for models
 
 #### `/view`
-All views of the applications. It contains `elements` and `page` folders, where:
+All views of the applications.
 
-- `/view/elements`
+###### `/view/elements`
 All basic elements with ots styles, like buttons, inputs etc.
 
-- `/view/page`
+###### `/view/page`
 All main elements of the main page.
 
-### `/viewModels`
-Dedicated model () for every view (if needed).
+#### `/tests`
+All unit tests are welcome here :)
 
 # Code pattern
-- `View` is a bigger visual component, a part of the page (for example: rolls element).
- - `ViewModel` is a dedicated data source for the view.
-- `Context (from React)` is a place for all global settings (for example: default language). Any changes in these variables makes changes in the full app, see https://reactjs.org/docs/context.html for more details.
-- `Model` is a place for storing data. Every model should be a logic part of the feature.
-- `Service` is a place for making all app business logic (for example: calculations).
-
 Connections between described above elements are showed here:
 
-![See doc/pattern.jpg for more information about the app flow.](./doc/pattern.jpg "Pattern")
+![See doc/pattern.jpg for more information about the app flow.](./doc/pattern.jpeg "Pattern")
+
+# Dev tips & tricks
+#### How to add new model to the app?
+1. Prepare interface for this model and place it inside `/types/interfaces` (and export this interface).
+- interface name should start with "I", for example: `IAppTheme`.
+- file should have the same name as this interface.
+2. Add this new interface to the `index.js` inside `/types/interfaces` (use `export * from './INewInterface'`).
+3. Decide which type of model should be your and select a correct folder (`/models/context`, `/models/pureModel` or `/models/viewModel`).
+- class name should be name of the implemented interface, but without "I" and with "Model" word at the end, for example: `AppThemeModel`  from `IAppTheme` interface name.
+- file should have the same name as this model (class).
+4. Implement your new model (and implements its interface) and export it.
+5. Add this new model to the `index.js` inside `/model/<type>` (use `export * from './INewInterface'`).
+6. Create instance of your model in the `/context/manager.ts` file
+7. Add this instance to the `MODELS` in the `/context/manager.ts` file (if necessary)
+8. Prepare unit tests for you model.
 
 # Available Scripts
 In the project directory, you can run:
@@ -79,7 +97,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-- `yarn test` (NOT YET)
+- `yarn test`
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 

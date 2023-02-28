@@ -1,21 +1,25 @@
 import { CHARACTER_TRAITS_PAIRS } from '../defaults';
-import { GenericSingletonManager } from '../tools';
 import { Models } from '../types';
-import { CharacterTraitsManagerModel } from '../models/CharacterTraitsManagerModel';
-import { CharacterTraitsPairModel } from '../models/CharacterTraitsPairModel';
-import { CharacterTraitModel } from '../models/CharacterTraitModel';
 import {
+    CharacterTraitModel,
+    CharacterTraitsPairModel,
+    AppLangModelPure,
+    AppThemePureModel,
+    AppThemeModel,
+    AppGeneralSettingsModel,
+    CharacterTraitsManagerModel,
     AppContextViewModel,
-    CharacterTraitsElementViewModel,
-    ChangeLangElementViewModel,
     ThemeButtonElementViewModel,
+    ChangeLangElementViewModel,
+    CharacterTraitsElementViewModel,
     PageViewModel,
     FooterViewModel,
     MainContentViewModel,
-} from '../models/viewModels';
-import { AppGeneralSettingsModel } from '../models/AppGeneralSettingsModel';
-import { AppLangModel } from '../models/AppLangModel';
-import { AppThemeModel } from '../models/AppThemeModel';
+    GenericSingletonManager,
+    AppLangModel,
+    CookiesManager,
+} from '../models';
+import { langManager } from './langManager';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
@@ -23,8 +27,12 @@ const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     return new CharacterTraitsPairModel(el.id, mainTrait, oppositeTrait);
 });
 
-const lang = new AppLangModel();
-const theme = new AppThemeModel();
+const cookiesManager = new CookiesManager();
+
+const appLangModelPure = new AppLangModelPure(cookiesManager);
+const appThemeModelPure = new AppThemePureModel(cookiesManager);
+const lang = new AppLangModel(appLangModelPure, langManager);
+const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
 const characterTraitManagerSingleton = new CharacterTraitsManagerModel(pairs);
