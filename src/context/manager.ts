@@ -1,6 +1,5 @@
 import { CHARACTER_TRAITS_PAIRS } from '../defaults';
-import { GenericSingletonManager } from '../tools';
-import { Models } from '../types';
+import { AppLangs, Models } from '../types';
 import {
     CharacterTraitModel,
     CharacterTraitsPairModel,
@@ -17,9 +16,16 @@ import {
     PageViewModel,
     FooterViewModel,
     MainContentViewModel,
+    GenericSingletonManager,
 } from '../models';
 import { CookiesManager } from '../models/pureModels/CookiesManager';
+import { TEXTS_EN } from '../langs/en';
+import { TEXTS_PL } from '../langs/pl';
 
+const langs = {
+    [AppLangs.EN]: TEXTS_EN,
+    [AppLangs.PL]: TEXTS_PL,
+};
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
     const oppositeTrait = new CharacterTraitModel(el.opposite, el.opposite);
@@ -50,3 +56,4 @@ const MODELS = {
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);
+export const LangManager = new GenericSingletonManager(langs);

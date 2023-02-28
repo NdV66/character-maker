@@ -1,5 +1,5 @@
-import { NOT_FOUND_ERROR } from '../defaults';
-import { TSingletons } from '../types';
+import { NOT_FOUND_ERROR } from '../../defaults';
+import { TSingletons } from '../../types';
 
 export class GenericSingletonManager {
     private _singletons: TSingletons = {};

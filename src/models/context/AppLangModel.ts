@@ -1,7 +1,7 @@
 import { AppLangs, IAppLangPure, TTranslations } from '../../types';
 import { map, connect, Subject } from 'rxjs';
-import { LangManager } from '../../langs/LangManager';
 import { IAppLang } from '../../types';
+import { LangManager } from '../../context/manager';
 
 const getLangFromManager = (lang: AppLangs) => LangManager.getSingleton<TTranslations>(lang);
 
