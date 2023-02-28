@@ -3,20 +3,21 @@ import { AppTheme, IAppThemePure, IAppTheme, TTheme } from '../../types';
 
 export class AppThemeModel implements IAppTheme {
     private _appThemeSubject = new ReplaySubject<AppTheme>(1);
-    public appTheme = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));
-    public readonly theme: Observable<TTheme>;
+    public readonly appTheme$ = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));
+    public readonly theme$: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
-        this.theme = this.appTheme.pipe(map((value) => this._appThemePureModel.getTheme(value)));
+        this.theme$ = this.appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value)));
         this._saveAppThemeInCookieOnChange();
     }
 
     private _updateAppThemeSubject() {
+        console.log('>>>> UWAGA', this._appThemePureModel.appTheme);
         this._appThemeSubject.next(this._appThemePureModel.appTheme);
     }
 
     private _saveAppThemeInCookieOnChange() {
-        this.appTheme.subscribe((value) => this._appThemePureModel.setAppTheme(value));
+        this.appTheme$.subscribe((value) => this._appThemePureModel.changeAppTheme(value));
     }
 
     public setDefaultValue = () => {
@@ -28,7 +29,7 @@ export class AppThemeModel implements IAppTheme {
         const currentTheme = await firstValueFrom(this._appThemeSubject);
         const newTheme = this._appThemePureModel.getNewAppTheme(currentTheme);
 
-        this._appThemePureModel.setAppTheme(newTheme);
+        this._appThemePureModel.changeAppTheme(newTheme);
         this._updateAppThemeSubject();
     };
 }

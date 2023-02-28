@@ -13,11 +13,11 @@ export class AppThemePureModel implements IAppThemePure {
 
     public setDefaultValue = () => {
         const savedTheme = this._cookiesManager.getFromCookies<AppTheme>(COOKIE_THEME_KEY);
-        const lang = savedTheme || DEFAULTS.APP_THEME;
-        this._appTheme = lang;
+        const theme = savedTheme || DEFAULTS.APP_THEME;
+        this.changeAppTheme(theme);
     };
 
-    public setAppTheme = (value: AppTheme) => {
+    public changeAppTheme = (value: AppTheme) => {
         this._appTheme = value;
         this._cookiesManager.setCookie(COOKIE_THEME_KEY, value);
     };
@@ -26,7 +26,6 @@ export class AppThemePureModel implements IAppThemePure {
         return appTheme === AppTheme.DARK ? AppTheme.LIGHT : AppTheme.DARK;
     }
 
-    //TODO: tests
     public getTheme(theme: AppTheme) {
         return theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME;
     }

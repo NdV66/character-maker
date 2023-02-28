@@ -1,9 +1,9 @@
 import { TestScheduler } from 'rxjs/testing';
-import { langManager } from '../../context/langManager';
-import { TEXTS_PL } from '../../langs/pl';
-import { AppLangModel } from '../../models/context/AppLangModel';
-import { AppLangs } from '../../types';
-import { appLangPureModelMock } from '../mocks/appLangModelMock';
+import { langManager } from '../../../context/langManager';
+import { TEXTS_PL } from '../../../langs/pl';
+import { AppLangModel } from '../../../models/context/AppLangModel';
+import { AppLangs } from '../../../types';
+import { appLangPureModelMock } from '../../mocks/appLangModelMock';
 
 describe('AppLangModel', () => {
     const appLangPureModel = appLangPureModelMock();

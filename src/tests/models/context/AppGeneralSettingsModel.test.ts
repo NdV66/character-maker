@@ -1,7 +1,7 @@
-import { AppGeneralSettingsModel } from '../../models/context/AppGeneralSettingsModel';
-import { IAppLang, IAppTheme } from '../../types';
-import { appLangModelMock } from '../mocks/appLangModelMock';
-import { appThemeModelMock } from '../mocks/appThemeModelMock';
+import { AppGeneralSettingsModel } from '../../../models/context/AppGeneralSettingsModel';
+import { IAppLang, IAppTheme } from '../../../types';
+import { appLangModelMock } from '../../mocks/appLangModelMock';
+import { appThemeModelMock } from '../../mocks/appThemeModelMock';
 
 describe('AppGeneralSettingsModel', () => {
     const appLangModel = appLangModelMock() as IAppLang;

@@ -10,7 +10,7 @@ export class AppContextViewModel implements IAppContextViewModel {
     }
 
     get theme$() {
-        return this._appGeneralSettings.appThemeModel.theme;
+        return this._appGeneralSettings.appThemeModel.theme$;
     }
 
     get translations$() {
@@ -26,7 +26,7 @@ export class AppContextViewModel implements IAppContextViewModel {
     }
 
     get appTheme$() {
-        return this._appGeneralSettings.appThemeModel.appTheme;
+        return this._appGeneralSettings.appThemeModel.appTheme$;
     }
 
     public setDefaultValues() {
