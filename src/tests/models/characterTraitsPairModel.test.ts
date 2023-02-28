@@ -1,5 +1,5 @@
 import { DEFAULTS } from '../../defaults';
-import { CharacterTraitsPairModel } from '../../models/CharacterTraitsPairModel';
+import { CharacterTraitsPairModel } from '../../models';
 import { characterTraitModelMock } from '../mocks';
 
 const ID = '1';

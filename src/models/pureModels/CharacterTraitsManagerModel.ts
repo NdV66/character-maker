@@ -1,7 +1,7 @@
 /* Main Manager for handle and update all character traits */
 
-import { NOT_FOUND_ERROR } from '../defaults';
-import { ICharacterTraitsPair, ICharacterTraitsManager } from '../types';
+import { NOT_FOUND_ERROR } from '../../defaults';
+import { ICharacterTraitsPair, ICharacterTraitsManager } from '../../types';
 
 export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _characterTraitsPairs: Map<ICharacterTraitsPair['id'], ICharacterTraitsPair>;

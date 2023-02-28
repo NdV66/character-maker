@@ -1,4 +1,4 @@
-import { AppGeneralSettingsModel } from '../../models/AppGeneralSettingsModel';
+import { AppGeneralSettingsModel } from '../../models/context/AppGeneralSettingsModel';
 import { IAppLang, IAppTheme } from '../../types';
 import { appLangModelMock } from '../mocks/appLangModelMock';
 import { appThemeModelMock } from '../mocks/appThemeModelMock';

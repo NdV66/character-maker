@@ -1,18 +1,13 @@
-import { AppTheme, IAppThemePure } from '../types';
-import { map, connect, firstValueFrom, ReplaySubject } from 'rxjs';
-import { DARK_THEME, LIGHT_THEME } from '../styles';
-import { getNewAppTheme } from '../services';
-import { IAppTheme } from '../types';
-
-export const selectTheme = (theme: AppTheme) => (theme === AppTheme.DARK ? DARK_THEME : LIGHT_THEME);
+import { map, connect, firstValueFrom, ReplaySubject, Observable } from 'rxjs';
+import { AppTheme, IAppThemePure, IAppTheme, TTheme } from '../../types';
 
 export class AppThemeModel implements IAppTheme {
     private _appThemeSubject = new ReplaySubject<AppTheme>(1);
-
     public appTheme = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));
-    public theme = this.appTheme.pipe(map(selectTheme));
+    public readonly theme: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
+        this.theme = this.appTheme.pipe(map((value) => this._appThemePureModel.getTheme(value)));
         this._saveAppThemeInCookieOnChange();
     }
 
@@ -31,7 +26,7 @@ export class AppThemeModel implements IAppTheme {
 
     public toggleAppTheme = async () => {
         const currentTheme = await firstValueFrom(this._appThemeSubject);
-        const newTheme = getNewAppTheme(currentTheme);
+        const newTheme = this._appThemePureModel.getNewAppTheme(currentTheme);
 
         this._appThemePureModel.setAppTheme(newTheme);
         this._updateAppThemeSubject();

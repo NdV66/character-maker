@@ -15,4 +15,6 @@ export interface IAppThemePure {
 
     setDefaultValue: () => void;
     setAppTheme: (value: AppTheme) => void;
+    getNewAppTheme: (appTheme: AppTheme) => AppTheme;
+    getTheme: (theme: AppTheme) => TTheme;
 }

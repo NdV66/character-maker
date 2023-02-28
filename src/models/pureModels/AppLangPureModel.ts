@@ -1,6 +1,6 @@
-import { AppLangs, IAppLangPure } from '../types';
-import { COOKIE_LANG_KEY, DEFAULTS } from '../defaults';
-import { getFromCookies, setCookie } from '../services';
+import { AppLangs, IAppLangPure } from '../../types';
+import { COOKIE_LANG_KEY, DEFAULTS } from '../../defaults';
+import { getFromCookies, setCookie } from '../../services';
 
 export class AppLangModelPure implements IAppLangPure {
     private _appLang = DEFAULTS.LANG;

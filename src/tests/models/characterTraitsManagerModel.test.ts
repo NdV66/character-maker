@@ -1,5 +1,5 @@
 import { NOT_FOUND_ERROR } from '../../defaults';
-import { CharacterTraitsManagerModel } from '../../models/CharacterTraitsManagerModel';
+import { CharacterTraitsManagerModel } from '../../models';
 import { ICharacterTrait } from '../../types';
 import { characterTraitModelMock, characterTraitsPairModelMock } from '../mocks';
 

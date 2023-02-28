@@ -1,5 +1,5 @@
-import { DEFAULTS } from '../defaults';
-import { ICharacterTrait, ICharacterTraitsPair } from '../types';
+import { DEFAULTS } from '../../defaults';
+import { ICharacterTrait, ICharacterTraitsPair } from '../../types';
 
 export class CharacterTraitsPairModel implements ICharacterTraitsPair {
     constructor(

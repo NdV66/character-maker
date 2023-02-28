@@ -1,8 +1,8 @@
-import { AppContextViewModel } from '../../../models/viewModels/AppContextViewModel';
-import { AppLangs, AppTheme, IAppGeneralSettings } from '../../../types';
-import { appGeneralSettingsModelMock } from '../../mocks';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { AppContextViewModel } from '../../../models';
+import { AppLangs, AppTheme, IAppGeneralSettings } from '../../../types';
+import { appGeneralSettingsModelMock } from '../../mocks';
 import { DARK_THEME } from '../../../styles';
 import { TEXTS_EN } from '../../../langs/en';
 

@@ -1,5 +1,5 @@
 import { DEFAULTS, OUT_OF_RANGE_ERROR } from '../../defaults';
-import { CharacterTraitModel } from '../../models/CharacterTraitModel';
+import { CharacterTraitModel } from '../../models/pureModels/CharacterTraitModel';
 
 const ID = '1';
 const NAME_KEY = '';

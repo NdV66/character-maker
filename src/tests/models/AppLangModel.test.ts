@@ -1,6 +1,6 @@
 import { TestScheduler } from 'rxjs/testing';
 import { TEXTS_PL } from '../../langs/pl';
-import { AppLangModel } from '../../models/AppLangModel';
+import { AppLangModel } from '../../models';
 import { AppLangs } from '../../types';
 import { appLangPureModelMock } from '../mocks/appLangModelMock';
 

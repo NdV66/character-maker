@@ -1,5 +1,5 @@
-import { DEFAULTS, OUT_OF_RANGE_ERROR } from '../defaults';
-import { ICharacterTrait } from '../types';
+import { DEFAULTS, OUT_OF_RANGE_ERROR } from '../../defaults';
+import { ICharacterTrait } from '../../types';
 
 export class CharacterTraitModel implements ICharacterTrait {
     private _percent = DEFAULTS.PERCENT;

@@ -1,23 +1,23 @@
 import { CHARACTER_TRAITS_PAIRS } from '../defaults';
 import { GenericSingletonManager } from '../tools';
 import { Models } from '../types';
-import { CharacterTraitsManagerModel } from '../models/CharacterTraitsManagerModel';
-import { CharacterTraitsPairModel } from '../models/CharacterTraitsPairModel';
-import { CharacterTraitModel } from '../models/CharacterTraitModel';
 import {
+    CharacterTraitModel,
+    CharacterTraitsPairModel,
+    AppLangModelPure,
+    AppThemePureModel,
+    AppThemeModel,
+    AppLangModel,
+    AppGeneralSettingsModel,
+    CharacterTraitsManagerModel,
     AppContextViewModel,
-    CharacterTraitsElementViewModel,
-    ChangeLangElementViewModel,
     ThemeButtonElementViewModel,
+    ChangeLangElementViewModel,
+    CharacterTraitsElementViewModel,
     PageViewModel,
     FooterViewModel,
     MainContentViewModel,
-} from '../models/viewModels';
-import { AppGeneralSettingsModel } from '../models/AppGeneralSettingsModel';
-import { AppLangModel } from '../models/AppLangModel';
-import { AppThemeModel } from '../models/AppThemeModel';
-import { AppLangModelPure } from '../models/AppLangPureModel';
-import { AppThemePureModel } from '../models/AppThemePureModel';
+} from '../models';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);

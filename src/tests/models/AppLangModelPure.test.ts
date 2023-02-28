@@ -1,5 +1,5 @@
 import { COOKIE_LANG_KEY, DEFAULTS } from '../../defaults';
-import { AppLangModelPure } from '../../models/AppLangPureModel';
+import { AppLangModelPure } from '../../models';
 import { AppLangs } from '../../types';
 import * as cookiesModule from '../../services/cookies.service';
 
