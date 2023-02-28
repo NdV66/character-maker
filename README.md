@@ -1,7 +1,7 @@
 # Getting Started with Character Maker
 
 #### Why?
-Because I want to have a simple example with RxJS where I'm able to learn new topics :)
+Because I want to have a simple example with RxJS and SOLID where I'm able to learn new topics :)
 
 ## How to: run locally
 - Node.js (>= 16) is installed
@@ -74,6 +74,21 @@ All unit tests are welcome here :)
 Connections between described above elements are showed here:
 
 ![See doc/pattern.jpg for more information about the app flow.](./doc/pattern.jpeg "Pattern")
+
+# Dev tips & tricks
+#### How to add new model to the app?
+1. Prepare interface for this model and place it inside `/types/interfaces` (and export this interface).
+- interface name should start with "I", for example: `IAppTheme`.
+- file should have the same name as this interface.
+2. Add this new interface to the `index.js` inside `/types/interfaces` (use `export * from './INewInterface'`).
+3. Decide which type of model should be your and select a correct folder (`/models/context`, `/models/pureModel` or `/models/viewModel`).
+- class name should be name of the implemented interface, but without "I" and with "Model" word at the end, for example: `AppThemeModel`  from `IAppTheme` interface name.
+- file should have the same name as this model (class).
+4. Implement your new model (and implements its interface) and export it.
+5. Add this new model to the `index.js` inside `/model/<type>` (use `export * from './INewInterface'`).
+6. Create instance of your model in the `/context/manager.ts` file
+7. Add this instance to the `MODELS` in the `/context/manager.ts` file (if necessary)
+8. Prepare unit tests for you model.
 
 # Available Scripts
 In the project directory, you can run:

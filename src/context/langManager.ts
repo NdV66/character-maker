@@ -1,4 +1,4 @@
-import { AppLangs, TTranslations } from '../types';
+import { AppLangs } from '../types';
 import { GenericSingletonManager } from '../models';
 
 import { TEXTS_EN } from '../langs/en';
@@ -9,4 +9,4 @@ const langs = {
     [AppLangs.PL]: TEXTS_PL,
 };
 
-export const langManager = new GenericSingletonManager<TTranslations>(langs);
+export const langManager = new GenericSingletonManager(langs);
