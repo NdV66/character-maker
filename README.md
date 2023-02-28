@@ -25,7 +25,7 @@ Because I want to have a simple example with RxJS where I'm able to learn new to
 # Folder structure
 
 #### `/context`
-React Context and its wrapper.
+A place where all models (include model and lang managers) are initialized.
 
 #### `/defaults`
 Files with all defaults names, configurations etc.
@@ -34,11 +34,17 @@ Files with all defaults names, configurations etc.
 Files with translations.
 
 #### `/models`
-All app MAIN models for store and manipulate any data. \
-Each of them should be use as singletons (always).
+All  models for store and manipulate any kind of data.
 
-#### `/services`
-All hard app logic (calculations etc.)
+###### `/models/pureModels`
+All basics models for store and manipulate any kind of data.\
+These models can be simple or more advanced.
+
+###### `/models/viewModels`
+Dedicated model for every logical part of the page
+
+###### `/models/context`
+Application context (global settings and data - should be available in the whole app)
 
 #### `/styles`
 All app themes (light, dark) variables and basic plain CSS (like @font-face).
@@ -47,30 +53,27 @@ All app themes (light, dark) variables and basic plain CSS (like @font-face).
 All helpers, tools etc.
 
 #### `/types`
-All more important types in the application.
+All more important or global types in the application.
+
+###### `/types/interfaces`
+All interfaces for models
 
 #### `/view`
-All views of the applications. It contains `elements` and `page` folders, where:
+All views of the applications.
 
-- `/view/elements`
+###### `/view/elements`
 All basic elements with ots styles, like buttons, inputs etc.
 
-- `/view/page`
+###### `/view/page`
 All main elements of the main page.
 
-### `/viewModels`
-Dedicated model () for every view (if needed).
+#### `/tests`
+All unit tests are welcome here :)
 
 # Code pattern
-- `View` is a bigger visual component, a part of the page (for example: rolls element).
- - `ViewModel` is a dedicated data source for the view.
-- `Context (from React)` is a place for all global settings (for example: default language). Any changes in these variables makes changes in the full app, see https://reactjs.org/docs/context.html for more details.
-- `Model` is a place for storing data. Every model should be a logic part of the feature.
-- `Service` is a place for making all app business logic (for example: calculations).
-
 Connections between described above elements are showed here:
 
-![See doc/pattern.jpg for more information about the app flow.](./doc/pattern.jpg "Pattern")
+![See doc/pattern.jpg for more information about the app flow.](./doc/pattern.jpeg "Pattern")
 
 # Available Scripts
 In the project directory, you can run:
