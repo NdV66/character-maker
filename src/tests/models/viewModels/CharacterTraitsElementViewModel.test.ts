@@ -1,7 +1,8 @@
-import { IAppContextViewModel, ICharacterTraitsManager, TCharacterTraitPairLight } from '../../../types';
+import { IAppContextViewModel, ICharacterTraitsManager, IExporter, TCharacterTraitPairLight } from '../../../types';
 import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewModelMock } from '../../mocks';
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../../models';
+import { imageExporterMock } from '../../mocks/exporterMock';
 
 const PREPARED_DATA: TCharacterTraitPairLight = {
     [TRAIT_PAIR.id]: {
@@ -14,9 +15,11 @@ describe('CharacterTraitsElementViewModel', () => {
     let traitsManagerMock: ICharacterTraitsManager;
     let appContextMock: IAppContextViewModel;
     let testScheduler: TestScheduler;
+    let imageExporter: IExporter;
 
     beforeEach(() => {
         traitsManagerMock = characterTraitsManagerMock(TRAIT_PAIRS) as any as ICharacterTraitsManager;
+        imageExporter = imageExporterMock();
         appContextMock = appContextViewModelMock() as any as IAppContextViewModel;
 
         testScheduler = new TestScheduler((actual, expected) => {
@@ -26,28 +29,29 @@ describe('CharacterTraitsElementViewModel', () => {
 
     test('Should return correct data$', () => {
         testScheduler.run(({ expectObservable }) => {
-            const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+            const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
             expectObservable(model.data$).toBe('a', { a: PREPARED_DATA });
         });
     });
 
     test('Should return correct characterTraitsPairs', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         expect(model.characterTraitsPairs).toEqual(TRAIT_PAIRS);
     });
 
     test('Should prepare correct data format for data$', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
         expect(result).toEqual(PREPARED_DATA);
     });
 
     test('Should _prepareCharacterTraitPairValue', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         const result = model['_prepareCharacterTraitPairValue'](TRAIT_PAIR);
         expect(result).toEqual(PREPARED_DATA);
     });
 
+    //TODO
     // test('Should update pair by this pair id', () => {
     //     const value = 60;
     //     const firstValue = PREPARED_DATA;

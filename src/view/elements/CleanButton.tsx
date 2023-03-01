@@ -18,7 +18,7 @@ export const CleanButton: React.FC<Props> = ({ theme, onCleanAll, disabled }) =>
 
     return (
         <div css={themedStyles.cleanWrapper} data-test-id={TEST_IDS.CLEAN_EVERYTHING_BUTTON}>
-            <AppButton theme={theme} onClick={onCleanAll} small disabled={disabled} icon={<DeleteOutlined />} />
+            <AppButton theme={theme} onClick={onCleanAll} disabled={disabled} icon={<DeleteOutlined />} />
         </div>
     );
 };

@@ -12,3 +12,4 @@ export * from './IPageViewModel';
 export * from './IFooterViewModel';
 export * from './IMainContentViewModel';
 export * from './ICookiesManager';
+export * from './IExporter';

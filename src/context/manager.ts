@@ -18,6 +18,7 @@ import {
     GenericSingletonManager,
     AppLangModel,
     CookiesManager,
+    ImageExporter,
 } from '../models';
 import { langManager } from './langManager';
 
@@ -28,6 +29,7 @@ const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
 });
 
 const cookiesManager = new CookiesManager();
+const imageExporter = new ImageExporter();
 
 const appLangModelPure = new AppLangModelPure(cookiesManager);
 const appThemeModelPure = new AppThemePureModel(cookiesManager);
@@ -44,6 +46,7 @@ const MODELS = {
     [Models.CHARACTER_TRAITS_ELEMENT_VIEW_MODEL]: new CharacterTraitsElementViewModel(
         appContextViewModelSingleton,
         characterTraitManagerSingleton,
+        imageExporter,
     ),
     [Models.PAGE_VIEW_MODEL]: new PageViewModel(appContextViewModelSingleton),
     [Models.FOOTER_VIEW_MODEL]: new FooterViewModel(appContextViewModelSingleton),

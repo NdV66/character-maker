@@ -6,12 +6,17 @@ import {
     TCharacterTraitPairLight,
     ICharacterTraitsElementViewModel,
     IAppContextViewModel,
+    IExporter,
 } from '../../types';
 
 export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
     private _data$ = new BehaviorSubject<TCharacterTraitPairLight>({});
 
-    constructor(private _appContext: IAppContextViewModel, private _pairsManager: ICharacterTraitsManager) {
+    constructor(
+        private _appContext: IAppContextViewModel,
+        private _pairsManager: ICharacterTraitsManager,
+        private _imageExporter: IExporter,
+    ) {
         this._refreshData();
     }
 
@@ -63,5 +68,10 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
     public resetAll = () => {
         this._pairsManager.resetAll();
         this._refreshData();
+    };
+
+    //TODO
+    public exportToImage = () => {
+        this._imageExporter.export();
     };
 }

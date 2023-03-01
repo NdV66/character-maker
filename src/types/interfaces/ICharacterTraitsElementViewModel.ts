@@ -12,4 +12,5 @@ export interface ICharacterTraitsElementViewModel {
 
     updatePairPercentById: (id: string, value: number) => void;
     resetAll: () => void;
+    exportToImage: () => void;
 }

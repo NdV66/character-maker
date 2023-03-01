@@ -8,12 +8,12 @@ type Props = {
     onClick: () => void;
     theme: TTheme;
     icon: React.ReactNode;
-    small?: boolean;
     disabled?: boolean;
+    text?: string;
 };
 
-export const AppButton: React.FC<Props> = ({ onClick, theme, small, disabled, icon }) => {
-    const themedStyles = styles(theme, small);
+export const AppButton: React.FC<Props> = ({ onClick, theme, disabled, icon, text }) => {
+    const themedStyles = styles(theme);
 
     const handleOnClick = disabled ? () => {} : onClick;
 
@@ -24,20 +24,24 @@ export const AppButton: React.FC<Props> = ({ onClick, theme, small, disabled, ic
             css={[themedStyles.button, disabled && themedStyles.disabled]}
             data-test-id={TEST_IDS.APP_BUTTON}
         >
+            <span css={themedStyles.text}>{text}</span>
             {icon}
         </div>
     );
 };
 
-const styles = (theme: TTheme, small?: boolean) => ({
+const styles = (theme: TTheme) => ({
     button: css`
         user-select: none;
         color: ${theme.primary};
-        font-size: ${small ? theme.smallFontSize : theme.fontSize}px;
+        font-size: ${theme.smallFontSize}px;
         cursor: pointer;
     `,
     disabled: css`
         cursor: default;
         pointer-events: all !important;
+    `,
+    text: css`
+        margin-right: ${theme.baseSpace / 2}px;
     `,
 });

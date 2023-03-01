@@ -12,7 +12,6 @@ export class AppThemeModel implements IAppTheme {
     }
 
     private _updateAppThemeSubject() {
-        console.log('>>>> UWAGA', this._appThemePureModel.appTheme);
         this._appThemeSubject.next(this._appThemePureModel.appTheme);
     }
 
