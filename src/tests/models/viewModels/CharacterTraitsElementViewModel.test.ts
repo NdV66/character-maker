@@ -16,37 +16,41 @@ describe('CharacterTraitsElementViewModel', () => {
     let appContextMock: IAppContextViewModel;
     let testScheduler: TestScheduler;
     let imageExporter: IExporter;
+    let model: CharacterTraitsElementViewModel;
 
     beforeEach(() => {
         traitsManagerMock = characterTraitsManagerMock(TRAIT_PAIRS) as any as ICharacterTraitsManager;
         imageExporter = imageExporterMock();
         appContextMock = appContextViewModelMock() as any as IAppContextViewModel;
+        model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
 
         testScheduler = new TestScheduler((actual, expected) => {
             expect(actual).toEqual(expected);
         });
     });
 
-    test('Should return correct data$', () => {
+    test('Should return correct data$ on enter', () => {
         testScheduler.run(({ expectObservable }) => {
-            const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
             expectObservable(model.data$).toBe('a', { a: PREPARED_DATA });
         });
     });
 
+    // test('Should return correct translations$ on enter', () => {
+    //     testScheduler.run(({ expectObservable }) => {
+    //         expectObservable(model.translations$).toBe('a', { a:  });
+    //     });
+    // });
+
     test('Should return correct characterTraitsPairs', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         expect(model.characterTraitsPairs).toEqual(TRAIT_PAIRS);
     });
 
     test('Should prepare correct data format for data$', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
         expect(result).toEqual(PREPARED_DATA);
     });
 
     test('Should _prepareCharacterTraitPairValue', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
         const result = model['_prepareCharacterTraitPairValue'](TRAIT_PAIR);
         expect(result).toEqual(PREPARED_DATA);
     });
@@ -64,11 +68,7 @@ describe('CharacterTraitsElementViewModel', () => {
     //     traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
 
     //     testScheduler.run(({ cold, expectObservable }) => {
-    //         const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
-    //         model['_prepareDataForDataSourceFull'] = jest.fn().mockReturnValue(updatedValue);
-    //         cold('-a').subscribe(() => model.updatePairPercentById(TRAIT_PAIR.id, value));
 
-    //         expectObservable(model.data$).toBe('ab', { a: firstValue, b: updatedValue });
     //     });
     // });
 });

@@ -49,6 +49,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
             <Col {...columns}>
                 <div css={themedStyles.slider}>
                     <Slider
+                        // reverse
                         marks={DEFAULTS.MARKS}
                         max={DEFAULTS.MAX_PERCENT}
                         min={DEFAULTS.MIN_PERCENT}
