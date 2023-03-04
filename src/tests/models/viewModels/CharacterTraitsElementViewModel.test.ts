@@ -3,8 +3,7 @@ import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewMode
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../../models';
 import { imageExporterMock } from '../../mocks/exporterMock';
-import { DEFAULTS } from '../../../defaults';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TEXTS_EN } from '../../../langs/en';
 import { DARK_THEME } from '../../../styles';
 
