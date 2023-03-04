@@ -28,7 +28,6 @@ describe('CharacterTraitsElementViewModel', () => {
         model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
 
         testScheduler = new TestScheduler((actual, expected) => {
-            // console.log('ACTUAL', actual, 'EXPECTED', expected);
             expect(actual).toEqual(expected);
         });
     });
