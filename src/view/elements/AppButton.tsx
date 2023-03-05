@@ -7,8 +7,8 @@ import { TTheme } from '../../types';
 type Props = {
     onClick: () => void;
     theme: TTheme;
-    icon: React.ReactNode;
-    disabled?: boolean;
+    icon?: React.ReactNode;
+    disabled: boolean;
     text?: string;
 };
 

@@ -20,6 +20,7 @@ export type TTranslations = {
     OK: string;
     CANCEL: string;
     CLEAN: string;
+    EXPORT: string;
 
     INFO_TEXT: string;
 

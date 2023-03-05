@@ -1,3 +1,5 @@
 export interface IExporter {
-    export: () => void;
+    isExporting: boolean;
+
+    export: <T extends HTMLElement>(element: T) => Promise<void>;
 }

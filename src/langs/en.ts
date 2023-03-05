@@ -13,6 +13,7 @@ export const TEXTS_EN: TTranslations = {
     OK: 'OK',
     CANCEL: 'Cancel',
     CLEAN: 'Clean everything',
+    EXPORT: 'Export',
 
     INFO_TEXT: 'Setup all character traits and then save your work as JPEG or PDF.',
 

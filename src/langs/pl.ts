@@ -13,6 +13,7 @@ export const TEXTS_PL: TTranslations = {
     OK: 'OK',
     CANCEL: 'Zamknij',
     CLEAN: 'Wyczyść wszystko',
+    EXPORT: 'Pobierz',
 
     INFO_TEXT:
         'Ustaw cechy charakteru, korzystając z suwaczków poniżej. Kiedy będziesz zadwolony z rezultatów, możesz wyeksportować swoje dzieło do formatu PDF lub JPEG.',
