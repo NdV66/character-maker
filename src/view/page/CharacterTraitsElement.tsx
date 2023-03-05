@@ -1,4 +1,5 @@
 import { ExportOutlined } from '@ant-design/icons';
+import { useRef } from 'react';
 import { useCharacterTraitsElementViewModel } from '../../useViewModels/useCharacterTraitsElementViewModel';
 import { AppButton, AppSlider, CleanButton } from '../elements';
 
@@ -6,8 +7,10 @@ export const CharacterTraitsElement: React.FC = () => {
     const { theme, onChangeCharacterTrait, translations, characterTraitsPairs, dataSource, resetAll, exportToImage } =
         useCharacterTraitsElementViewModel();
 
+    const exportRef = useRef<HTMLDivElement>(null);
+
     return (
-        <div>
+        <div ref={exportRef}>
             {characterTraitsPairs.map((trait) => {
                 return (
                     <AppSlider
@@ -24,7 +27,12 @@ export const CharacterTraitsElement: React.FC = () => {
 
             <CleanButton theme={theme} translations={translations} onCleanAll={resetAll} disabled={false} />
 
-            <AppButton onClick={exportToImage} theme={theme} icon={<ExportOutlined />} text="EXPORT TODO" />
+            <AppButton
+                onClick={() => exportToImage(exportRef)}
+                theme={theme}
+                icon={<ExportOutlined />}
+                text="EXPORT TODO"
+            />
         </div>
     );
 };
