@@ -18,7 +18,6 @@ export const CharacterTraitsElement: React.FC = () => {
         isExporting,
     } = useCharacterTraitsElementViewModel();
     const themedStyles = styles(theme);
-
     const exportRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -55,7 +54,7 @@ export const CharacterTraitsElement: React.FC = () => {
 const styles = (theme: TTheme) => ({
     exportCard: css`
         background-color: ${theme.background};
-        padding: ${theme.baseSpace}px;
+        padding: ${3 * theme.baseSpace}px;
     `,
     buttons: css`
         display: flex;

@@ -9,12 +9,13 @@ export class ImageExporter implements IExporter {
         return this._isExporting;
     }
 
-    private _downloadImage(file: string, fileName: string) {
-        const tmpLink = window.document.createElement('a') as any;
-        tmpLink.style = 'display:none;';
-        tmpLink.download = fileName;
+    private _downloadImage(blob: string, fileName: string) {
+        const tmpLink = window.document.createElement('a');
 
-        tmpLink.href = file;
+        tmpLink.setAttribute('style', 'display:none');
+        tmpLink.setAttribute('download', fileName);
+        tmpLink.setAttribute('href', blob);
+
         document.body.appendChild(tmpLink);
         tmpLink.click();
 
@@ -22,14 +23,18 @@ export class ImageExporter implements IExporter {
         tmpLink.remove();
     }
 
+    //TODO tests
     private async _exportAsImage<T extends HTMLElement>(element: T, imageFileName: string) {
+        const extension = 'jpeg';
         const canvas = await html2canvas(element, {
             width: element.offsetWidth - 1,
         });
-        const image = canvas.toDataURL('image/png', 1.0);
-        this._downloadImage(image, imageFileName);
+        const image = canvas.toDataURL(`image/${extension}`, 1.0);
+        const fileName = `${imageFileName}.${extension}`;
+        this._downloadImage(image, fileName);
     }
 
+    //TODO tests
     public async export<T extends HTMLElement>(element: T) {
         const imageFileName = uuidv4();
         await this._exportAsImage(element, imageFileName);
