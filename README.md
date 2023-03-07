@@ -13,7 +13,7 @@ Because I want to have a simple example with RxJS and SOLID where I'm able to le
 0. Change version in the `package.json`.
 1. Merge all changes to the master.
 2. Refresh master locally. \
-`git pull origin master`
+`git pull origin main`
 3. Create git tag. \
 `git tag -a vX.X.X -m "What was done"` \
 `git push --tags`
