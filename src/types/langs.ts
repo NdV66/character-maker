@@ -1,3 +1,5 @@
+import { StringLiteral } from 'typescript';
+
 export const enum AppLangs {
     EN = 'en-EN',
     PL = 'pl-PL',
@@ -29,6 +31,16 @@ export type TTranslations = {
         EGOISTIC: string;
         NICE: string;
         NASTY: string;
+        LOGICAL: string;
+        EMOTIONAL: string;
+        CALM: string;
+        IMPULSIVE: string;
+        FEARFUL: string;
+        COURAGEOUS: string;
+        LOVING: string;
+        HATEFUL: string;
+        HAPPY: string;
+        MELANCHOLIC: string;
 
         [key: string]: string;
     };
