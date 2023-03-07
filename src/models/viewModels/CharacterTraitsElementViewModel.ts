@@ -65,7 +65,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         this._data$.next(data);
     }
 
-    //TODO tests
     private _updateIsExporting() {
         const value = this._imageExporter.isExporting;
         this._isExporting$.next(value);
@@ -81,7 +80,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         this._refreshData();
     };
 
-    //TODO tests
     public exportToImage = async <T extends HTMLElement>(element: T) => {
         this._updateIsExporting();
         await this._imageExporter.export(element);

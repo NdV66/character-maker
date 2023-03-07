@@ -96,6 +96,25 @@ describe('CharacterTraitsElementViewModel', () => {
         expect(model['_refreshData']).toHaveBeenCalledTimes(1);
         expect(traitsManagerMock.resetAll).toHaveBeenCalledTimes(1);
     });
+
+    test('Should update isExporting (_updateIsExporting)', () => {
+        imageExporter.isExporting = true;
+
+        testScheduler.run(({ cold, expectObservable }) => {
+            cold('a').subscribe(() => model['_updateIsExporting']());
+            expectObservable(model['_isExporting$']).toBe('a', { a: true });
+        });
+    });
+
+    test('Should export to image (exportToImage)', () => {
+        const element = {} as any;
+        model['_updateIsExporting'] = jest.fn();
+
+        model.exportToImage(element);
+
+        expect(imageExporter.export).toHaveBeenCalledWith(element);
+        expect(model['_updateIsExporting']).toHaveBeenCalled();
+    });
 });
 
 export {};

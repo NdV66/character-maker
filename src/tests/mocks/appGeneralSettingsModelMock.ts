@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AppLangs, AppTheme, TTheme, TTranslations } from '../../types';
+import { AppLangs, AppTheme, IAppContextViewModel, TTheme, TTranslations } from '../../types';
 import { appLangModelMock } from './appLangModelMock';
 import { appThemeModelMock } from './appThemeModelMock';
 
@@ -10,15 +10,16 @@ export const appGeneralSettingsModelMock = () => ({
     setDefaultValues: jest.fn(),
 });
 
-export const appContextViewModelMock = () => ({
-    theme$: new Observable<TTheme>(),
-    appTheme$: new Observable<AppTheme>(),
-    translations$: new Observable<TTranslations>(),
-    isLoading$: new Observable<boolean>(),
-    appLang$: new Observable<AppLangs>(),
+export const appContextViewModelMock = () =>
+    ({
+        theme$: new Observable<TTheme>(),
+        appTheme$: new Observable<AppTheme>(),
+        translations$: new Observable<TTranslations>(),
+        isLoading$: new Observable<boolean>(),
+        appLang$: new Observable<AppLangs>(),
 
-    setDefaultValues: jest.fn(),
-    setIsLoading: jest.fn(),
-    changeAppLang: jest.fn(),
-    toggleAppTheme: jest.fn(),
-});
+        setDefaultValues: jest.fn(),
+        setIsLoading: jest.fn(),
+        changeAppLang: jest.fn(),
+        toggleAppTheme: jest.fn(),
+    } as IAppContextViewModel);
