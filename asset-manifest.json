@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/character-maker/static/css/main.17382a82.css",
+    "main.js": "/character-maker/static/js/main.efa32512.js",
+    "static/js/787.59fb1060.chunk.js": "/character-maker/static/js/787.59fb1060.chunk.js",
+    "index.html": "/character-maker/index.html",
+    "main.17382a82.css.map": "/character-maker/static/css/main.17382a82.css.map",
+    "main.efa32512.js.map": "/character-maker/static/js/main.efa32512.js.map",
+    "787.59fb1060.chunk.js.map": "/character-maker/static/js/787.59fb1060.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.17382a82.css",
+    "static/js/main.efa32512.js"
+  ]
+}
