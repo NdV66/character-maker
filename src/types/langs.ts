@@ -1,5 +1,3 @@
-import { StringLiteral } from 'typescript';
-
 export const enum AppLangs {
     EN = 'en-EN',
     PL = 'pl-PL',
