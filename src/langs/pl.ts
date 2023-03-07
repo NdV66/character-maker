@@ -32,7 +32,7 @@ export const TEXTS_PL: TTranslations = {
         FEARFUL: 'strachliwy',
         COURAGEOUS: 'odważny',
         LOVING: 'kochający',
-        HATEFUL: 'hateful',
+        HATEFUL: 'nienawistny',
         HAPPY: 'szczęśliwy',
         MELANCHOLIC: 'melancholijny',
     },
