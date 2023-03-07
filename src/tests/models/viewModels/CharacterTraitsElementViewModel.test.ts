@@ -1,7 +1,11 @@
-import { IAppContextViewModel, ICharacterTraitsManager, TCharacterTraitPairLight } from '../../../types';
+import { IAppContextViewModel, ICharacterTraitsManager, IExporter, TCharacterTraitPairLight } from '../../../types';
 import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewModelMock } from '../../mocks';
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../../models';
+import { imageExporterMock } from '../../mocks/exporterMock';
+import { Observable } from 'rxjs';
+import { TEXTS_EN } from '../../../langs/en';
+import { DARK_THEME } from '../../../styles';
 
 const PREPARED_DATA: TCharacterTraitPairLight = {
     [TRAIT_PAIR.id]: {
@@ -14,59 +18,84 @@ describe('CharacterTraitsElementViewModel', () => {
     let traitsManagerMock: ICharacterTraitsManager;
     let appContextMock: IAppContextViewModel;
     let testScheduler: TestScheduler;
+    let imageExporter: IExporter;
+    let model: CharacterTraitsElementViewModel;
 
     beforeEach(() => {
         traitsManagerMock = characterTraitsManagerMock(TRAIT_PAIRS) as any as ICharacterTraitsManager;
+        imageExporter = imageExporterMock();
         appContextMock = appContextViewModelMock() as any as IAppContextViewModel;
+        model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock, imageExporter);
 
         testScheduler = new TestScheduler((actual, expected) => {
             expect(actual).toEqual(expected);
         });
     });
 
-    test('Should return correct data$', () => {
+    test('Should return correct data$ on enter', () => {
         testScheduler.run(({ expectObservable }) => {
-            const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
             expectObservable(model.data$).toBe('a', { a: PREPARED_DATA });
         });
     });
 
+    test('Should return correct translations$ on enter', () => {
+        testScheduler.run(({ expectObservable }) => {
+            const translations = TEXTS_EN;
+            appContextMock.translations$ = new Observable((observer) => observer.next(translations));
+            expectObservable(model.translations$).toBe('a', { a: translations });
+        });
+    });
+
+    test('Should return correct theme$ on enter', () => {
+        testScheduler.run(({ expectObservable }) => {
+            const theme = DARK_THEME;
+            appContextMock.theme$ = new Observable((observer) => observer.next(theme));
+            expectObservable(model.theme$).toBe('a', { a: theme });
+        });
+    });
+
     test('Should return correct characterTraitsPairs', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
         expect(model.characterTraitsPairs).toEqual(TRAIT_PAIRS);
     });
 
     test('Should prepare correct data format for data$', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
         const result = model['_prepareDataForDataSource'](TRAIT_PAIRS);
         expect(result).toEqual(PREPARED_DATA);
     });
 
-    test('Should _prepareCharacterTraitPairValue', () => {
-        const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
+    test('Should _prepareCharacterTraitPairValue()', () => {
         const result = model['_prepareCharacterTraitPairValue'](TRAIT_PAIR);
         expect(result).toEqual(PREPARED_DATA);
     });
 
-    // test('Should update pair by this pair id', () => {
-    //     const value = 60;
-    //     const firstValue = PREPARED_DATA;
-    //     const updatedValue: TCharacterTraitPairLight = {
-    //         [TRAIT_PAIR.id]: {
-    //             mainPercent: TRAIT_PAIR.mainCharacterTrait.percent,
-    //             oppositePercent: TRAIT_PAIR.oppositeCharacterTrait.percent,
-    //         },
-    //     };
-    //     traitsManagerMock.updatePairPercentById = jest.fn().mockReturnValue(true);
+    test('Should refresh data', () => {
+        model['_prepareDataForDataSource'] = jest.fn().mockReturnValueOnce(PREPARED_DATA);
 
-    //     testScheduler.run(({ cold, expectObservable }) => {
-    //         const model = new CharacterTraitsElementViewModel(appContextMock, traitsManagerMock);
-    //         model['_prepareDataForDataSourceFull'] = jest.fn().mockReturnValue(updatedValue);
-    //         cold('-a').subscribe(() => model.updatePairPercentById(TRAIT_PAIR.id, value));
+        testScheduler.run(({ cold, expectObservable }) => {
+            cold('a').subscribe(() => model['_refreshData']());
+            expectObservable(model['_data$']).toBe('a', { a: PREPARED_DATA });
+        });
+    });
 
-    //         expectObservable(model.data$).toBe('ab', { a: firstValue, b: updatedValue });
-    //     });
-    // });
+    test('Should update by pair id', () => {
+        const id = '1';
+        const value = 66;
+        model['_refreshData'] = jest.fn();
+
+        model.updatePairPercentById(id, value);
+
+        expect(model['_refreshData']).toHaveBeenCalledTimes(1);
+        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledTimes(1);
+        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledWith(id, value);
+    });
+
+    test('Should reset all', () => {
+        model['_refreshData'] = jest.fn();
+        model.resetAll();
+
+        expect(model['_refreshData']).toHaveBeenCalledTimes(1);
+        expect(traitsManagerMock.resetAll).toHaveBeenCalledTimes(1);
+    });
 });
 
 export {};

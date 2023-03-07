@@ -8,8 +8,10 @@ export interface ICharacterTraitsElementViewModel {
     data$: Observable<TCharacterTraitPairLight>;
     translations$: Observable<TTranslations>;
     theme$: Observable<TTheme>;
+    isExporting$: Observable<boolean>;
     characterTraitsPairs: ICharacterTraitsPair[];
 
     updatePairPercentById: (id: string, value: number) => void;
     resetAll: () => void;
+    exportToImage: <T extends HTMLElement>(element: T) => Promise<void>;
 }

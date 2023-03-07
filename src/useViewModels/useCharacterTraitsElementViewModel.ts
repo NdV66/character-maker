@@ -8,6 +8,11 @@ export const useCharacterTraitsElementViewModel = () => {
     const dataSource = useStateWithObservable(viewModel.data$);
     const theme = useStateWithObservableWithInit(viewModel.theme$, DEFAULTS.THEME);
     const translations = useStateWithObservableWithInit(viewModel.translations$, DEFAULTS.TRANSLATIONS);
+    const isExporting = useStateWithObservableWithInit(viewModel.isExporting$, false);
+
+    const exportToImage = (ref: React.RefObject<HTMLDivElement>) => {
+        ref.current && viewModel.exportToImage(ref.current);
+    };
 
     return {
         theme,
@@ -16,5 +21,7 @@ export const useCharacterTraitsElementViewModel = () => {
         characterTraitsPairs: viewModel.characterTraitsPairs,
         dataSource,
         resetAll: viewModel.resetAll,
+        exportToImage,
+        isExporting,
     };
 };
