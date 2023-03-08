@@ -13,7 +13,7 @@ describe('AppContextViewModel', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(() => {
-        generalSettingsModelMock = appGeneralSettingsModelMock() as any as IAppGeneralSettings;
+        generalSettingsModelMock = appGeneralSettingsModelMock();
         testScheduler = new TestScheduler((actual, expected) => {
             expect(actual).toEqual(expected);
         });

@@ -1,7 +1,5 @@
 import { TCharacterTraitData } from '../types';
 
-// Happy <-> Melancholic
-
 export const CHARACTER_TRAITS_PAIRS: TCharacterTraitData[] = [
     {
         id: 'h_e',
