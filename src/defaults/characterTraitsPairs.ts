@@ -1,43 +1,43 @@
-import { TCharacterTraitData } from '../types';
+import { TCharacterTraitData, CharacterTraitsPairsIds } from '../types';
 
 export const CHARACTER_TRAITS_PAIRS: TCharacterTraitData[] = [
     {
-        id: 'h_e',
+        id: CharacterTraitsPairsIds.HELPFUL_EGOISTIC,
         name: 'HELPFUL',
         opposite: 'EGOISTIC',
     },
     {
-        id: 'n_e',
+        id: CharacterTraitsPairsIds.NICE_NASTY,
         name: 'NICE',
         opposite: 'NASTY',
     },
     {
-        id: 'd_r',
+        id: CharacterTraitsPairsIds.DREAMER_REALIST,
         name: 'DREAMER',
         opposite: 'REALIST',
     },
     {
-        id: 'l_e',
+        id: CharacterTraitsPairsIds.LOGICAL_EMOTIONAL,
         name: 'LOGICAL',
         opposite: 'EMOTIONAL',
     },
     {
-        id: 'c_i',
+        id: CharacterTraitsPairsIds.CALM_IMPULSIVE,
         name: 'CALM',
         opposite: 'IMPULSIVE',
     },
     {
-        id: 'f_c',
+        id: CharacterTraitsPairsIds.FEARFUL_COURAGEOUS,
         name: 'FEARFUL',
         opposite: 'COURAGEOUS',
     },
     {
-        id: 'l_h',
+        id: CharacterTraitsPairsIds.LOVING_HATEFUL,
         name: 'LOVING',
         opposite: 'HATEFUL',
     },
     {
-        id: 'h_m',
+        id: CharacterTraitsPairsIds.HAPPY_MELANCHOLIC,
         name: 'HAPPY',
         opposite: 'MELANCHOLIC',
     },
