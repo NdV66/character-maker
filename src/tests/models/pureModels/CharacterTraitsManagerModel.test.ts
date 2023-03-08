@@ -1,4 +1,5 @@
 import { NOT_FOUND_ERROR } from '../../../defaults';
+import { CHARACTER_TRAITS_IMPACTS } from '../../../defaults/characterTraitsImpacts';
 import { CharacterTraitsManagerModel } from '../../../models';
 import { ICharacterTrait } from '../../../types';
 import { characterTraitModelMock, characterTraitsPairModelMock } from '../../mocks';
@@ -13,7 +14,7 @@ describe('CharacterTraitsManagerModel', () => {
     let model: CharacterTraitsManagerModel;
 
     beforeEach(() => {
-        model = new CharacterTraitsManagerModel(traitPairs);
+        model = new CharacterTraitsManagerModel(CHARACTER_TRAITS_IMPACTS, traitPairs);
     });
 
     test('Should prepare character traits map from enters', () => {

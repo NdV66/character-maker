@@ -21,6 +21,7 @@ import {
     ImageExporter,
 } from '../models';
 import { langManager } from './langManager';
+import { CHARACTER_TRAITS_IMPACTS } from '../defaults/characterTraitsImpacts';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
@@ -37,7 +38,7 @@ const lang = new AppLangModel(appLangModelPure, langManager);
 const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
-const characterTraitManagerSingleton = new CharacterTraitsManagerModel(pairs);
+const characterTraitManagerSingleton = new CharacterTraitsManagerModel(CHARACTER_TRAITS_IMPACTS, pairs);
 const appContextViewModelSingleton = new AppContextViewModel(appGeneralSettingsSingleton);
 
 const MODELS = {

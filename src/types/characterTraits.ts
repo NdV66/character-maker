@@ -22,8 +22,12 @@ export type TCharacterTraitPairLight = {
     };
 };
 
-export type TCharacterTraitImpact = {
-    id: CharacterTraitsPairsIds;
+export type TCharacterTraitImpactLight = {
     affectedId: CharacterTraitsPairsIds;
     impact: number;
+};
+
+export type TCharacterTraitImpact = {
+    pairId: CharacterTraitsPairsIds;
+    impacts: TCharacterTraitImpactLight[];
 };
