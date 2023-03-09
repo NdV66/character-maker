@@ -29,7 +29,6 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         return result;
     }
 
-    //TODO: tests
     private _getImpactById(id: string) {
         return this._characterTraitImpacts.find((el) => el.pairId === id)?.impacts;
     }
@@ -42,21 +41,19 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         return mainPair;
     }
 
-    //TODO: tests
+    private _setImpact(mainPairPercent: number, { affectedId, impact }: TCharacterTraitImpactLight) {
+        const currentAffectedPair = this._characterTraitsPairs.get(affectedId)!;
+        const currentPercentRaw = mainPairPercent * impact;
+        const currentPercent = Math.floor(currentPercentRaw);
+        currentAffectedPair.setPercentForMainCharacterTrait(currentPercent);
+    }
+
     private _setImpacts(mainPair: ICharacterTraitsPair, impacts: TCharacterTraitImpactLight[]) {
         for (const impact of impacts) {
-            const currentPair = this._characterTraitsPairs.get(impact.affectedId)!;
-            const currentPercentRaw = mainPair.mainCharacterTrait.percent * impact.impact;
-            const currentPercent = Math.floor(currentPercentRaw);
-            currentPair.setPercentForMainCharacterTrait(currentPercent);
+            this._setImpact(mainPair.mainCharacterTrait.percent, impact);
         }
     }
 
-    public resetAll() {
-        this._characterTraitsPairs.forEach((value) => value.reset());
-    }
-
-    //TODO: tests
     public updatePairPercentById(pairId: string, percent: number) {
         const mainPair = this._getMainPairById(pairId);
         const impacts = this._getImpactById(pairId);
@@ -65,5 +62,9 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         impacts && this._setImpacts(mainPair, impacts);
 
         return true;
+    }
+
+    public resetAll() {
+        this._characterTraitsPairs.forEach((value) => value.reset());
     }
 }
