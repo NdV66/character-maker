@@ -31,3 +31,8 @@ export type TCharacterTraitImpact = {
     pairId: CharacterTraitsPairsIds;
     impacts: TCharacterTraitImpactLight[];
 };
+
+export interface ICharacterTraitsImpactsManager {
+    getImpactByPairId: (id: string) => TCharacterTraitImpactLight[] | undefined;
+    calcPercent: (mainPairPercent: number, impact: TCharacterTraitImpactLight) => number;
+}

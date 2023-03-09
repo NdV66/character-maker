@@ -4,7 +4,7 @@ import { NOT_FOUND_ERROR } from '../../defaults';
 import {
     ICharacterTraitsPair,
     ICharacterTraitsManager,
-    TCharacterTraitImpact,
+    ICharacterTraitsImpactsManager,
     TCharacterTraitImpactLight,
 } from '../../types';
 
@@ -12,7 +12,7 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _characterTraitsPairs: Map<ICharacterTraitsPair['id'], ICharacterTraitsPair>;
 
     constructor(
-        private readonly _characterTraitImpacts: TCharacterTraitImpact[],
+        private readonly _impactsManager: ICharacterTraitsImpactsManager,
         characterTraitsPairs: ICharacterTraitsPair[],
     ) {
         this._characterTraitsPairs = this._prepareCharacterTraitsPairs(characterTraitsPairs);
@@ -29,10 +29,6 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         return result;
     }
 
-    private _getImpactById(id: string) {
-        return this._characterTraitImpacts.find((el) => el.pairId === id)?.impacts;
-    }
-
     private _getMainPairById(pairId: string) {
         const mainPair = this._characterTraitsPairs.get(pairId);
         if (!mainPair) {
@@ -41,10 +37,9 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         return mainPair;
     }
 
-    private _setImpact(mainPairPercent: number, { affectedId, impact }: TCharacterTraitImpactLight) {
-        const currentAffectedPair = this._characterTraitsPairs.get(affectedId)!;
-        const currentPercentRaw = mainPairPercent * impact;
-        const currentPercent = Math.floor(currentPercentRaw);
+    private _setImpact(mainPairPercent: number, affectedPair: TCharacterTraitImpactLight) {
+        const currentAffectedPair = this._characterTraitsPairs.get(affectedPair.affectedId)!;
+        const currentPercent = this._impactsManager.calcPercent(mainPairPercent, affectedPair);
         currentAffectedPair.setPercentForMainCharacterTrait(currentPercent);
     }
 
@@ -56,7 +51,7 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
 
     public updatePairPercentById(pairId: string, percent: number) {
         const mainPair = this._getMainPairById(pairId);
-        const impacts = this._getImpactById(pairId);
+        const impacts = this._impactsManager.getImpactByPairId(pairId);
 
         mainPair.setPercentForMainCharacterTrait(percent);
         impacts && this._setImpacts(mainPair, impacts);

@@ -19,6 +19,7 @@ import {
     AppLangModel,
     CookiesManager,
     ImageExporter,
+    CharacterTraitsImpactsManagerModel,
 } from '../models';
 import { langManager } from './langManager';
 import { CHARACTER_TRAITS_IMPACTS } from '../defaults/characterTraitsImpacts';
@@ -38,7 +39,8 @@ const lang = new AppLangModel(appLangModelPure, langManager);
 const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
-const characterTraitManagerSingleton = new CharacterTraitsManagerModel(CHARACTER_TRAITS_IMPACTS, pairs);
+const characterTraitsManagerModel = new CharacterTraitsImpactsManagerModel(CHARACTER_TRAITS_IMPACTS);
+const characterTraitManagerSingleton = new CharacterTraitsManagerModel(characterTraitsManagerModel, pairs);
 const appContextViewModelSingleton = new AppContextViewModel(appGeneralSettingsSingleton);
 
 const MODELS = {
