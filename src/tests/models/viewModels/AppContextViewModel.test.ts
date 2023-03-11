@@ -9,13 +9,26 @@ import { TEXTS_EN } from '../../../langs/en';
 const EMIT_PATTERN = '-a';
 
 describe('AppContextViewModel', () => {
+    let model: AppContextViewModel;
     let generalSettingsModelMock: IAppGeneralSettings;
     let testScheduler: TestScheduler;
 
     beforeEach(() => {
         generalSettingsModelMock = appGeneralSettingsModelMock();
+        model = new AppContextViewModel(generalSettingsModelMock);
+
         testScheduler = new TestScheduler((actual, expected) => {
+            console.log(actual, expected);
             expect(actual).toEqual(expected);
+        });
+    });
+
+    test.only('Should return current isFreeHandMode$', () => {
+        const value = true;
+        model.setIsFreeHandMode(value);
+
+        testScheduler.run(({ expectObservable }) => {
+            expectObservable(model.isFreeHandMode$).toBe('a', { a: value });
         });
     });
 
@@ -24,7 +37,6 @@ describe('AppContextViewModel', () => {
         generalSettingsModelMock.appThemeModel.theme$ = new Observable((observer) => observer.next(theme));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             expectObservable(model.theme$).toBe('a', { a: theme });
         });
     });
@@ -34,7 +46,6 @@ describe('AppContextViewModel', () => {
         generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(translations));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             expectObservable(model.translations$).toBe('a', { a: translations });
         });
     });
@@ -44,7 +55,6 @@ describe('AppContextViewModel', () => {
         generalSettingsModelMock.appLangModel.appLang$ = new Observable((observer) => observer.next(lang));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             expectObservable(model.appLang$).toBe('a', { a: lang });
         });
     });
@@ -54,14 +64,12 @@ describe('AppContextViewModel', () => {
         generalSettingsModelMock.appThemeModel.appTheme$ = new Observable((observer) => observer.next(theme));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             expectObservable(model.appTheme$).toBe('a', { a: theme });
         });
     });
 
     describe('isLoading', () => {
         test('- is false (theme and translations are available)', () => {
-            let model: AppContextViewModel;
             generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
             generalSettingsModelMock.appThemeModel.theme$ = new Observable((observer) => observer.next(DARK_THEME));
 
@@ -72,7 +80,6 @@ describe('AppContextViewModel', () => {
         });
 
         test('- is true (theme and translations are both not available)', () => {
-            let model: AppContextViewModel;
             generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) =>
                 observer.next(undefined),
             );
@@ -98,7 +105,6 @@ describe('AppContextViewModel', () => {
         });
 
         test('- is true (translations are available but theme is not)', () => {
-            let model: AppContextViewModel;
             generalSettingsModelMock.appLangModel.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
             generalSettingsModelMock.appThemeModel.theme$ = new Observable((observer) => observer.next(undefined));
 
@@ -110,16 +116,18 @@ describe('AppContextViewModel', () => {
     });
 
     test('setDefaultValues', () => {
-        const model = new AppContextViewModel(generalSettingsModelMock);
         const result = model.setDefaultValues();
 
         expect(generalSettingsModelMock.setDefaultValues).toHaveBeenCalledTimes(1);
         expect(result).toBe(true);
     });
 
+    // test('setIsFreeHandMode', () => {
+
+    // })
+
     test('changeAppLang', () => {
         const lang = AppLangs.PL;
-        const model = new AppContextViewModel(generalSettingsModelMock);
         model.changeAppLang(lang);
 
         expect(generalSettingsModelMock.appLangModel.changeAppLang).toHaveBeenCalledTimes(1);
@@ -127,14 +135,12 @@ describe('AppContextViewModel', () => {
     });
 
     test('toggleAppTheme', () => {
-        const model = new AppContextViewModel(generalSettingsModelMock);
         model.toggleAppTheme();
         expect(generalSettingsModelMock.appThemeModel.toggleAppTheme).toHaveBeenCalledTimes(1);
     });
 
     test('Should set is loading manually (from default to false)', () => {
         testScheduler.run(({ cold, expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(false));
             expectObservable(model.isLoading$).toBe('ab', { a: true, b: false });
         });
@@ -142,7 +148,6 @@ describe('AppContextViewModel', () => {
 
     test('Should set is loading manually (from default to false)', () => {
         testScheduler.run(({ cold, expectObservable }) => {
-            const model = new AppContextViewModel(generalSettingsModelMock);
             cold(EMIT_PATTERN).subscribe(() => model.setIsLoading(true));
             expectObservable(model.isLoading$).toBe('ab', { a: true, b: true });
         });

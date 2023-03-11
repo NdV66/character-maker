@@ -11,7 +11,6 @@ export class ThemeButtonElementViewModel implements IThemeButtonElementViewModel
         return this._appContext.translations$;
     }
 
-    //TODO: tests
     get theme$() {
         return this._appContext.theme$;
     }

@@ -33,7 +33,6 @@ export class AppContextViewModel implements IAppContextViewModel {
         return this._appGeneralSettings.appThemeModel.appTheme$;
     }
 
-    //TODO: tests
     get isFreeHandMode$() {
         return this._isFreeHandMode$.asObservable();
     }

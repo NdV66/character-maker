@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { ThemeButtonElementViewModel } from '../../../models';
 import { TEXTS_EN } from '../../../langs/en';
+import { DARK_THEME } from '../../../styles';
 
 describe('ThemeButtonElementViewModel', () => {
     let appContextViewModel: IAppContextViewModel;
@@ -23,6 +24,16 @@ describe('ThemeButtonElementViewModel', () => {
         testScheduler.run(({ expectObservable }) => {
             const model = new ThemeButtonElementViewModel(appContextViewModel);
             expectObservable(model.appTheme$).toBe('a', { a: theme });
+        });
+    });
+
+    test('Should return current theme$', () => {
+        const theme = DARK_THEME;
+        appContextViewModel.theme$ = new Observable((observer) => observer.next(theme));
+
+        testScheduler.run(({ expectObservable }) => {
+            const model = new ThemeButtonElementViewModel(appContextViewModel);
+            expectObservable(model.theme$).toBe('a', { a: theme });
         });
     });
 
