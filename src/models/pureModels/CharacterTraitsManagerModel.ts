@@ -48,16 +48,16 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         }
     }
 
-    public updatePairPercentById(pairId: string, percent: number, isFreeHandMode = false) {
+    private _updateImpacts = (mainPair: ICharacterTraitsPair) => {
+        const impacts = this._impactsManager.getImpactByPairId(mainPair.id);
+        impacts?.length && this._setImpacts(mainPair, impacts);
+    };
+
+    public updatePairPercentById(pairId: string, percent: number, isFreeHandMode: boolean) {
         const mainPair = this._getMainPairById(pairId);
         mainPair.setPercentForMainCharacterTrait(percent);
 
-        //TODO: tests
-        if (!isFreeHandMode) {
-            const impacts = this._impactsManager.getImpactByPairId(pairId);
-            impacts && this._setImpacts(mainPair, impacts);
-        }
-
+        !isFreeHandMode && this._updateImpacts(mainPair);
         return true;
     }
 

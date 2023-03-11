@@ -5,7 +5,6 @@ export enum CharacterTraitsPairsIds {
     LOGICAL_EMOTIONAL = 'l_e',
     CALM_IMPULSIVE = 'c_i',
     FEARFUL_COURAGEOUS = 'f_c',
-    LOVING_HATEFUL = 'l_h',
     HAPPY_MELANCHOLIC = 'h_m',
 }
 

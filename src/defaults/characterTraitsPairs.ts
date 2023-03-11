@@ -32,11 +32,6 @@ export const CHARACTER_TRAITS_PAIRS: TCharacterTraitData[] = [
         opposite: 'COURAGEOUS',
     },
     {
-        id: CharacterTraitsPairsIds.LOVING_HATEFUL,
-        name: 'LOVING',
-        opposite: 'HATEFUL',
-    },
-    {
         id: CharacterTraitsPairsIds.HAPPY_MELANCHOLIC,
         name: 'HAPPY',
         opposite: 'MELANCHOLIC',

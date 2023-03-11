@@ -7,7 +7,7 @@ export const ChangeAppModeElement: React.FC = () => {
     return (
         <SwitchButton
             onChange={changeAppMode}
-            checked={isFreeHandMode}
+            checked={!isFreeHandMode}
             checkedChildren={translations.STRICT_MODE}
             unCheckedChildren={translations.FREE_HAND_MODE}
             theme={theme}

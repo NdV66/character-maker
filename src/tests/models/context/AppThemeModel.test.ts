@@ -22,6 +22,7 @@ describe('AppThemeModel', () => {
         expect(appThemePureModel.setDefaultValue).toHaveBeenCalledTimes(1);
     });
 
+    //TODO: tests
     // test.only('Should update appTheme subject (and gets value from pure model)', () => {
     //     const appTheme = AppTheme.LIGHT;
     //     appThemePureModel.appTheme = appTheme;

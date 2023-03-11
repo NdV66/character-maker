@@ -18,12 +18,11 @@ describe('AppContextViewModel', () => {
         model = new AppContextViewModel(generalSettingsModelMock);
 
         testScheduler = new TestScheduler((actual, expected) => {
-            console.log(actual, expected);
             expect(actual).toEqual(expected);
         });
     });
 
-    test.only('Should return current isFreeHandMode$', () => {
+    test('Should return current isFreeHandMode$', () => {
         const value = true;
         model.setIsFreeHandMode(value);
 
