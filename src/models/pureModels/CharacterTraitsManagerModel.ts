@@ -1,5 +1,4 @@
 /* Main Manager for handle and update all character traits */
-
 import { NOT_FOUND_ERROR } from '../../defaults';
 import {
     ICharacterTraitsPair,
@@ -53,6 +52,7 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         const mainPair = this._getMainPairById(pairId);
         mainPair.setPercentForMainCharacterTrait(percent);
 
+        //TODO: tests
         if (!isFreeHandMode) {
             const impacts = this._impactsManager.getImpactByPairId(pairId);
             impacts && this._setImpacts(mainPair, impacts);

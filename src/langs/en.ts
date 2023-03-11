@@ -16,6 +16,8 @@ export const TEXTS_EN: TTranslations = {
     EXPORT: 'Export',
 
     INFO_TEXT: 'Setup all character traits and then save your work as JPEG.',
+    FREE_HAND_MODE: 'free hand',
+    STRICT_MODE: 'strict',
 
     CHARACTER_TRAITS: {
         HELPFUL: 'helpful',

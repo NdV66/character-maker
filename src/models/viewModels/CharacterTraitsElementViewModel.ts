@@ -1,4 +1,4 @@
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 import {
     ICharacterTraitsPair,
@@ -71,7 +71,7 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
     }
 
     public updatePairPercentById = async (id: string, value: number) => {
-        const isFreeHandMode = await lastValueFrom(this._appContext.isFreeHandMode$);
+        const isFreeHandMode = await firstValueFrom(this._appContext.isFreeHandMode$);
         this._pairsManager.updatePairPercentById(id, value, isFreeHandMode);
         this._refreshData();
     };
