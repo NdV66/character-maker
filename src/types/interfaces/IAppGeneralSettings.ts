@@ -4,6 +4,7 @@ import { IAppTheme } from './IAppTheme';
 export interface IAppGeneralSettings {
     appThemeModel: IAppTheme;
     appLangModel: IAppLang;
+    isFreeHandMode: boolean;
 
     setDefaultValues: () => void;
 }

@@ -14,4 +14,17 @@ export const CHARACTER_TRAITS_IMPACTS: TCharacterTraitImpact[] = [
             },
         ],
     },
+    {
+        pairId: CharacterTraitsPairsIds.NICE_NASTY,
+        impacts: [
+            {
+                affectedId: CharacterTraitsPairsIds.HELPFUL_EGOISTIC,
+                impact: 0.5,
+            },
+            {
+                affectedId: CharacterTraitsPairsIds.DREAMER_REALIST,
+                impact: 1.1,
+            },
+        ],
+    },
 ];

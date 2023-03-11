@@ -13,4 +13,5 @@ export const DEFAULTS = {
     MAX_PERCENT: 100,
     PERCENT: 50,
     MARKS: { 50: '50' },
+    FREE_HAND_MODE: false,
 };

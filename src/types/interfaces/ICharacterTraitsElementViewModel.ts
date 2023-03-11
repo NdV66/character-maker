@@ -11,7 +11,7 @@ export interface ICharacterTraitsElementViewModel {
     isExporting$: Observable<boolean>;
     characterTraitsPairs: ICharacterTraitsPair[];
 
-    updatePairPercentById: (id: string, value: number) => void;
+    updatePairPercentById: (id: string, value: number) => Promise<void>;
     resetAll: () => void;
     exportToImage: <T extends HTMLElement>(element: T) => Promise<void>;
 }

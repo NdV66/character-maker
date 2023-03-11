@@ -34,8 +34,8 @@ describe('CharacterTraitsManagerModel', () => {
     });
 
     test("Should throw NOT_FOUND_ERROR, if trait pair with given id doesn't exist", () => {
-        const callback = () => model.updatePairPercentById('not_existed_id', 60);
-        expect(callback).toThrow(NOT_FOUND_ERROR);
+        const callback = async () => await model.updatePairPercentById('not_existed_id', 60);
+        expect(callback).rejects.toThrow(NOT_FOUND_ERROR);
     });
 
     test('Should set impact (_setImpact)', () => {
@@ -54,22 +54,22 @@ describe('CharacterTraitsManagerModel', () => {
         expect(model['_setImpact']).toHaveBeenCalledTimes(impactsMocks.length);
     });
 
-    test('Should update percent for selected main pair (by id) (no impacts)', () => {
+    test('Should update percent for selected main pair (by id) (no impacts)', async () => {
         const value = 60;
         model['_setImpacts'] = jest.fn();
-        model.updatePairPercentById(mainPair.id, value);
+        await model.updatePairPercentById(mainPair.id, value);
 
         expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
         expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(value);
         expect(model['_setImpacts']).not.toHaveBeenCalled();
     });
 
-    test('Should update percent for selected main pair (by id) (with impacts)', () => {
+    test('Should update percent for selected main pair (by id) (with impacts)', async () => {
         const value = 60;
         impactsManagerModel.getImpactByPairId = jest.fn().mockReturnValue(impactMock.impacts);
         model['_setImpacts'] = jest.fn();
 
-        model.updatePairPercentById(mainPair.id, value);
+        await model.updatePairPercentById(mainPair.id, value);
 
         expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
         expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(value);

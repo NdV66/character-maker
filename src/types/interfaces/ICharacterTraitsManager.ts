@@ -4,5 +4,5 @@ export interface ICharacterTraitsManager {
     characterTraitsPairs: ICharacterTraitsPair[];
 
     resetAll: () => void;
-    updatePairPercentById: (pairId: string, percent: number) => boolean;
+    updatePairPercentById: (pairId: string, percent: number, isFreeHandMode: boolean) => boolean;
 }
