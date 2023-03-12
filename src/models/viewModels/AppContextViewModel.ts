@@ -50,7 +50,6 @@ export class AppContextViewModel implements IAppContextViewModel {
         this._isLoading$.next(value);
     }
 
-    //TODO: tests
     public setIsFreeHandMode(value: boolean) {
         this._isFreeHandMode$.next(value);
     }
@@ -66,7 +65,6 @@ export class AppContextViewModel implements IAppContextViewModel {
         });
     }
 
-    //TODO: tests
     private _subscribeIsFreeHandMode() {
         this._isFreeHandMode$.subscribe((value) => (this._appGeneralSettings.isFreeHandMode = value));
     }

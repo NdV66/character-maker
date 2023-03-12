@@ -1,7 +1,6 @@
 import { firstValueFrom } from 'rxjs';
 import { IAppContextViewModel, IChangeAppModeElementViewModel } from '../../types';
 
-//TODO: tests
 export class ChangeAppModeElementViewModel implements IChangeAppModeElementViewModel {
     constructor(private readonly _appContext: IAppContextViewModel) {}
 

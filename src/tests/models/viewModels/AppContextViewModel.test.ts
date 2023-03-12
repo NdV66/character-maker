@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AppContextViewModel } from '../../../models';
 import { AppLangs, AppTheme, IAppGeneralSettings } from '../../../types';
@@ -114,18 +114,23 @@ describe('AppContextViewModel', () => {
         });
     });
 
-    test('setDefaultValues', () => {
+    test('Should set default values', () => {
         const result = model.setDefaultValues();
 
         expect(generalSettingsModelMock.setDefaultValues).toHaveBeenCalledTimes(1);
         expect(result).toBe(true);
     });
 
-    // test('setIsFreeHandMode', () => {
+    test('Should set free hand mode', () => {
+        const value = true;
 
-    // })
+        testScheduler.run(async ({ cold, expectObservable }) => {
+            cold(EMIT_PATTERN).subscribe(() => model.setIsFreeHandMode(value));
+            expectObservable(model.isFreeHandMode$).toBe('ab', { a: false, b: value });
+        });
+    });
 
-    test('changeAppLang', () => {
+    test('Should change app lang', () => {
         const lang = AppLangs.PL;
         model.changeAppLang(lang);
 
@@ -133,7 +138,7 @@ describe('AppContextViewModel', () => {
         expect(generalSettingsModelMock.appLangModel.changeAppLang).toHaveBeenCalledWith(lang);
     });
 
-    test('toggleAppTheme', () => {
+    test('Should toggle app theme', () => {
         model.toggleAppTheme();
         expect(generalSettingsModelMock.appThemeModel.toggleAppTheme).toHaveBeenCalledTimes(1);
     });
