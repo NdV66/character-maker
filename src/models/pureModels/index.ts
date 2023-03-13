@@ -6,3 +6,4 @@ export * from './CharacterTraitsPairModel';
 export * from './GenericSingletonManager';
 export * from './CookiesManager';
 export * from './ImageExporter';
+export * from './CharacterTraitsImpactsManagerModel';

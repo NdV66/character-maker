@@ -3,6 +3,10 @@
 #### Why?
 Because I want to have a simple example with RxJS and SOLID where I'm able to learn new topics :)
 
+#### Dictionary
+- `trait`
+- `percent`
+
 ## How to: run locally
 - Node.js (>= 16) is installed
 - yarn or npm is installed
@@ -90,6 +94,8 @@ Connections between described above elements are showed here:
 7. Add this instance to the `MODELS` in the `/context/manager.ts` file (if necessary)
 8. Prepare unit tests for you model.
 
+#### How to add / edit impacts?
+
 # Available Scripts
 In the project directory, you can run:
 
@@ -108,3 +114,6 @@ The app is ready to be deployed!
 
 - `yarn deploy`
 Deploy the app for production using gh-pages module.
+
+TODO
+- turn on/off (UI) traits impact

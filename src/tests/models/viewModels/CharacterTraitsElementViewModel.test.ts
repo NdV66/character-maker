@@ -3,7 +3,7 @@ import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewMode
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../../models';
 import { imageExporterMock } from '../../mocks/exporterMock';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TEXTS_EN } from '../../../langs/en';
 import { DARK_THEME } from '../../../styles';
 
@@ -77,16 +77,19 @@ describe('CharacterTraitsElementViewModel', () => {
         });
     });
 
-    test('Should update by pair id', () => {
+    test('Should update by pair id', async () => {
         const id = '1';
         const value = 66;
+        const isFreeHand = false;
+
+        appContextMock.isFreeHandMode$ = of(isFreeHand);
         model['_refreshData'] = jest.fn();
 
-        model.updatePairPercentById(id, value);
+        await model.updatePairPercentById(id, value);
 
         expect(model['_refreshData']).toHaveBeenCalledTimes(1);
         expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledTimes(1);
-        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledWith(id, value);
+        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledWith(id, value, isFreeHand);
     });
 
     test('Should reset all', () => {
@@ -95,6 +98,25 @@ describe('CharacterTraitsElementViewModel', () => {
 
         expect(model['_refreshData']).toHaveBeenCalledTimes(1);
         expect(traitsManagerMock.resetAll).toHaveBeenCalledTimes(1);
+    });
+
+    test('Should update isExporting (_updateIsExporting)', () => {
+        imageExporter.isExporting = true;
+
+        testScheduler.run(({ cold, expectObservable }) => {
+            cold('a').subscribe(() => model['_updateIsExporting']());
+            expectObservable(model['_isExporting$']).toBe('a', { a: true });
+        });
+    });
+
+    test('Should export to image (exportToImage)', () => {
+        const element = {} as any;
+        model['_updateIsExporting'] = jest.fn();
+
+        model.exportToImage(element);
+
+        expect(imageExporter.export).toHaveBeenCalledWith(element);
+        expect(model['_updateIsExporting']).toHaveBeenCalled();
     });
 });
 

@@ -1,43 +1,110 @@
 import { NOT_FOUND_ERROR } from '../../../defaults';
 import { CharacterTraitsManagerModel } from '../../../models';
-import { ICharacterTrait } from '../../../types';
-import { characterTraitModelMock, characterTraitsPairModelMock } from '../../mocks';
-
-const ID = 'pair1';
-const characterTrait = characterTraitModelMock('1', 'key1', 20) as ICharacterTrait;
-const oppositeCharacterTrait = characterTraitModelMock('2', 'key2', 80) as ICharacterTrait;
-const pair = characterTraitsPairModelMock(ID, characterTrait, oppositeCharacterTrait);
-const traitPairs = [pair];
+import { ICharacterTraitsImpactsManager } from '../../../types';
+import {
+    characterTraitsImpactsManagerModelMock,
+    mainPair,
+    impactPair,
+    traitPairs,
+    impactsMocks,
+    impactMock,
+} from '../../mocks';
 
 describe('CharacterTraitsManagerModel', () => {
+    let impactsManagerModel: ICharacterTraitsImpactsManager;
     let model: CharacterTraitsManagerModel;
 
     beforeEach(() => {
-        model = new CharacterTraitsManagerModel(traitPairs);
+        impactsManagerModel = characterTraitsImpactsManagerModelMock();
+        model = new CharacterTraitsManagerModel(impactsManagerModel, traitPairs);
     });
 
     test('Should prepare character traits map from enters', () => {
-        const expectedResult = new Map([[pair.id, pair]]);
+        const expectedResult = new Map([
+            [mainPair.id, mainPair],
+            [impactPair.id, impactPair],
+        ]);
         const result = model['_prepareCharacterTraitsPairs'](traitPairs);
         expect(result).toEqual(expectedResult);
     });
 
     test('Should reset all', () => {
         model.resetAll();
-        expect(pair.reset).toHaveBeenCalledTimes(1);
+        expect(mainPair.reset).toHaveBeenCalledTimes(1);
     });
 
     test("Should throw NOT_FOUND_ERROR, if trait pair with given id doesn't exist", () => {
-        const callback = () => model.updatePairPercentById('not_existed_id', 60);
-        expect(callback).toThrow(NOT_FOUND_ERROR);
+        const callback = async () => await model.updatePairPercentById('not_existed_id', 60, true);
+        expect(callback).rejects.toThrow(NOT_FOUND_ERROR);
     });
 
-    test('Should update percent for selected pair (by id)', () => {
-        const value = 60;
-        model.updatePairPercentById(ID, value);
+    test('Should set impact (_setImpact)', () => {
+        const expectedValue = 60;
+        impactsManagerModel.calcPercent = jest.fn().mockReturnValue(expectedValue);
+        model['_setImpact'](mainPair.mainCharacterTrait.percent, impactMock.impacts[0]);
 
-        expect(pair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
-        expect(pair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(value);
+        expect(impactPair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
+        expect(impactPair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(expectedValue);
+    });
+
+    test('Should set impact for every impact object (_setImpacts)', () => {
+        model['_setImpact'] = jest.fn();
+        model['_setImpacts'](mainPair, impactMock.impacts);
+
+        expect(model['_setImpact']).toHaveBeenCalledTimes(impactsMocks.length);
+    });
+
+    describe('_updateImpacts', () => {
+        beforeEach(() => {
+            model['_setImpacts'] = jest.fn();
+        });
+
+        test('Should set impact only when they are impacts', () => {
+            impactsManagerModel.getImpactByPairId = jest.fn().mockReturnValue(impactsMocks);
+            model['_updateImpacts'](mainPair);
+
+            expect(model['_setImpacts']).toHaveBeenCalledTimes(1);
+            expect(model['_setImpacts']).toHaveBeenCalledWith(mainPair, impactsMocks);
+        });
+
+        test('Should not set impact when they are no impacts (undefined)', () => {
+            impactsManagerModel.getImpactByPairId = jest.fn().mockReturnValue(undefined);
+            model['_updateImpacts'](mainPair);
+            expect(model['_setImpacts']).not.toHaveBeenCalled();
+        });
+
+        test('Should not set impact when they are no impacts (empty array)', () => {
+            impactsManagerModel.getImpactByPairId = jest.fn().mockReturnValue([]);
+            model['_updateImpacts'](mainPair);
+            expect(model['_setImpacts']).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('updatePairPercentById', () => {
+        const value = 60;
+
+        beforeEach(() => {
+            model['_setImpacts'] = jest.fn();
+            model['_updateImpacts'] = jest.fn();
+        });
+
+        test('- free hand mode', async () => {
+            await model.updatePairPercentById(mainPair.id, value, true);
+
+            expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
+            expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(value);
+            expect(model['_setImpacts']).not.toHaveBeenCalled();
+            expect(model['_updateImpacts']).not.toHaveBeenCalled();
+        });
+
+        test('- no free hand mode', async () => {
+            await model.updatePairPercentById(mainPair.id, value, false);
+
+            expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledTimes(1);
+            expect(mainPair.setPercentForMainCharacterTrait).toHaveBeenCalledWith(value);
+            expect(model['_setImpacts']).not.toHaveBeenCalled();
+            expect(model['_updateImpacts']).toHaveBeenCalledTimes(1);
+        });
     });
 });
 

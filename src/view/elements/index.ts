@@ -4,3 +4,4 @@ export * from './WarningParagraph';
 export * from './AppSlider';
 export * from './CleanButton';
 export * from './AppInfo';
+export * from './ButtonsElement';

@@ -4,9 +4,13 @@ import { AppLangs, IAppContextViewModel, IAppGeneralSettings } from '../../types
 /* Main and only source of context app values */
 export class AppContextViewModel implements IAppContextViewModel {
     private _isLoading$ = new BehaviorSubject(true);
+    private _isFreeHandMode$: BehaviorSubject<boolean>;
 
     constructor(private _appGeneralSettings: IAppGeneralSettings) {
+        this._isFreeHandMode$ = new BehaviorSubject(this._appGeneralSettings.isFreeHandMode);
+
         this._subscribeIsLoading();
+        this._subscribeIsFreeHandMode();
     }
 
     get theme$() {
@@ -29,6 +33,10 @@ export class AppContextViewModel implements IAppContextViewModel {
         return this._appGeneralSettings.appThemeModel.appTheme$;
     }
 
+    get isFreeHandMode$() {
+        return this._isFreeHandMode$.asObservable();
+    }
+
     public setDefaultValues() {
         this._appGeneralSettings.setDefaultValues();
         return true;
@@ -42,6 +50,10 @@ export class AppContextViewModel implements IAppContextViewModel {
         this._isLoading$.next(value);
     }
 
+    public setIsFreeHandMode(value: boolean) {
+        this._isFreeHandMode$.next(value);
+    }
+
     public toggleAppTheme() {
         this._appGeneralSettings.appThemeModel.toggleAppTheme();
     }
@@ -51,5 +63,9 @@ export class AppContextViewModel implements IAppContextViewModel {
             const isLoading = appTheme && lang;
             this.setIsLoading(!isLoading);
         });
+    }
+
+    private _subscribeIsFreeHandMode() {
+        this._isFreeHandMode$.subscribe((value) => (this._appGeneralSettings.isFreeHandMode = value));
     }
 }

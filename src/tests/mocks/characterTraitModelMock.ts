@@ -1,6 +1,9 @@
-export const characterTraitModelMock = (id = '1', nameTranslationKey = 'key', percent = 66) => ({
-    id,
-    nameTranslationKey,
-    percent,
-    reset: jest.fn(),
-});
+import { ICharacterTrait } from '../../types';
+
+export const characterTraitModelMock = (id = '1', nameTranslationKey = 'key', percent = 66) =>
+    ({
+        id,
+        nameTranslationKey,
+        percent,
+        reset: jest.fn(),
+    } as ICharacterTrait);

@@ -19,8 +19,11 @@ import {
     AppLangModel,
     CookiesManager,
     ImageExporter,
+    CharacterTraitsImpactsManagerModel,
+    ChangeAppModeElementViewModel,
 } from '../models';
 import { langManager } from './langManager';
+import { CHARACTER_TRAITS_IMPACTS } from '../defaults/characterTraitsImpacts';
 
 const pairs = CHARACTER_TRAITS_PAIRS.map((el) => {
     const mainTrait = new CharacterTraitModel(el.name, el.name);
@@ -37,7 +40,8 @@ const lang = new AppLangModel(appLangModelPure, langManager);
 const theme = new AppThemeModel(appThemeModelPure);
 
 const appGeneralSettingsSingleton = new AppGeneralSettingsModel(lang, theme);
-const characterTraitManagerSingleton = new CharacterTraitsManagerModel(pairs);
+const characterTraitsManagerModel = new CharacterTraitsImpactsManagerModel(CHARACTER_TRAITS_IMPACTS);
+const characterTraitManagerSingleton = new CharacterTraitsManagerModel(characterTraitsManagerModel, pairs);
 const appContextViewModelSingleton = new AppContextViewModel(appGeneralSettingsSingleton);
 
 const MODELS = {
@@ -51,6 +55,7 @@ const MODELS = {
     [Models.PAGE_VIEW_MODEL]: new PageViewModel(appContextViewModelSingleton),
     [Models.FOOTER_VIEW_MODEL]: new FooterViewModel(appContextViewModelSingleton),
     [Models.MAIN_CONTENT_VIEW_MODEL]: new MainContentViewModel(appContextViewModelSingleton),
+    [Models.CHANGE_APP_MODE_ELEMENT_VIEW_MODEL]: new ChangeAppModeElementViewModel(appContextViewModelSingleton),
 };
 
 export const ModelsManager = new GenericSingletonManager(MODELS);

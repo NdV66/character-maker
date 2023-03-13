@@ -1,20 +1,21 @@
-// import { TestScheduler } from 'rxjs/testing';
+import { TestScheduler } from 'rxjs/testing';
 import { AppThemeModel } from '../../../models';
-// import { AppTheme } from '../../../types';
+import { AppTheme, IAppThemePure } from '../../../types';
 import { appThemePureModelMock } from '../../mocks/appThemeModelMock';
 
 //TODO: add more tests
 describe('AppThemeModel', () => {
-    const appThemePureModel = appThemePureModelMock();
+    let appThemePureModel: IAppThemePure;
     let model: AppThemeModel;
-    // let testScheduler: TestScheduler;
+    let testScheduler: TestScheduler;
 
     beforeEach(() => {
+        appThemePureModel = appThemePureModelMock();
         model = new AppThemeModel(appThemePureModel);
-        // testScheduler = new TestScheduler((actual, expected) => {
-        //     console.log('>>>>', actual, expected);
-        //     expect(actual).toEqual(expected);
-        // });
+        testScheduler = new TestScheduler((actual, expected) => {
+            console.log('>>>>', actual, expected);
+            expect(actual).toEqual(expected);
+        });
     });
 
     test('Should set default values', () => {
@@ -22,15 +23,15 @@ describe('AppThemeModel', () => {
         expect(appThemePureModel.setDefaultValue).toHaveBeenCalledTimes(1);
     });
 
-    // test.only('Should update appTheme subject (and gets value from pure model)', () => {
-    //     const appTheme = AppTheme.LIGHT;
-    //     appThemePureModel.appTheme = appTheme;
+    test('Should update appTheme$ (and gets value from pure model)', () => {
+        const appTheme = AppTheme.LIGHT;
+        appThemePureModel.appTheme = appTheme;
 
-    //     testScheduler.run(({ expectObservable, cold }) => {
-    //         cold('-a').subscribe(() => model['_updateAppThemeSubject']());
-    //         expectObservable(model.theme$).toBe('-ab', { a: appTheme });
-    //     });
-    // });
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => model['_updateAppThemeSubject']());
+            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+        });
+    });
 });
 
 export {};

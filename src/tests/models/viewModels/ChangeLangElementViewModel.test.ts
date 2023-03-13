@@ -6,11 +6,11 @@ import { ChangeLangElementViewModel } from '../../../models';
 import { TEXTS_EN } from '../../../langs/en';
 
 describe('AppContextViewModel', () => {
-    let appContextViewModelMok: IAppContextViewModel;
+    let appContextViewModel: IAppContextViewModel;
     let testScheduler: TestScheduler;
 
     beforeEach(() => {
-        appContextViewModelMok = appContextViewModelMock() as any as IAppContextViewModel;
+        appContextViewModel = appContextViewModelMock() as any as IAppContextViewModel;
         testScheduler = new TestScheduler((actual, expected) => {
             expect(actual).toEqual(expected);
         });
@@ -18,21 +18,21 @@ describe('AppContextViewModel', () => {
 
     test('Should return current appLang$', () => {
         const lang = AppLangs.PL;
-        appContextViewModelMok.appLang$ = new Observable((observer) => observer.next(lang));
+        appContextViewModel.appLang$ = new Observable((observer) => observer.next(lang));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new ChangeLangElementViewModel(appContextViewModelMok);
+            const model = new ChangeLangElementViewModel(appContextViewModel);
             expectObservable(model.appLang$).toBe('a', { a: lang });
         });
     });
 
     test('Should call changeAppLang', () => {
         const lang = AppLangs.EN;
-        const model = new ChangeLangElementViewModel(appContextViewModelMok);
+        const model = new ChangeLangElementViewModel(appContextViewModel);
         model.changeAppLang(lang);
 
-        expect(appContextViewModelMok.changeAppLang).toHaveBeenCalledTimes(1);
-        expect(appContextViewModelMok.changeAppLang).toHaveBeenCalledWith(lang);
+        expect(appContextViewModel.changeAppLang).toHaveBeenCalledTimes(1);
+        expect(appContextViewModel.changeAppLang).toHaveBeenCalledWith(lang);
     });
 
     test('Should map to item correctly', () => {
@@ -41,7 +41,7 @@ describe('AppContextViewModel', () => {
             value: AppLangs.PL,
         };
         const expectedResult = { key: lang.value, label: lang.label };
-        const model = new ChangeLangElementViewModel(appContextViewModelMok);
+        const model = new ChangeLangElementViewModel(appContextViewModel);
 
         const result = model['_mapToItem'](lang);
         expect(result).toEqual(expectedResult);
@@ -52,10 +52,10 @@ describe('AppContextViewModel', () => {
             { key: 'en-EN', label: 'English' },
             { key: 'pl-PL', label: 'Polski' },
         ];
-        appContextViewModelMok.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
+        appContextViewModel.translations$ = new Observable((observer) => observer.next(TEXTS_EN));
 
         testScheduler.run(({ expectObservable }) => {
-            const model = new ChangeLangElementViewModel(appContextViewModelMok);
+            const model = new ChangeLangElementViewModel(appContextViewModel);
             expectObservable(model.items$).toBe('a', { a: expectedResult });
         });
     });

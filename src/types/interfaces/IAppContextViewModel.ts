@@ -9,9 +9,11 @@ export interface IAppContextViewModel {
     translations$: Observable<TTranslations>;
     isLoading$: Observable<boolean>;
     appLang$: Observable<AppLangs>;
+    isFreeHandMode$: Observable<boolean>;
 
     setDefaultValues: () => boolean;
     setIsLoading: (value: boolean) => void;
     changeAppLang: (lang: AppLangs) => void;
     toggleAppTheme: () => void;
+    setIsFreeHandMode: (value: boolean) => void;
 }

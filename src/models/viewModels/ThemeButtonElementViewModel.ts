@@ -11,5 +11,9 @@ export class ThemeButtonElementViewModel implements IThemeButtonElementViewModel
         return this._appContext.translations$;
     }
 
+    get theme$() {
+        return this._appContext.theme$;
+    }
+
     public toggleAppTheme = () => this._appContext.toggleAppTheme();
 }
