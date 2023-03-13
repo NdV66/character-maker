@@ -43,7 +43,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
             <Col {...columns2}>
                 <div css={themedStyles.text}>
                     <span>{leftText}</span>
-                    <span css={themedStyles.valueLeft}>({mainValue})</span>
+                    <span css={[themedStyles.value, themedStyles.valueLeft]}>({mainValue})</span>
                 </div>
             </Col>
 
@@ -66,7 +66,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
 
             <Col {...columns2}>
                 <div css={themedStyles.text}>
-                    <span css={themedStyles.valueRight}>({oppositeValue})</span>
+                    <span css={[themedStyles.value, themedStyles.valueRight]}>({oppositeValue})</span>
                     <span>{rightText}</span>
                 </div>
             </Col>
@@ -94,25 +94,29 @@ const styles = (theme: TTheme) => ({
     text: css`
         text-transform: uppercase;
         font-size: ${theme.smallFontSize}px;
+        user-select: none;
 
         display: flex;
         justify-content: center;
         align-items: center;
     `,
-    valueLeft: css`
+    value: css`
         font-weight: 700;
-        margin-left: ${theme.baseSpace / 2}px;
         width: 27px;
+        user-select: none;
+    `,
+    valueLeft: css`
+        margin-left: ${theme.baseSpace * 0.5}px;
     `,
     valueRight: css`
-        font-weight: 700;
-        margin-right: ${theme.baseSpace / 2}px;
-        width: 27px;
+        margin-right: ${theme.baseSpace * 0.5}px;
     `,
     customSlider: css`
         .rc-slider-mark-text,
         .rc-slider-mark-text-active {
             color: ${theme.primary};
+            font-size: ${theme.smallFontSize * 0.8}px;
+            user-select: none;
         }
 
         .rc-slider-handle-dragging {
