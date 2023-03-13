@@ -22,6 +22,11 @@ export const CharacterTraitsElement: React.FC = () => {
     const themedStyles = styles(theme);
     const exportRef = useRef<HTMLDivElement>(null);
 
+    console.log(
+        characterTraitsPairs[0]?.mainCharacterTrait.percent,
+        characterTraitsPairs[0]?.oppositeCharacterTrait.percent,
+    );
+
     return (
         <>
             <div ref={exportRef} css={themedStyles.exportCard}>
@@ -40,8 +45,8 @@ export const CharacterTraitsElement: React.FC = () => {
                         oppositeText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
                         onChange={(value) => onChangeCharacterTrait(trait.id, value)}
                         theme={theme}
-                        mainValue={dataSource?.[trait.id].mainPercent || DEFAULTS.PERCENT}
-                        oppositeValue={dataSource?.[trait.id].oppositePercent || DEFAULTS.PERCENT}
+                        mainValue={dataSource?.[trait.id].mainPercent || DEFAULTS.MIN_PERCENT}
+                        oppositeValue={dataSource?.[trait.id].oppositePercent || DEFAULTS.MIN_PERCENT}
                     />
                 ))}
             </div>

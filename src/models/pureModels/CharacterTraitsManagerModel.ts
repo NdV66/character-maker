@@ -39,6 +39,7 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _setImpact(mainPairPercent: number, affectedPair: TCharacterTraitImpactLight) {
         const currentAffectedPair = this._characterTraitsPairs.get(affectedPair.affectedId)!;
         const currentPercent = this._impactsManager.calcPercent(mainPairPercent, affectedPair);
+        console.log('IMPACT', currentPercent);
         currentAffectedPair.setPercentForMainCharacterTrait(currentPercent);
     }
 
@@ -56,6 +57,7 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     public updatePairPercentById(pairId: string, percent: number, isFreeHandMode: boolean) {
         const mainPair = this._getMainPairById(pairId);
         mainPair.setPercentForMainCharacterTrait(percent);
+        console.log('MAIN', percent);
 
         !isFreeHandMode && this._updateImpacts(mainPair);
         return true;
