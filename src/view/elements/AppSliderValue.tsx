@@ -8,7 +8,6 @@ type Props = {
     text: string;
     theme: TTheme;
     value: number;
-    position: 'left' | 'right';
 };
 
 const columns = {
@@ -20,23 +19,21 @@ const columns = {
     xxl: 2,
 };
 
-export const AppSliderValue: React.FC<Props> = ({ text, theme, value, position }) => {
+export const AppSliderValue: React.FC<Props> = ({ text, theme, value }) => {
     const themedStyles = styles(theme);
-    const isLeft = position === 'left';
-    const additionalCss = isLeft ? themedStyles.valueLeft : themedStyles.valueRight;
 
     return (
         <Col {...columns}>
-            <div css={themedStyles.text}>
-                <span>{text}</span>
-                <span css={[themedStyles.value, additionalCss]}>({value})</span>
+            <div css={themedStyles.wrapper}>
+                <span css={themedStyles.text}>{text}</span>
+                <span css={themedStyles.value}>({value})</span>
             </div>
         </Col>
     );
 };
 
 const styles = (theme: TTheme) => ({
-    text: css`
+    wrapper: css`
         text-transform: uppercase;
         font-size: ${theme.smallFontSize}px;
         user-select: none;
@@ -50,10 +47,8 @@ const styles = (theme: TTheme) => ({
         width: 27px;
         user-select: none;
     `,
-    valueLeft: css`
-        margin-left: ${theme.baseSpace * 0.5}px;
-    `,
-    valueRight: css`
+
+    text: css`
         margin-right: ${theme.baseSpace * 0.5}px;
     `,
 });

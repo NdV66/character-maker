@@ -32,7 +32,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
 
     return (
         <Row justify="center" align="middle">
-            <AppSliderValue theme={theme} value={mainValue} text={leftText} position="left" />
+            <AppSliderValue theme={theme} value={mainValue} text={leftText} />
 
             <Col {...columns}>
                 <div css={themedStyles.slider}>
@@ -51,7 +51,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                 </div>
             </Col>
 
-            <AppSliderValue theme={theme} value={oppositeValue} text={rightText} position="right" />
+            <AppSliderValue theme={theme} value={oppositeValue} text={rightText} />
         </Row>
     );
 };
