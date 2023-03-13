@@ -7,7 +7,7 @@ export class AppThemeModel implements IAppTheme {
     public readonly theme$: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
-        this.theme$ = this.appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value)));
+        this.theme$ = this.appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value))); //TODO: tests
         this._saveAppThemeInCookieOnChange();
     }
 
@@ -15,15 +15,18 @@ export class AppThemeModel implements IAppTheme {
         this._appThemeSubject.next(this._appThemePureModel.appTheme);
     }
 
+    //TODO: tests
     private _saveAppThemeInCookieOnChange() {
         this.appTheme$.subscribe((value) => this._appThemePureModel.changeAppTheme(value));
     }
 
+    //TODO: tests
     public setDefaultValue = () => {
         this._appThemePureModel.setDefaultValue();
         this._updateAppThemeSubject();
     };
 
+    //TODO: tests
     public toggleAppTheme = async () => {
         const currentTheme = await firstValueFrom(this._appThemeSubject);
         const newTheme = this._appThemePureModel.getNewAppTheme(currentTheme);

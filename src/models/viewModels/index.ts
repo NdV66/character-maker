@@ -5,3 +5,4 @@ export * from './AppContextViewModel';
 export * from './PageViewModel';
 export * from './FooterViewModel';
 export * from './MainContentViewModel';
+export * from './ChangeAppModeElementViewModel';

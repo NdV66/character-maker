@@ -1,4 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, firstValueFrom } from 'rxjs';
+import { DEFAULTS } from '../../defaults';
 
 import {
     ICharacterTraitsPair,
@@ -11,7 +12,8 @@ import {
 
 export class CharacterTraitsElementViewModel implements ICharacterTraitsElementViewModel {
     private _data$ = new BehaviorSubject<TCharacterTraitPairLight>({});
-    private _isExporting$ = new BehaviorSubject<boolean>(false);
+    private _isExporting$ = new BehaviorSubject<boolean>(DEFAULTS.EXPORTING);
+    private _showTip$ = new BehaviorSubject<boolean>(DEFAULTS.SHOW_TIP);
 
     constructor(
         private _appContext: IAppContextViewModel,
@@ -19,6 +21,8 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         private _imageExporter: IExporter,
     ) {
         this._refreshData();
+
+        this._appContext.isFreeHandMode$.pipe(distinctUntilChanged()).subscribe(() => this._showTip$.next(false));
     }
 
     get data$() {
@@ -35,6 +39,11 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
 
     get isExporting$() {
         return this._isExporting$.asObservable();
+    }
+
+    //TODO: tests
+    get showTip$() {
+        return this._showTip$;
     }
 
     get characterTraitsPairs() {
@@ -70,14 +79,31 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         this._isExporting$.next(value);
     }
 
-    public updatePairPercentById = (id: string, value: number) => {
-        this._pairsManager.updatePairPercentById(id, value);
-        this._refreshData();
+    //TODO: tests
+    private _updatePairPercentById = async (id: string, value: number) => {
+        const isFreeHandMode = await firstValueFrom(this._appContext.isFreeHandMode$);
+        this._pairsManager.updatePairPercentById(id, value, isFreeHandMode);
+    };
+
+    //TODO: tests
+    public updatePairPercentById = async (id: string, value: number) => {
+        this._showTip$.next(false);
+
+        try {
+            await this._updatePairPercentById(id, value);
+        } catch (error) {
+            this._showTip$.next(true);
+        } finally {
+            this._refreshData();
+        }
     };
 
     public resetAll = () => {
         this._pairsManager.resetAll();
         this._refreshData();
+
+        this._showTip$.next(DEFAULTS.SHOW_TIP);
+        this._isExporting$.next(DEFAULTS.EXPORTING);
     };
 
     public exportToImage = async <T extends HTMLElement>(element: T) => {

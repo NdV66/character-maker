@@ -23,6 +23,9 @@ export type TTranslations = {
     EXPORT: string;
 
     INFO_TEXT: string;
+    FREE_HAND_MODE: string;
+    STRICT_MODE: string;
+    CHANGE_MODE_TIP: string;
 
     CHARACTER_TRAITS: {
         HELPFUL: string;

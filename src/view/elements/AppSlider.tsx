@@ -7,10 +7,11 @@ import 'rc-slider/assets/index.css';
 
 import { DEFAULTS } from '../../defaults';
 import { TTheme } from '../../types';
+import { AppSliderValue } from './AppSliderValue';
 
 type Props = {
-    leftText: string;
-    rightText: string;
+    mainText: string;
+    oppositeText: string;
     theme: TTheme;
     onChange: (value: number) => void;
     mainValue: number;
@@ -26,30 +27,16 @@ const columns = {
     xxl: 20,
 };
 
-const columns2 = {
-    xs: 7,
-    sm: 6,
-    md: 5,
-    lg: 4,
-    xl: 3,
-    xxl: 2,
-};
-
-export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainValue, onChange, oppositeValue }) => {
+export const AppSlider: React.FC<Props> = ({ mainText, oppositeText, theme, mainValue, onChange, oppositeValue }) => {
     const themedStyles = styles(theme);
 
     return (
         <Row justify="center" align="middle">
-            <Col {...columns2}>
-                <div css={themedStyles.text}>
-                    <span>{leftText}</span>
-                    <span css={themedStyles.valueLeft}>({mainValue})</span>
-                </div>
-            </Col>
+            <AppSliderValue theme={theme} value={mainValue} text={mainText} />
+
             <Col {...columns}>
                 <div css={themedStyles.slider}>
                     <Slider
-                        // reverse
                         marks={DEFAULTS.MARKS}
                         max={DEFAULTS.MAX_PERCENT}
                         min={DEFAULTS.MIN_PERCENT}
@@ -63,12 +50,8 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                     />
                 </div>
             </Col>
-            <Col {...columns2}>
-                <div css={themedStyles.text}>
-                    <span css={themedStyles.valueRight}>({oppositeValue})</span>
-                    <span>{rightText}</span>
-                </div>
-            </Col>
+
+            <AppSliderValue theme={theme} value={oppositeValue} text={oppositeText} />
         </Row>
     );
 };
@@ -90,28 +73,12 @@ const styles = (theme: TTheme) => ({
     slider: css`
         padding: ${theme.baseSpace * 3}px ${theme.baseSpace * 2}px;
     `,
-    text: css`
-        text-transform: uppercase;
-        font-size: ${theme.smallFontSize}px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    `,
-    valueLeft: css`
-        font-weight: 700;
-        margin-left: ${theme.baseSpace / 2}px;
-        width: 27px;
-    `,
-    valueRight: css`
-        font-weight: 700;
-        margin-right: ${theme.baseSpace / 2}px;
-        width: 27px;
-    `,
     customSlider: css`
         .rc-slider-mark-text,
         .rc-slider-mark-text-active {
             color: ${theme.primary};
+            font-size: ${theme.smallFontSize * 0.8}px;
+            user-select: none;
         }
 
         .rc-slider-handle-dragging {

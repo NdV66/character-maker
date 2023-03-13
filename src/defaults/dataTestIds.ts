@@ -7,4 +7,5 @@ export const TEST_IDS = {
     WARNING_PARAGRAPH: 'WarningParagraph_testId',
     FOOTER_ELEMENT: 'FooterElement_testId',
     MAIN_CONTENT: 'MainContent_testId',
+    APP_FREE_HAND_SLIDER: 'AppFreeHandSlider_testId',
 };

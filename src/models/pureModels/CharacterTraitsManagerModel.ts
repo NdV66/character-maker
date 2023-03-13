@@ -1,18 +1,25 @@
 /* Main Manager for handle and update all character traits */
-
 import { NOT_FOUND_ERROR } from '../../defaults';
-import { ICharacterTraitsPair, ICharacterTraitsManager } from '../../types';
+import {
+    ICharacterTraitsPair,
+    ICharacterTraitsManager,
+    ICharacterTraitsImpactsManager,
+    TCharacterTraitImpactLight,
+} from '../../types';
 
 export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
     private _characterTraitsPairs: Map<ICharacterTraitsPair['id'], ICharacterTraitsPair>;
 
+    constructor(
+        private readonly _impactsManager: ICharacterTraitsImpactsManager,
+        characterTraitsPairs: ICharacterTraitsPair[],
+    ) {
+        this._characterTraitsPairs = this._prepareCharacterTraitsPairs(characterTraitsPairs);
+    }
+
     get characterTraitsPairs() {
         const values = this._characterTraitsPairs.values();
         return Array.from(values);
-    }
-
-    constructor(characterTraitsPairs: ICharacterTraitsPair[]) {
-        this._characterTraitsPairs = this._prepareCharacterTraitsPairs(characterTraitsPairs);
     }
 
     private _prepareCharacterTraitsPairs(characterTraitsPairs: ICharacterTraitsPair[]) {
@@ -21,16 +28,40 @@ export class CharacterTraitsManagerModel implements ICharacterTraitsManager {
         return result;
     }
 
-    public resetAll() {
-        this._characterTraitsPairs.forEach((value) => value.reset());
-    }
-
-    public updatePairPercentById(pairId: string, percent: number) {
-        const pair = this._characterTraitsPairs.get(pairId);
-        if (!pair) {
+    private _getMainPairById(pairId: string) {
+        const mainPair = this._characterTraitsPairs.get(pairId);
+        if (!mainPair) {
             throw NOT_FOUND_ERROR;
         }
-        pair.setPercentForMainCharacterTrait(percent);
+        return mainPair;
+    }
+
+    private _setImpact(mainPairPercent: number, affectedPair: TCharacterTraitImpactLight) {
+        const currentAffectedPair = this._characterTraitsPairs.get(affectedPair.affectedId)!;
+        const currentPercent = this._impactsManager.calcPercent(mainPairPercent, affectedPair);
+        currentAffectedPair.setPercentForMainCharacterTrait(currentPercent);
+    }
+
+    private _setImpacts(mainPair: ICharacterTraitsPair, impacts: TCharacterTraitImpactLight[]) {
+        for (const impact of impacts) {
+            this._setImpact(mainPair.mainCharacterTrait.percent, impact);
+        }
+    }
+
+    private _updateImpacts = (mainPair: ICharacterTraitsPair) => {
+        const impacts = this._impactsManager.getImpactByPairId(mainPair.id);
+        impacts?.length && this._setImpacts(mainPair, impacts);
+    };
+
+    public updatePairPercentById(pairId: string, percent: number, isFreeHandMode: boolean) {
+        const mainPair = this._getMainPairById(pairId);
+        mainPair.setPercentForMainCharacterTrait(percent);
+
+        !isFreeHandMode && this._updateImpacts(mainPair);
         return true;
+    }
+
+    public resetAll() {
+        this._characterTraitsPairs.forEach((value) => value.reset());
     }
 }

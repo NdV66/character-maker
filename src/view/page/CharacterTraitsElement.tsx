@@ -3,8 +3,9 @@ import { css } from '@emotion/react';
 
 import { useRef } from 'react';
 import { useCharacterTraitsElementViewModel } from '../../useViewModels/useCharacterTraitsElementViewModel';
-import { AppButton, AppSlider, CleanButton } from '../elements';
+import { AppSlider, WarningParagraph, ButtonsElement } from '../elements';
 import { TTheme } from '../../types';
+import { DEFAULTS } from '../../defaults';
 
 export const CharacterTraitsElement: React.FC = () => {
     const {
@@ -16,49 +17,53 @@ export const CharacterTraitsElement: React.FC = () => {
         resetAll,
         exportToImage,
         isExporting,
+        showTip,
     } = useCharacterTraitsElementViewModel();
     const themedStyles = styles(theme);
     const exportRef = useRef<HTMLDivElement>(null);
 
     return (
         <>
-            <div ref={exportRef} css={themedStyles.exportCard}>
-                {characterTraitsPairs.map((trait) => {
-                    return (
-                        <AppSlider
-                            key={trait.id}
-                            leftText={translations.CHARACTER_TRAITS[trait.mainCharacterTrait.nameTranslationKey]}
-                            rightText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
-                            onChange={(value) => onChangeCharacterTrait(trait.id, value)}
-                            theme={theme}
-                            mainValue={dataSource?.[trait.id].mainPercent || 0}
-                            oppositeValue={dataSource?.[trait.id].oppositePercent || 0}
-                        />
-                    );
-                })}
+            <div css={themedStyles.showTipWrapper}>
+                {showTip && (
+                    <WarningParagraph theme={theme} align="right">
+                        {translations.CHANGE_MODE_TIP}
+                    </WarningParagraph>
+                )}
             </div>
 
-            <div css={themedStyles.buttons}>
-                <CleanButton theme={theme} translations={translations} onCleanAll={resetAll} disabled={isExporting} />
-                <AppButton
-                    onClick={() => exportToImage(exportRef)}
-                    theme={theme}
-                    text={translations.EXPORT}
-                    disabled={isExporting}
-                />
+            <div ref={exportRef} css={themedStyles.exportCard}>
+                {characterTraitsPairs.map((trait) => (
+                    <AppSlider
+                        key={trait.id}
+                        mainText={translations.CHARACTER_TRAITS[trait.mainCharacterTrait.nameTranslationKey]}
+                        oppositeText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
+                        onChange={(value) => onChangeCharacterTrait(trait.id, value)}
+                        theme={theme}
+                        mainValue={dataSource?.[trait.id].mainPercent || DEFAULTS.MIN_PERCENT}
+                        oppositeValue={dataSource?.[trait.id].oppositePercent || DEFAULTS.MIN_PERCENT}
+                    />
+                ))}
             </div>
+
+            <ButtonsElement
+                theme={theme}
+                translations={translations}
+                onCleanAll={resetAll}
+                isExporting={isExporting}
+                onExport={() => exportToImage(exportRef)}
+            />
         </>
     );
 };
 
 const styles = (theme: TTheme) => ({
+    showTipWrapper: css`
+        min-height: ${theme.fontSize * 1.5}px;
+        margin-top: ${theme.baseSpace}px;
+    `,
     exportCard: css`
         background-color: ${theme.background};
         padding: ${3 * theme.baseSpace}px;
-    `,
-    buttons: css`
-        display: flex;
-        justify-content: space-between;
-        margin-top: ${3 * theme.baseSpace}px;
     `,
 });

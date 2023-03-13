@@ -9,4 +9,5 @@ export const enum Models {
     PAGE_VIEW_MODEL = 'PageViewModel',
     FOOTER_VIEW_MODEL = 'FooterViewModel',
     MAIN_CONTENT_VIEW_MODEL = 'MainContentViewModel',
+    CHANGE_APP_MODE_ELEMENT_VIEW_MODEL = 'ChangeAppModeElementViewModel',
 }

@@ -8,6 +8,7 @@ import { useMainContentViewModel } from '../../useViewModels/useMainContentViewM
 
 import { CharacterTraitsElement } from './CharacterTraitsElement';
 import { AppInfo } from '../elements';
+import { ChangeAppModeElement } from './ChangeAppModeElement';
 
 export const MainContent: React.FC = () => {
     const { theme, translations } = useMainContentViewModel();
@@ -16,12 +17,19 @@ export const MainContent: React.FC = () => {
     return (
         <Card css={themedStyles.card} data-test-id={TEST_IDS.MAIN_CONTENT}>
             <AppInfo text={translations.INFO_TEXT} theme={theme} />
+            <div css={themedStyles.mode}>
+                <ChangeAppModeElement />
+            </div>
             <CharacterTraitsElement />
         </Card>
     );
 };
 
 const styles = (theme: TTheme) => ({
+    mode: css`
+        display: flex;
+        justify-content: flex-end;
+    `,
     card: css`
         .ant-card-head {
             color: ${theme.accent};
