@@ -22,11 +22,6 @@ export const CharacterTraitsElement: React.FC = () => {
     const themedStyles = styles(theme);
     const exportRef = useRef<HTMLDivElement>(null);
 
-    console.log(
-        characterTraitsPairs[0]?.mainCharacterTrait.percent,
-        characterTraitsPairs[0]?.oppositeCharacterTrait.percent,
-    );
-
     return (
         <>
             <div ref={exportRef} css={themedStyles.exportCard}>

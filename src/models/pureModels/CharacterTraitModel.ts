@@ -14,7 +14,6 @@ export class CharacterTraitModel implements ICharacterTrait {
         if (value >= DEFAULTS.MIN_PERCENT && value <= DEFAULTS.MAX_PERCENT) {
             this._percent = value;
         } else {
-            console.log('>>>', this.id, this.nameTranslationKey, value);
             throw OUT_OF_RANGE_ERROR;
         }
     }

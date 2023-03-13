@@ -83,7 +83,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
     private _updatePairPercentById = async (id: string, value: number) => {
         const isFreeHandMode = await firstValueFrom(this._appContext.isFreeHandMode$);
         this._pairsManager.updatePairPercentById(id, value, isFreeHandMode);
-        this._refreshData();
     };
 
     //TODO: tests
@@ -93,8 +92,9 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         try {
             await this._updatePairPercentById(id, value);
         } catch (error) {
-            // console.log('>>>>', value);
             this._showTip$.next(true);
+        } finally {
+            this._refreshData();
         }
     };
 
