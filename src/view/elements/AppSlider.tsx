@@ -10,8 +10,8 @@ import { TTheme } from '../../types';
 import { AppSliderValue } from './AppSliderValue';
 
 type Props = {
-    leftText: string;
-    rightText: string;
+    mainText: string;
+    oppositeText: string;
     theme: TTheme;
     onChange: (value: number) => void;
     mainValue: number;
@@ -27,12 +27,12 @@ const columns = {
     xxl: 20,
 };
 
-export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainValue, onChange, oppositeValue }) => {
+export const AppSlider: React.FC<Props> = ({ mainText, oppositeText, theme, mainValue, onChange, oppositeValue }) => {
     const themedStyles = styles(theme);
 
     return (
         <Row justify="center" align="middle">
-            <AppSliderValue theme={theme} value={mainValue} text={leftText} />
+            <AppSliderValue theme={theme} value={mainValue} text={mainText} />
 
             <Col {...columns}>
                 <div css={themedStyles.slider}>
@@ -51,7 +51,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                 </div>
             </Col>
 
-            <AppSliderValue theme={theme} value={oppositeValue} text={rightText} />
+            <AppSliderValue theme={theme} value={oppositeValue} text={oppositeText} />
         </Row>
     );
 };

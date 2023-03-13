@@ -35,8 +35,8 @@ export const CharacterTraitsElement: React.FC = () => {
                 {characterTraitsPairs.map((trait) => (
                     <AppSlider
                         key={trait.id}
-                        leftText={translations.CHARACTER_TRAITS[trait.mainCharacterTrait.nameTranslationKey]}
-                        rightText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
+                        mainText={translations.CHARACTER_TRAITS[trait.mainCharacterTrait.nameTranslationKey]}
+                        oppositeText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
                         onChange={(value) => onChangeCharacterTrait(trait.id, value)}
                         theme={theme}
                         mainValue={dataSource?.[trait.id].mainPercent || 0}
