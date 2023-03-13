@@ -14,4 +14,6 @@ export const DEFAULTS = {
     PERCENT: 50,
     MARKS: { 50: '50' },
     FREE_HAND_MODE: false,
+    SHOW_TIP: false,
+    EXPORTING: false,
 };

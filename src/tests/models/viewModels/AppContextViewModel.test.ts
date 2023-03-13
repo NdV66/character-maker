@@ -1,4 +1,4 @@
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AppContextViewModel } from '../../../models';
 import { AppLangs, AppTheme, IAppGeneralSettings } from '../../../types';

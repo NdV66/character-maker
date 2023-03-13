@@ -9,6 +9,7 @@ export interface ICharacterTraitsElementViewModel {
     translations$: Observable<TTranslations>;
     theme$: Observable<TTheme>;
     isExporting$: Observable<boolean>;
+    showTip$: Observable<boolean>;
     characterTraitsPairs: ICharacterTraitsPair[];
 
     updatePairPercentById: (id: string, value: number) => Promise<void>;

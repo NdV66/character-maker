@@ -19,6 +19,7 @@ export const TEXTS_PL: TTranslations = {
         'Ustaw cechy charakteru, korzystając z suwaczków poniżej. Kiedy będziesz zadwolony z rezultatów, możesz wyeksportować swoje dzieło do formatu JPEG.',
     FREE_HAND_MODE: 'free hand',
     STRICT_MODE: 'strict',
+    CHANGE_MODE_TIP: 'Jedna z wartości może przekroczyć wartość 100. Może chcesz włączyć tryb free hand?',
 
     CHARACTER_TRAITS: {
         HELPFUL: 'uczynny',
