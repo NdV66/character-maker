@@ -7,6 +7,7 @@ import 'rc-slider/assets/index.css';
 
 import { DEFAULTS } from '../../defaults';
 import { TTheme } from '../../types';
+import { AppSliderValue } from './AppSliderValue';
 
 type Props = {
     leftText: string;
@@ -26,26 +27,12 @@ const columns = {
     xxl: 20,
 };
 
-const columns2 = {
-    xs: 7,
-    sm: 6,
-    md: 5,
-    lg: 4,
-    xl: 3,
-    xxl: 2,
-};
-
 export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainValue, onChange, oppositeValue }) => {
     const themedStyles = styles(theme);
 
     return (
         <Row justify="center" align="middle">
-            <Col {...columns2}>
-                <div css={themedStyles.text}>
-                    <span>{leftText}</span>
-                    <span css={[themedStyles.value, themedStyles.valueLeft]}>({mainValue})</span>
-                </div>
-            </Col>
+            <AppSliderValue theme={theme} value={mainValue} text={leftText} position="left" />
 
             <Col {...columns}>
                 <div css={themedStyles.slider}>
@@ -64,12 +51,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                 </div>
             </Col>
 
-            <Col {...columns2}>
-                <div css={themedStyles.text}>
-                    <span css={[themedStyles.value, themedStyles.valueRight]}>({oppositeValue})</span>
-                    <span>{rightText}</span>
-                </div>
-            </Col>
+            <AppSliderValue theme={theme} value={oppositeValue} text={rightText} position="right" />
         </Row>
     );
 };
@@ -90,26 +72,6 @@ const handledStyle = (theme: TTheme) => ({
 const styles = (theme: TTheme) => ({
     slider: css`
         padding: ${theme.baseSpace * 3}px ${theme.baseSpace * 2}px;
-    `,
-    text: css`
-        text-transform: uppercase;
-        font-size: ${theme.smallFontSize}px;
-        user-select: none;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    `,
-    value: css`
-        font-weight: 700;
-        width: 27px;
-        user-select: none;
-    `,
-    valueLeft: css`
-        margin-left: ${theme.baseSpace * 0.5}px;
-    `,
-    valueRight: css`
-        margin-right: ${theme.baseSpace * 0.5}px;
     `,
     customSlider: css`
         .rc-slider-mark-text,
