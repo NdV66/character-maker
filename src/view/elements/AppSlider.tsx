@@ -46,10 +46,10 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                     <span css={themedStyles.valueLeft}>({mainValue})</span>
                 </div>
             </Col>
+
             <Col {...columns}>
                 <div css={themedStyles.slider}>
                     <Slider
-                        // reverse
                         marks={DEFAULTS.MARKS}
                         max={DEFAULTS.MAX_PERCENT}
                         min={DEFAULTS.MIN_PERCENT}
@@ -63,6 +63,7 @@ export const AppSlider: React.FC<Props> = ({ leftText, rightText, theme, mainVal
                     />
                 </div>
             </Col>
+
             <Col {...columns2}>
                 <div css={themedStyles.text}>
                     <span css={themedStyles.valueRight}>({oppositeValue})</span>
