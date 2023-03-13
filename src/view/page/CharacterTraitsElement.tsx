@@ -24,15 +24,15 @@ export const CharacterTraitsElement: React.FC = () => {
 
     return (
         <>
-            <div ref={exportRef} css={themedStyles.exportCard}>
-                <div css={themedStyles.showTipWrapper}>
-                    {showTip && (
-                        <WarningParagraph theme={theme} align="right">
-                            {translations.CHANGE_MODE_TIP}
-                        </WarningParagraph>
-                    )}
-                </div>
+            <div css={themedStyles.showTipWrapper}>
+                {showTip && (
+                    <WarningParagraph theme={theme} align="right">
+                        {translations.CHANGE_MODE_TIP}
+                    </WarningParagraph>
+                )}
+            </div>
 
+            <div ref={exportRef} css={themedStyles.exportCard}>
                 {characterTraitsPairs.map((trait) => (
                     <AppSlider
                         key={trait.id}
@@ -60,7 +60,7 @@ export const CharacterTraitsElement: React.FC = () => {
 const styles = (theme: TTheme) => ({
     showTipWrapper: css`
         min-height: ${theme.fontSize * 1.5}px;
-        margin-bottom: ${theme.baseSpace}px;
+        margin-top: ${theme.baseSpace}px;
     `,
     exportCard: css`
         background-color: ${theme.background};
