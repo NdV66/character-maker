@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { useCharacterTraitsElementViewModel } from '../../useViewModels/useCharacterTraitsElementViewModel';
 import { AppSlider, WarningParagraph, ButtonsElement } from '../elements';
 import { TTheme } from '../../types';
+import { DEFAULTS } from '../../defaults';
 
 export const CharacterTraitsElement: React.FC = () => {
     const {
@@ -39,8 +40,8 @@ export const CharacterTraitsElement: React.FC = () => {
                         oppositeText={translations.CHARACTER_TRAITS[trait.oppositeCharacterTrait.nameTranslationKey]}
                         onChange={(value) => onChangeCharacterTrait(trait.id, value)}
                         theme={theme}
-                        mainValue={dataSource?.[trait.id].mainPercent || 0}
-                        oppositeValue={dataSource?.[trait.id].oppositePercent || 0}
+                        mainValue={dataSource?.[trait.id].mainPercent || DEFAULTS.PERCENT}
+                        oppositeValue={dataSource?.[trait.id].oppositePercent || DEFAULTS.PERCENT}
                     />
                 ))}
             </div>
