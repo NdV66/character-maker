@@ -36,6 +36,7 @@ describe('AppThemeModel', () => {
         appThemePureModel.appTheme = appTheme;
 
         testScheduler.run(({ expectObservable }) => {
+            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
             expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
         });
     });

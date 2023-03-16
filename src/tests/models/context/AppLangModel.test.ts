@@ -1,5 +1,6 @@
 import { TestScheduler } from 'rxjs/testing';
 import { langManager } from '../../../context/langManager';
+import { DEFAULTS } from '../../../defaults';
 import { TEXTS_PL } from '../../../langs/pl';
 import { AppLangModel } from '../../../models/context/AppLangModel';
 import { AppLangs } from '../../../types';
@@ -33,8 +34,8 @@ describe('AppLangModel', () => {
 
         testScheduler.run(({ expectObservable, cold }) => {
             cold('-a').subscribe(() => model.changeAppLang(lang));
-            expectObservable(model['_appLang$']).toBe('-a', { a: lang });
-            expectObservable(model.appLang$).toBe('-a', { a: lang });
+            expectObservable(model['_appLang$']).toBe('ab', { a: DEFAULTS.LANG, b: lang });
+            expectObservable(model.appLang$).toBe('ab', { a: DEFAULTS.LANG, b: lang });
         });
     });
 
@@ -43,8 +44,8 @@ describe('AppLangModel', () => {
 
         testScheduler.run(({ expectObservable, cold }) => {
             cold('-a').subscribe(() => model.changeAppLang(lang));
-            expectObservable(model['_translations$']).toBe('-a', { a: TEXTS_PL });
-            expectObservable(model.translations$).toBe('-a', { a: TEXTS_PL });
+            expectObservable(model['_translations$']).toBe('ab', { a: DEFAULTS.TRANSLATIONS, b: TEXTS_PL });
+            expectObservable(model.translations$).toBe('ab', { a: DEFAULTS.TRANSLATIONS, b: TEXTS_PL });
         });
     });
 });

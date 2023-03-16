@@ -1,13 +1,17 @@
 import { AppLangs, IAppLangPure, TTranslations } from '../../types';
-import { map, connect, Subject } from 'rxjs';
+import { map, connect, BehaviorSubject, Observable } from 'rxjs';
 import { IAppLang } from '../../types';
 import { IGenericSingletonManager } from '../../types/interfaces/IGenericSingletonManager';
 
+//TODO: tests, but better
 export class AppLangModel implements IAppLang {
-    private _appLang$ = new Subject<AppLangs>();
-    private _translations$ = this._appLang$.pipe(map((value) => this._getLangFromManager(value)));
+    private _appLang$: BehaviorSubject<AppLangs>;
+    private _translations$: Observable<TTranslations>;
 
     constructor(private _appLangModelPure: IAppLangPure, private _langManager: IGenericSingletonManager) {
+        this._appLang$ = new BehaviorSubject<AppLangs>(this._appLangModelPure.appLang);
+        this._translations$ = this._appLang$.pipe(map((value) => this._getLangFromManager(value)));
+
         this._saveLangCookieOnChange();
     }
 
