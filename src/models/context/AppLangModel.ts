@@ -7,10 +7,12 @@ export class AppLangModel implements IAppLang {
     private _appLang$ = new Subject<AppLangs>();
     private _translations$ = this._appLang$.pipe(map((value) => this._getLangFromManager(value)));
 
-    public readonly appLang$ = this._appLang$.pipe(connect(() => this._appLang$));
-
     constructor(private _appLangModelPure: IAppLangPure, private _langManager: IGenericSingletonManager) {
         this._saveLangCookieOnChange();
+    }
+
+    get appLang$() {
+        return this._appLang$.pipe(connect(() => this._appLang$));
     }
 
     get translations$() {
@@ -27,7 +29,7 @@ export class AppLangModel implements IAppLang {
     }
 
     private _saveLangCookieOnChange() {
-        this.appLang$.subscribe((value) => this._appLangModelPure.changeAppLang(value));
+        this._appLang$.subscribe((value) => this._appLangModelPure.changeAppLang(value));
     }
 
     public setDefaultValue = () => {
