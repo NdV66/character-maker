@@ -5,7 +5,9 @@ import { DARK_THEME, LIGHT_THEME } from '../../styles';
 export class AppThemePureModel implements IAppThemePure {
     private _appTheme = DEFAULTS.APP_THEME;
 
-    constructor(private _cookiesManager: ICookiesManager) {}
+    constructor(private _cookiesManager: ICookiesManager) {
+        this.setDefaultValue();
+    }
 
     get appTheme() {
         return this._appTheme;

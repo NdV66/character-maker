@@ -4,7 +4,9 @@ import { COOKIE_LANG_KEY, DEFAULTS } from '../../defaults';
 export class AppLangModelPure implements IAppLangPure {
     private _appLang = DEFAULTS.LANG;
 
-    constructor(private _cookiesManager: ICookiesManager) {}
+    constructor(private _cookiesManager: ICookiesManager) {
+        this.setDefaultValue();
+    }
 
     get appLang() {
         return this._appLang;

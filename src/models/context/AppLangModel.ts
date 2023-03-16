@@ -1,5 +1,5 @@
 import { AppLangs, IAppLangPure, TTranslations } from '../../types';
-import { map, connect, BehaviorSubject, Observable } from 'rxjs';
+import { map, BehaviorSubject, Observable } from 'rxjs';
 import { IAppLang } from '../../types';
 import { IGenericSingletonManager } from '../../types/interfaces/IGenericSingletonManager';
 
@@ -16,7 +16,7 @@ export class AppLangModel implements IAppLang {
     }
 
     get appLang$() {
-        return this._appLang$.pipe(connect(() => this._appLang$));
+        return this._appLang$.asObservable();
     }
 
     get translations$() {

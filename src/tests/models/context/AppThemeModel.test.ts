@@ -82,7 +82,7 @@ describe('AppThemeModel', () => {
             cold('-a').subscribe(() => {
                 model['_appTheme$'].next(appTheme);
 
-                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledTimes(1);
+                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledTimes(2);
                 expect(appThemePureModel.changeAppTheme).toHaveBeenCalledWith(appTheme);
             });
 
@@ -104,7 +104,7 @@ describe('AppThemeModel', () => {
         });
     });
 
-    test.only('Should toggle appTheme$', () => {
+    test('Should toggle appTheme$', () => {
         const appTheme = AppTheme.LIGHT;
         const newAppTheme = AppTheme.DARK;
         appThemePureModel.getNewAppTheme = jest.fn().mockReturnValue(newAppTheme);
