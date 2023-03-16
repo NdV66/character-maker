@@ -1,5 +1,6 @@
 import { TestScheduler } from 'rxjs/testing';
 import { AppThemeModel } from '../../../models';
+import { LIGHT_THEME } from '../../../styles';
 import { AppTheme, IAppThemePure } from '../../../types';
 import { appThemePureModelMock } from '../../mocks/appThemeModelMock';
 
@@ -28,6 +29,39 @@ describe('AppThemeModel', () => {
         testScheduler.run(({ expectObservable }) => {
             expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
         });
+    });
+
+    test('Should get appTheme$ correctly', () => {
+        const appTheme = AppTheme.LIGHT;
+        appThemePureModel.appTheme = appTheme;
+
+        testScheduler.run(({ expectObservable }) => {
+            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+        });
+    });
+
+    test('Should get theme$ correctly', () => {
+        const theme = LIGHT_THEME;
+        const appTheme = AppTheme.LIGHT;
+        appThemePureModel.appTheme = appTheme;
+        model['_mapToTheme'] = jest.fn().mockReturnValue(theme);
+
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => {
+                expect(model['_mapToTheme']).toHaveBeenCalledTimes(1);
+                expect(model['_mapToTheme']).toHaveBeenCalledWith(appTheme);
+            });
+
+            expectObservable(model.theme$).toBe('-a', { a: theme });
+        });
+    });
+
+    test('Should _mapToTheme() work correctly', () => {
+        const theme = LIGHT_THEME;
+        appThemePureModel.getTheme = jest.fn().mockReturnValue(theme);
+
+        const result = model['_mapToTheme'](AppTheme.LIGHT);
+        expect(result).toBe(theme);
     });
 
     test('Should update appTheme$ (and gets value from pure model)', () => {

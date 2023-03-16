@@ -1,18 +1,23 @@
-import { map, connect, firstValueFrom, Observable, BehaviorSubject } from 'rxjs';
-import { AppTheme, IAppThemePure, IAppTheme, TTheme } from '../../types';
+import { map, firstValueFrom, BehaviorSubject } from 'rxjs';
+import { AppTheme, IAppThemePure, IAppTheme } from '../../types';
 
 export class AppThemeModel implements IAppTheme {
     private _appTheme$: BehaviorSubject<AppTheme>;
-    public readonly appTheme$: Observable<AppTheme>;
-    public readonly theme$: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
         this._appTheme$ = new BehaviorSubject<AppTheme>(_appThemePureModel.appTheme);
-        this.appTheme$ = this._appTheme$.pipe(connect(() => this._appTheme$)); //TODO: tests
-        this.theme$ = this._appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value))); //TODO: tests
-
         this._saveAppThemeInCookieOnChange();
     }
+
+    get appTheme$() {
+        return this._appTheme$.asObservable();
+    }
+
+    get theme$() {
+        return this._appTheme$.pipe(map(this._mapToTheme));
+    }
+
+    private _mapToTheme = (value: AppTheme) => this._appThemePureModel.getTheme(value);
 
     private _updateAppThemeSubject() {
         this._appTheme$.next(this._appThemePureModel.appTheme);
