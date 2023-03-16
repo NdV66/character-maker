@@ -3,7 +3,6 @@ import { AppThemeModel } from '../../../models';
 import { AppTheme, IAppThemePure } from '../../../types';
 import { appThemePureModelMock } from '../../mocks/appThemeModelMock';
 
-//TODO: add more tests
 describe('AppThemeModel', () => {
     let appThemePureModel: IAppThemePure;
     let model: AppThemeModel;
@@ -13,7 +12,6 @@ describe('AppThemeModel', () => {
         appThemePureModel = appThemePureModelMock();
         model = new AppThemeModel(appThemePureModel);
         testScheduler = new TestScheduler((actual, expected) => {
-            console.log('>>>>', actual, expected);
             expect(actual).toEqual(expected);
         });
     });
@@ -30,6 +28,54 @@ describe('AppThemeModel', () => {
         testScheduler.run(({ expectObservable, cold }) => {
             cold('-a').subscribe(() => model['_updateAppThemeSubject']());
             expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+        });
+    });
+
+    test('Should save in a cookie on change appTheme$', () => {
+        const appTheme = AppTheme.LIGHT;
+
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => {
+                model['_appTheme$'].next(appTheme);
+
+                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledTimes(1);
+                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledWith(appTheme);
+            });
+
+            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
+        });
+    });
+
+    test('Should set default values', () => {
+        model['_updateAppThemeSubject'] = jest.fn();
+
+        testScheduler.run(({ cold }) => {
+            cold('-a').subscribe(() => {
+                model.setDefaultValue();
+
+                expect(appThemePureModel.setDefaultValue).toHaveBeenCalledTimes(1);
+                expect(model['_updateAppThemeSubject']).toHaveBeenCalledTimes(1);
+            });
+        });
+    });
+
+    test.only('Should toggle appTheme$', () => {
+        const appTheme = AppTheme.LIGHT;
+        const newAppTheme = AppTheme.DARK;
+        appThemePureModel.getNewAppTheme = jest.fn().mockReturnValue(newAppTheme);
+        model['_updateAppThemeSubject'] = jest.fn();
+        model['_appTheme$'].next(appTheme);
+
+        testScheduler.run(({ cold }) => {
+            cold('-a').subscribe(async () => {
+                await model.toggleAppTheme();
+
+                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledTimes(3);
+                expect(appThemePureModel.changeAppTheme).toHaveBeenCalledWith(newAppTheme);
+                expect(model['_updateAppThemeSubject']).toHaveBeenCalledTimes(1);
+                expect(appThemePureModel.getNewAppTheme).toHaveBeenCalledTimes(1);
+            });
         });
     });
 });
