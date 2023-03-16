@@ -7,9 +7,9 @@ export class AppThemeModel implements IAppTheme {
     public readonly theme$: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
-        this._appTheme$ = new BehaviorSubject<AppTheme>(_appThemePureModel.appTheme); //TODO: tests
+        this._appTheme$ = new BehaviorSubject<AppTheme>(_appThemePureModel.appTheme);
         this.appTheme$ = this._appTheme$.pipe(connect(() => this._appTheme$)); //TODO: tests
-        this.theme$ = this.appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value))); //TODO: tests
+        this.theme$ = this._appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value))); //TODO: tests
 
         this._saveAppThemeInCookieOnChange();
     }

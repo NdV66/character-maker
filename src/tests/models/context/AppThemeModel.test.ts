@@ -21,6 +21,15 @@ describe('AppThemeModel', () => {
         expect(appThemePureModel.setDefaultValue).toHaveBeenCalledTimes(1);
     });
 
+    test('Should create _appTheme$ correctly', () => {
+        const appTheme = AppTheme.LIGHT;
+        appThemePureModel.appTheme = appTheme;
+
+        testScheduler.run(({ expectObservable }) => {
+            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
+        });
+    });
+
     test('Should update appTheme$ (and gets value from pure model)', () => {
         const appTheme = AppTheme.LIGHT;
         appThemePureModel.appTheme = appTheme;
