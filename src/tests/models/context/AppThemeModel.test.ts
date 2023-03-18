@@ -16,7 +16,7 @@ describe('AppThemeModel', () => {
         model = new AppThemeModel(appThemePureModel);
 
         testScheduler = new TestScheduler((actual, expected) => {
-            console.log(actual, expected);
+            console.log('>>>', actual, expected);
             expect(actual).toEqual(expected);
         });
     });
@@ -28,7 +28,7 @@ describe('AppThemeModel', () => {
 
     test('Should create _appTheme$ correctly', () => {
         testScheduler.run(({ expectObservable }) => {
-            expectObservable(model['_appTheme$']).toBe('wa', { a: appThemeOnEnter });
+            expectObservable(model['_appTheme$']).toBe('a', { a: appThemeOnEnter });
         });
     });
 
