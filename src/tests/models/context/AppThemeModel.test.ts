@@ -1,7 +1,7 @@
 import { TestScheduler } from 'rxjs/testing';
 import { AppThemeModel } from '../../../models';
 import { DARK_THEME, LIGHT_THEME } from '../../../styles';
-import { AppTheme, IAppThemePure, TTheme } from '../../../types';
+import { AppTheme, IAppThemePure } from '../../../types';
 import { appThemePureModelMock } from '../../mocks/appThemeModelMock';
 
 describe('AppThemeModel', () => {
