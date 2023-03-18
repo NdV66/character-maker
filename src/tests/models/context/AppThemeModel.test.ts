@@ -16,7 +16,6 @@ describe('AppThemeModel', () => {
         model = new AppThemeModel(appThemePureModel);
 
         testScheduler = new TestScheduler((actual, expected) => {
-            console.log('>>>', actual, expected);
             expect(actual).toEqual(expected);
         });
     });
