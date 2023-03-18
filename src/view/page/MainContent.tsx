@@ -14,8 +14,6 @@ export const MainContent: React.FC = () => {
     const { theme, translations } = useMainContentViewModel();
     const themedStyles = styles(theme);
 
-    console.log('>>', translations.CURRENT_LANG);
-
     return (
         <Card css={themedStyles.card} data-test-id={TEST_IDS.MAIN_CONTENT}>
             <AppInfo text={translations.INFO_TEXT} theme={theme} />
