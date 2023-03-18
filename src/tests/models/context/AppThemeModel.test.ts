@@ -1,18 +1,22 @@
 import { TestScheduler } from 'rxjs/testing';
 import { AppThemeModel } from '../../../models';
-import { LIGHT_THEME } from '../../../styles';
-import { AppTheme, IAppThemePure } from '../../../types';
+import { DARK_THEME, LIGHT_THEME } from '../../../styles';
+import { AppTheme, IAppThemePure, TTheme } from '../../../types';
 import { appThemePureModelMock } from '../../mocks/appThemeModelMock';
 
 describe('AppThemeModel', () => {
     let appThemePureModel: IAppThemePure;
     let model: AppThemeModel;
     let testScheduler: TestScheduler;
+    let appThemeOnEnter: AppTheme;
 
     beforeEach(() => {
         appThemePureModel = appThemePureModelMock();
+        appThemeOnEnter = appThemePureModel.appTheme;
         model = new AppThemeModel(appThemePureModel);
+
         testScheduler = new TestScheduler((actual, expected) => {
+            console.log(actual, expected);
             expect(actual).toEqual(expected);
         });
     });
@@ -23,37 +27,35 @@ describe('AppThemeModel', () => {
     });
 
     test('Should create _appTheme$ correctly', () => {
-        const appTheme = AppTheme.LIGHT;
-        appThemePureModel.appTheme = appTheme;
-
         testScheduler.run(({ expectObservable }) => {
-            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
+            expectObservable(model['_appTheme$']).toBe('wa', { a: appThemeOnEnter });
         });
     });
 
     test('Should get appTheme$ correctly', () => {
         const appTheme = AppTheme.LIGHT;
-        appThemePureModel.appTheme = appTheme;
 
-        testScheduler.run(({ expectObservable }) => {
-            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
-            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+        testScheduler.run(({ expectObservable, cold }) => {
+            cold('-a').subscribe(() => model['_appTheme$'].next(appTheme));
+
+            expectObservable(model['_appTheme$']).toBe('ab', { a: appThemeOnEnter, b: appTheme });
+            expectObservable(model.appTheme$).toBe('ab', { a: appThemeOnEnter, b: appTheme });
         });
     });
 
     test('Should get theme$ correctly', () => {
         const theme = LIGHT_THEME;
+        const enterTheme = DARK_THEME;
         const appTheme = AppTheme.LIGHT;
-        appThemePureModel.appTheme = appTheme;
-        model['_mapToTheme'] = jest.fn().mockReturnValue(theme);
+        appThemePureModel.getTheme = jest.fn().mockReturnValueOnce(enterTheme).mockReturnValueOnce(theme);
 
         testScheduler.run(({ expectObservable, cold }) => {
             cold('-a').subscribe(() => {
-                expect(model['_mapToTheme']).toHaveBeenCalledTimes(1);
-                expect(model['_mapToTheme']).toHaveBeenCalledWith(appTheme);
+                model['_appTheme$'].next(appTheme);
+                expect(appThemePureModel.getTheme).toHaveBeenCalledTimes(2);
             });
 
-            expectObservable(model.theme$).toBe('-a', { a: theme });
+            expectObservable(model.theme$).toBe('ab', { a: enterTheme, b: theme });
         });
     });
 
@@ -71,7 +73,7 @@ describe('AppThemeModel', () => {
 
         testScheduler.run(({ expectObservable, cold }) => {
             cold('-a').subscribe(() => model['_updateAppThemeSubject']());
-            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
+            expectObservable(model.appTheme$).toBe('ab', { a: appThemeOnEnter, b: appTheme });
         });
     });
 
@@ -86,8 +88,8 @@ describe('AppThemeModel', () => {
                 expect(appThemePureModel.changeAppTheme).toHaveBeenCalledWith(appTheme);
             });
 
-            expectObservable(model.appTheme$).toBe('-a', { a: appTheme });
-            expectObservable(model['_appTheme$']).toBe('-a', { a: appTheme });
+            expectObservable(model.appTheme$).toBe('ab', { a: appThemeOnEnter, b: appTheme });
+            expectObservable(model['_appTheme$']).toBe('ab', { a: appThemeOnEnter, b: appTheme });
         });
     });
 
