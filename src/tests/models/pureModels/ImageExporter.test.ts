@@ -63,7 +63,7 @@ describe('ImageExporter', () => {
         expect(model['_downloadImage']).toHaveBeenCalledWith(imageMock, expectedFileName);
     });
 
-    test('Should download image (_downloadImage)', () => {
+    test('Should download image (_downloadImage())', () => {
         const blob = 'blobLink';
         const filename = 'filename.jpeg';
         const linkMock = {
