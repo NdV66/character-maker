@@ -33,6 +33,19 @@ describe('CharacterTraitsManagerModel', () => {
         expect(mainPair.reset).toHaveBeenCalledTimes(1);
     });
 
+    test('Should get characterTraitsPairs', () => {
+        const expectedResult = new Map([
+            [mainPair.id, mainPair],
+            [impactPair.id, impactPair],
+        ]);
+        const expectedValues = Array.from(expectedResult.values());
+
+        model['_characterTraitsPairs'] = expectedResult;
+        const result = model.characterTraitsPairs;
+
+        expect(result).toEqual(expectedValues);
+    });
+
     test("Should throw NOT_FOUND_ERROR, if trait pair with given id doesn't exist", () => {
         const callback = async () => await model.updatePairPercentById('not_existed_id', 60, true);
         expect(callback).rejects.toThrow(NOT_FOUND_ERROR);

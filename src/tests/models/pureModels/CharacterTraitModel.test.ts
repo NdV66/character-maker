@@ -46,6 +46,12 @@ describe('CharacterTraitModel', () => {
         const callback = () => (model.percent = value);
         expect(callback).toThrow(OUT_OF_RANGE_ERROR);
     });
+
+    test('Should reset values', () => {
+        model['_percent'] = 22;
+        model.reset();
+        expect(model.percent).toBe(DEFAULTS.PERCENT);
+    });
 });
 
 export {};
