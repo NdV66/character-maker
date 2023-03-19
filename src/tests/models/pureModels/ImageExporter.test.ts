@@ -1,4 +1,17 @@
 import { ImageExporter } from '../../../models';
+import * as html2canvas from 'html2canvas';
+import { DEFAULTS } from '../../../defaults';
+
+jest.mock('uuid', () => ({
+    v4: () => '123',
+}));
+
+jest.mock('html2canvas', () => {
+    return {
+        __esModule: true,
+        default: jest.fn(),
+    };
+});
 
 describe('ImageExporter', () => {
     let model: ImageExporter;
@@ -14,6 +27,40 @@ describe('ImageExporter', () => {
     test('Should return isExporting as false on enter', () => {
         model['_isExporting'] = true;
         expect(model.isExporting).toBe(true);
+    });
+
+    test('Should export image (export())', () => {
+        const element = {} as HTMLDivElement;
+        model['_exportAsImage'] = jest.fn();
+
+        model.export(element);
+
+        expect(model['_exportAsImage']).toHaveBeenCalledTimes(1);
+        expect(model['_exportAsImage']).toHaveBeenCalledWith(element, '123');
+    });
+
+    test.only('Should export an image (_exportAsImage())', async () => {
+        const offsetWidth = 10;
+        const expectedWidth = offsetWidth - 1;
+        const element = { offsetWidth } as HTMLDivElement;
+        const imageFileName = '123';
+        const extension = 'jpeg';
+        const expectedFileName = `${imageFileName}.${extension}`;
+        const imageMock = 'imageHere';
+        const toDataURLMock = jest.fn().mockReturnValue(imageMock);
+        const html2canvasMock = jest
+            .spyOn(html2canvas, 'default')
+            .mockResolvedValue({ toDataURL: toDataURLMock } as any);
+        model['_downloadImage'] = jest.fn();
+
+        await model['_exportAsImage'](element, imageFileName);
+
+        expect(html2canvasMock).toHaveBeenCalledTimes(1);
+        expect(html2canvasMock).toHaveBeenCalledWith(element, { width: expectedWidth });
+        expect(toDataURLMock).toHaveBeenCalledTimes(1);
+        expect(toDataURLMock).toHaveBeenCalledWith(`image/${extension}`, DEFAULTS.QUALITY);
+        expect(model['_downloadImage']).toHaveBeenCalledTimes(1);
+        expect(model['_downloadImage']).toHaveBeenCalledWith(imageMock, expectedFileName);
     });
 
     test('Should download image (_downloadImage)', () => {
