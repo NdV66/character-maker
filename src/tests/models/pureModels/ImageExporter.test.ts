@@ -39,7 +39,7 @@ describe('ImageExporter', () => {
         expect(model['_exportAsImage']).toHaveBeenCalledWith(element, '123');
     });
 
-    test.only('Should export an image (_exportAsImage())', async () => {
+    test('Should export an image (_exportAsImage())', async () => {
         const offsetWidth = 10;
         const expectedWidth = offsetWidth - 1;
         const element = { offsetWidth } as HTMLDivElement;
