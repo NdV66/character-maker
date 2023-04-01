@@ -3,7 +3,7 @@ import { characterTraitsManagerMock, TRAIT_PAIRS, TRAIT_PAIR, appContextViewMode
 import { TestScheduler } from 'rxjs/testing';
 import { CharacterTraitsElementViewModel } from '../../../models';
 import { imageExporterMock } from '../../mocks/exporterMock';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { TEXTS_EN } from '../../../langs/en';
 import { DARK_THEME } from '../../../styles';
 
@@ -117,6 +117,62 @@ describe('CharacterTraitsElementViewModel', () => {
 
         expect(imageExporter.export).toHaveBeenCalledWith(element);
         expect(model['_updateIsExporting']).toHaveBeenCalled();
+    });
+
+    test('Should return showTip$', () => {
+        const value = true;
+        model['_showTip$'].next(value);
+
+        testScheduler.run(({ expectObservable }) => {
+            expectObservable(model.showTip$).toBe('a', { a: value });
+        });
+    });
+
+    describe('updatePairPercentById', () => {
+        const value = 66;
+        const nextMock = jest.fn();
+
+        beforeEach(() => {
+            model['_refreshData'] = jest.fn();
+            (model['_showTip$'] as any) = { next: nextMock };
+        });
+
+        test('- with no error', async () => {
+            model['_updatePairPercentById'] = jest.fn();
+
+            await model.updatePairPercentById(TRAIT_PAIR.id, value);
+
+            expect(model['_updatePairPercentById']).toHaveBeenCalledTimes(1);
+            expect(model['_refreshData']).toHaveBeenCalledTimes(1);
+            expect(nextMock).toHaveBeenCalledTimes(1);
+            expect(nextMock).toHaveBeenCalledWith(false);
+        });
+
+        test('- with error', async () => {
+            const error = new Error('Any error here');
+            model['_updatePairPercentById'] = jest.fn().mockImplementation(() => {
+                throw error;
+            });
+
+            await model.updatePairPercentById(TRAIT_PAIR.id, value);
+
+            expect(model['_updatePairPercentById']).toHaveBeenCalledTimes(1);
+            expect(model['_refreshData']).toHaveBeenCalledTimes(1);
+            expect(nextMock).toHaveBeenCalledTimes(2);
+            expect(nextMock.mock.calls[0]).toEqual([false]);
+            expect(nextMock.mock.calls[1]).toEqual([true]);
+        });
+    });
+
+    test('Should update', async () => {
+        const value = 66;
+        const isFreeHandMode = false;
+        appContextMock.isFreeHandMode$ = new Observable((observer) => observer.next(isFreeHandMode));
+
+        await model['_updatePairPercentById'](TRAIT_PAIR.id, value);
+
+        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledTimes(1);
+        expect(traitsManagerMock.updatePairPercentById).toHaveBeenCalledWith(TRAIT_PAIR.id, value, isFreeHandMode);
     });
 });
 
