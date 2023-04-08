@@ -10,7 +10,20 @@ describe('AppLangModelPure', () => {
         model = new AppLangModelPure(cookiesManagerMock);
     });
 
-    test('Should have default appLang on enter', () => {
+    test('Should have set default values on enter (with cookie)', () => {
+        const lang = AppLangs.PL;
+        cookiesManagerMock.getFromCookies = jest.fn().mockReturnValue(lang);
+        model = new AppLangModelPure(cookiesManagerMock);
+
+        expect(model.appLang).toBe(lang);
+        expect(cookiesManagerMock.getFromCookies).toHaveBeenCalledTimes(1);
+        expect(cookiesManagerMock.getFromCookies).toHaveBeenCalledWith(COOKIE_LANG_KEY);
+    });
+
+    test('Should have default appLang on enter (no cookie)', () => {
+        cookiesManagerMock.getFromCookies = jest.fn().mockReturnValue(undefined);
+        model = new AppLangModelPure(cookiesManagerMock);
+
         expect(model.appLang).toBe(DEFAULTS.LANG);
     });
 
@@ -19,7 +32,7 @@ describe('AppLangModelPure', () => {
         model.changeAppLang(lang);
 
         expect(model.appLang).toBe(lang);
-        expect(cookiesManagerMock.setCookie).toHaveBeenCalledTimes(1);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledTimes(2);
         expect(cookiesManagerMock.setCookie).toHaveBeenCalledWith(COOKIE_LANG_KEY, lang);
     });
 

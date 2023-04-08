@@ -1,34 +1,42 @@
-import { map, connect, firstValueFrom, ReplaySubject, Observable } from 'rxjs';
+import { map, firstValueFrom, BehaviorSubject, Observable } from 'rxjs';
 import { AppTheme, IAppThemePure, IAppTheme, TTheme } from '../../types';
 
 export class AppThemeModel implements IAppTheme {
-    private _appThemeSubject = new ReplaySubject<AppTheme>(1);
-    public readonly appTheme$ = this._appThemeSubject.pipe(connect(() => this._appThemeSubject));
-    public readonly theme$: Observable<TTheme>;
+    private _appTheme$: BehaviorSubject<AppTheme>;
+    private _theme$: Observable<TTheme>;
 
     constructor(private _appThemePureModel: IAppThemePure) {
-        this.theme$ = this.appTheme$.pipe(map((value) => this._appThemePureModel.getTheme(value))); //TODO: tests
+        this._appTheme$ = new BehaviorSubject<AppTheme>(_appThemePureModel.appTheme);
+        this._theme$ = this._appTheme$.pipe(map(this._mapToTheme));
+
         this._saveAppThemeInCookieOnChange();
     }
 
+    get appTheme$() {
+        return this._appTheme$.asObservable();
+    }
+
+    get theme$() {
+        return this._theme$;
+    }
+
+    private _mapToTheme = (value: AppTheme) => this._appThemePureModel.getTheme(value);
+
     private _updateAppThemeSubject() {
-        this._appThemeSubject.next(this._appThemePureModel.appTheme);
+        this._appTheme$.next(this._appThemePureModel.appTheme);
     }
 
-    //TODO: tests
     private _saveAppThemeInCookieOnChange() {
-        this.appTheme$.subscribe((value) => this._appThemePureModel.changeAppTheme(value));
+        this._appTheme$.subscribe((value) => this._appThemePureModel.changeAppTheme(value));
     }
 
-    //TODO: tests
     public setDefaultValue = () => {
         this._appThemePureModel.setDefaultValue();
         this._updateAppThemeSubject();
     };
 
-    //TODO: tests
     public toggleAppTheme = async () => {
-        const currentTheme = await firstValueFrom(this._appThemeSubject);
+        const currentTheme = await firstValueFrom(this._appTheme$);
         const newTheme = this._appThemePureModel.getNewAppTheme(currentTheme);
 
         this._appThemePureModel.changeAppTheme(newTheme);

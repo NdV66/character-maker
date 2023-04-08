@@ -20,4 +20,5 @@ export const DEFAULTS = {
     FREE_HAND_MODE: false,
     SHOW_TIP: false,
     EXPORTING: false,
+    QUALITY: 1.0,
 };

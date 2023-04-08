@@ -11,8 +11,16 @@ describe('AppThemePureModel', () => {
         model = new AppThemePureModel(cookiesManagerMock);
     });
 
-    test('Should have default appTheme on enter', () => {
+    test('Should have default appTheme on enter (no cookie)', () => {
         expect(model.appTheme).toBe(DEFAULTS.APP_THEME);
+    });
+
+    test('Should have default appTheme on enter (with cookie)', () => {
+        const appTheme = AppTheme.LIGHT;
+        cookiesManagerMock.getFromCookies = jest.fn().mockReturnValue(appTheme);
+
+        model = new AppThemePureModel(cookiesManagerMock);
+        expect(model.appTheme).toBe(appTheme);
     });
 
     test('Should set appTheme (and save in the cookie)', () => {
@@ -20,7 +28,7 @@ describe('AppThemePureModel', () => {
         model.changeAppTheme(appTheme);
 
         expect(model.appTheme).toBe(appTheme);
-        expect(cookiesManagerMock.setCookie).toHaveBeenCalledTimes(1);
+        expect(cookiesManagerMock.setCookie).toHaveBeenCalledTimes(2);
         expect(cookiesManagerMock.setCookie).toHaveBeenCalledWith(COOKIE_THEME_KEY, appTheme);
     });
 

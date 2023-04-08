@@ -1,5 +1,6 @@
 import html2canvas from 'html2canvas';
 import { v4 as uuidv4 } from 'uuid';
+import { DEFAULTS } from '../../defaults';
 import { IExporter } from '../../types';
 
 export class ImageExporter implements IExporter {
@@ -23,18 +24,16 @@ export class ImageExporter implements IExporter {
         tmpLink.remove();
     }
 
-    //TODO tests
     private async _exportAsImage<T extends HTMLElement>(element: T, imageFileName: string) {
         const extension = 'jpeg';
         const canvas = await html2canvas(element, {
             width: element.offsetWidth - 1,
         });
-        const image = canvas.toDataURL(`image/${extension}`, 1.0);
+        const image = canvas.toDataURL(`image/${extension}`, DEFAULTS.QUALITY);
         const fileName = `${imageFileName}.${extension}`;
         this._downloadImage(image, fileName);
     }
 
-    //TODO tests
     public async export<T extends HTMLElement>(element: T) {
         const imageFileName = uuidv4();
         await this._exportAsImage(element, imageFileName);

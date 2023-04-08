@@ -41,7 +41,6 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         return this._isExporting$.asObservable();
     }
 
-    //TODO: tests
     get showTip$() {
         return this._showTip$;
     }
@@ -79,13 +78,11 @@ export class CharacterTraitsElementViewModel implements ICharacterTraitsElementV
         this._isExporting$.next(value);
     }
 
-    //TODO: tests
     private _updatePairPercentById = async (id: string, value: number) => {
         const isFreeHandMode = await firstValueFrom(this._appContext.isFreeHandMode$);
         this._pairsManager.updatePairPercentById(id, value, isFreeHandMode);
     };
 
-    //TODO: tests
     public updatePairPercentById = async (id: string, value: number) => {
         this._showTip$.next(false);
 
